@@ -1,0 +1,26 @@
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+
+{% block title%}
+Register
+{%endblock%}
+
+
+{% block body %}
+
+<div class=" p-3 container">
+<hr class="featurette-divider">
+<div class="container rounded">
+        
+<form method="POST">
+     {%csrf_token%}
+ 
+            {{form|crispy}}
+        
+ 
+</form>
+
+<br>
+</div><hr class="featurette-divider">
+<br><div class="text-center">   <button class="btn btn-outline-info" style = "width:200px; height:50px; font-size: 18px" type="submit"> Sign Up</button></div></div>
+{% endblock %}

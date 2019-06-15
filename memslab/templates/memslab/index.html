@@ -1,0 +1,119 @@
+<!-- Loads th path to your static files -->
+{% extends 'memslab/Base.html'%}
+
+{%load thumbnail%}
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+
+  <br>
+<br>
+                               
+
+<div class="outer-index ">
+<div class="container image-slider ">
+   <div id="owl-demo" class="owl-carousel carousel owl-theme rounded  animated fadeIn">
+    {%for project in projects%}
+    <div class="item px-2 sm-0 text-center article"><a href="{%url 'memslab:show_projects' project.name %}"><img src="{{project.project_pic.url}}" alt="{{project.name}}" class="rounded_m hoverable"/><figcaption class=" text-center top-left hidden-sm hidden-xs "><h2 class="display-4 bottom-left">{{project.name}}</h2> </figcaption><canvas height="30px"></canvas></a></div>
+
+    {% endfor %}
+  </div>
+
+    <div class="owl-theme ">
+      <div class="owl-controls">
+          <div class="custom-nav owl-nav unselectable" ></div>
+      </div>
+      <hr class="featurette-divider hidden">
+</div>
+</div> 
+<div class="container text-muted"><h2>->Projects List</h2></div>
+<div class="rounded_m mx-auto" >
+<div class="container ">
+  <div class="row  unselectable  rounded  ">
+    
+    <div class="container text-primary mt-3"> <h5>Ongoing <i class="far fa-caret-square-right"></i></h5></div>
+    {%for project in projects%}
+    {% if project.status == 0 %}
+   
+    <a href="{%url 'memslab:show_projects' project.name %} " style="text-decoration: none;">
+      <div class=" mask  view overlay zoom view overlay zoom   p-1 animated bounceInRight"   >
+      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0  " style="width:20rem; background: rgba(194, 194, 52, 0.123);" id="project_card">
+      
+       
+          <div style=" display: inline-block; overflow: hidden; "> 
+              {% thumbnail project.project_pic "300x200" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" mx-auto rounded_m_top card-img-top" alt="Generic placeholder image" >
+          {% endthumbnail %}
+            
+
+          </div>
+
+
+      <br>
+      
+    <span class=" overflow-auto article text-center"><h4>{{project.name}}</h4></span> 
+      <p style="float: left; padding: 10px; font-size:18px;  ">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+     <blockquote>
+      <footer class="footer" >
+        <div class="text-muted project_faculty_name article" style="font-size:16px; padding: 10px;">
+         <cite title="Source Title"> Project specializaiton  <strong>{{project.specializaiton}}</strong></cite>
+        </div>
+      </div>
+      </footer>
+    </blockquote>
+    </div> 
+  </a><!-- /.col-lg-4 -->
+  {%endif%}
+    {%endfor%}
+  </div>
+
+  <div class="row  unselectable  rounded mt-3 ">
+    
+    <div class="container text-success"> <h5>Completed <i class="fas fa-check"></i></h5></div>
+    {%for project in projects%}
+    {% if project.status == 1 %}
+   
+    <a href="{%url 'memslab:show_projects' project.name %} " style="text-decoration: none;">
+      <div class=" mask  view overlay zoom view overlay zoom   p-1 animated bounceInLeft"   >
+      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0 " style="width:20rem; background: rgba(118, 233, 64, 0.151);" id="project_card">
+      
+       
+          <div style=" display: inline-block; overflow: hidden; "> 
+              {% thumbnail project.project_pic "300x200" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" mx-auto rounded_m_top card-img-top" alt="Generic placeholder image" >
+          {% endthumbnail %}
+            
+
+          </div>
+
+
+      <br>
+      
+    <span class=" overflow-auto article text-center"><h4>{{project.name}}</h4></span> 
+      <p style="float: left; padding: 10px; font-size:18px;  ">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+     <blockquote>
+      <footer class="footer" >
+        <div class="text-muted project_faculty_name article" style="font-size:16px; padding: 10px;">
+         <cite title="Source Title"> Project specializaiton  <strong>{{project.specializaiton}}</strong></cite>
+        </div>
+      </div>
+      </footer>
+    </blockquote>
+    </div> 
+  </a><!-- /.col-lg-4 -->
+  {%endif%}
+    {%endfor%}
+  </div>
+
+</div>
+
+</div>
+<br>
+
+<br>
+<hr class="featurette-divider">
+
+
+
+{% endblock %}

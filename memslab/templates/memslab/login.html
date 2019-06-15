@@ -1,0 +1,46 @@
+<!-- Loads th path to your static files -->
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+
+<!--Modal: Contact form-->
+<div class="modal-dialog cascading-modal" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+        <!--Header-->
+        <div class="modal-header primary-color white-text">
+            <h4 class="title">
+                <i class="fa fa-pencil-alt"></i> Login Form</h4>
+                
+         
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+                <form method="POST">
+                        {% csrf_token %}
+                     <div class="container" style="font-size:28px;" >{{ form|crispy }}</div>
+                        
+
+            </div>
+
+            <div class="text-center mt-4 mb-2">
+                            <br>
+                        <button type="submit" class="btn btn-primary btn-lg bounce">LOGIN <i class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
+
+            </div>
+
+        </div>
+    </div>
+    <!--/.Content-->
+</div>
+<!--/Modal: Contact form-->
+
+
+
+{% endblock %}

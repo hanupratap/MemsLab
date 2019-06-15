@@ -1,0 +1,11 @@
+{% extends 'memslab/Base.html'%}
+
+
+{% block title%}
+Logout
+{%endblock%}
+{% block body %}
+<h2 class="text-center">You have been Logged out.</h2>
+<h3>Redirecting...</h3>
+<meta http-equiv="refresh" content="0; url={%url 'memslab:index'%}">
+{%endblock%}

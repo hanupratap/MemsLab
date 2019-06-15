@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{%endblock%}</title>
+
+{% load thumbnail %}
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<!-- Bootstrap core CSS -->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.js" type="text/css" rel="stylesheet">
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'memslab/style.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'memslab/gallerly.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.carousel.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.theme.default.min.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'memslab/RFS.scss' %}"/>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Chrome">
+<meta name="generator" content="Mobirise v4.10.3, mobirise.com">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="description" content="">
+
+</head>
+
+<body>
+
+ 
+  <div class="outer cloudy-knoxville-gradient"  id="base-outer">
+
+    <div  id="header" >
+        <nav class="unselectable mb-1 shadow-0  navbar navbar-expand-lg  bg-transparent lighten-1  " style="font-size: 1.1vw;" >
+  
+            {%if employee_logggedin is none%}
+            <a class="navbar-brand rounded" href="{% url 'memslab:index' %}">
+              <img src="{%static 'media/profile_images/Bits-logo.svg.png' %}" alt="Bits-logo" width="70" height="70">
+            </a>
+          
+          {% else %}
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+           {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                  {% endthumbnail %}
+
+                </a>
+            <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary ml-5 rounded_m " aria-labelledby="navbarDropdownMenuLink-55">
+            <a class="dropdown-item text-muted bg-white waves-effect  " href="{%url 'memslab:profile'%}">Profile</a>
+            <a class="dropdown-item text-muted bg-white waves-effect " href="{% url 'memslab:logout'%}">Logout</a>
+          </div>
+          {%endif%}
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span><i class="fas fa-arrows-alt-v text-muted"></i></span>
+          </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto " style="padding-right: 20px;">
+          <li class="nav-item ">
+          
+            <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/'%} active1 {%endif%}" href="{% url 'memslab:index' %}" id="navlink"> <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i> <span style="font-size:1.1vw;">Home</span> <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link text-muted waves-effect {%if request.path == '/detail/'%}active1{%endif%}" href="{%url 'memslab:detail' %}" id="navlink"> <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
+          </li>
+          {% if user.is_authenticated%}
+          <li class="nav-item " id="navlink">
+            <a class="nav-link  text-muted waves-effect {%if request.path == '/profile/'%} active1 {%endif%}" href="{%url 'memslab:profile'%}"><i class="fas fa-user-check">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
+            {%else%}
+            <li class="nav-item {%if request.path == '/Accounts/login'%} active1 {%endif%}">
+              <a class="nav-link text-muted waves-effect" href="{%url 'memslab:login'%}"><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
+              {%endif%}
+            </li>
+     
+        </ul>
+
+        <div class="navbar-brand-inline my-2 my-lg-0 pulse"  id="name" style="font-size: 1.5vw;">
+          MEMS
+        </div>
+
+  
+    </nav>
+  </div>
+    <div class="header sticky-top">
+        <div class="progress-container">
+          <div class="progress-bar" id="myBar"></div>
+        </div> 
+      </div>
+
+       
+{% if messages %}
+  {% for message in messages%}
+    <div class="alert alert-{{message.tags}}">
+      {{message}}
+    </div>
+  {%endfor%}
+{%endif%}
+             {% block body %}
+             {% endblock %}
+             
+             
+             
+                <section style="height:80px;"></section>
+                <!----------- Footer ------------>
+                
+                <footer class="footer-bs">
+                    <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 footer-brand animated fadeInLeft">
+                          <h1>BITS Pilani Hyderabad Campus</h1>
+                            <p>Premier technical and science institutes of higher learning in India. It was established by Birla Institute of Technology and Science, Pilani (Rajasthan) as one of its latest campuses in the year 2008 with the first batch graduating in the year 2012.</p>
+                            <p><a href="https://www.bits-pilani.ac.in/Hyderabad/" class="text-white">Visit Site <i class="fas fa-external-link-alt"></i></a></p>
+                        </div>
+                      <div class="col-md-3 col-lg-2 footer-nav animated fadeInRight">
+                          <div class="col-4">
+                                <ul class="pages">
+                                    <li><a href="{%url 'memslab:about' %}">About Us</a></li>
+                                    <li><a href="#">Contacts</a></li>
+                                    <li><a href="#">Terms & Condition</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                     
+                        </div>
+                 <!--  <div class="col-md-2 footer-social animated fadeInDown">
+                          <h4>Follow Us</h4>
+                          <ul>
+                              <li><a href="#">Facebook</a></li>
+                              <li><a href="#">Twitter</a></li>
+                              <li><a href="#">Instagram</a></li>
+                              <li><a href="#">RSS</a></li>
+                            </ul>
+                        </div>-->   
+                        <div class="col-md-3 footer-ns ">
+                            <h2>Newsletter</h2>
+                              <p>A rover wearing a fuzzy suit doesn’t alarm the real penguins</p>
+                              <p>
+                                  <form>
+                                      <div class="input-group">
+                                        <input id="email" type="text" class="form-control" name="email" placeholder="Email" style="height:30px;">
+                                        
+                                      </div>
+                                      <div class="button" style="padding-top: 10px;"><button type="submit" class="btn btn-success btn-lg">Send</button></div>
+                                      
+                              
+                                    </form>
+                               </p>
+                          </div>
+                    </div>   
+                  </div>
+           </footer>
+
+
+
+<!--<ul class="social">
+              <li><a href="#" class="fa fa-facebook"></a></li>
+              <li><a href="#" class="fa fa-twitter"></a></li>
+              <li><a href="#" class="fa fa-google"></a></li>
+              <li><a href="#" class="fa fa-linkedin"></a></li>          
+          </ul>--> 
+</div>
+<!--JavaScript at end of body for optimized loading-->
+<!-- JQuery -->
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+
+<!-- Include js plugin -->
+<script src="{% static 'memslab/owl.carousel.min.js' %}"></script> 
+<script src="{% static 'memslab/gallerly.js' %}"></script>
+<script src="{% static 'memslab/main.js' %}"></script>
+<script>
+AutoHeight.Defaults = {
+    autoHeight: false,
+    autoHeightClass: 'owl-height'
+};
+</script>
+
+<!-- COnnnecting DOts-->
+
+
+
+<script>
+
+$(document).ready(function() {
+ 
+ $("#owl-demo").owlCarousel({
+    navigation : true, // Show next and prev buttons
+    //decomment for text buttions     //navText:["<h3>Prev</h3>","<h3>Next</h3>"], 
+    
+    // decommecnt for arrow buttons   //  //decomment fro stock buttons     //
+    nav:true,
+    navText : ["<button class='btn btn-default rounded_m '> <i class='fas fa-angle-left fa-4x article'style=''></i></button>","<button class='btn btn-default rounded_m bg-transparent'  > <i class='fas fa-angle-right fa-4x article '></i></button>"],
+  
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    autoHeight:true,
+    loop:true,
+    items : 1, 
+    margin:10,
+    itemsDesktop : false,
+    itemsDesktopSmall : false,
+    itemsTablet: false,
+    itemsMobile : false,
+    autoplay:true,
+    autoplayTimeout:4000,
+    autoplayHoverPause:true,
+});
+});
+
+  </script>
+
+
+<script>
+
+new WOW().init();
+</script>
+</body>
+
+</html>
+
+
+

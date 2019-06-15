@@ -1,0 +1,126 @@
+{% extends 'memslab/Base.html'%}
+{%load thumbnail%}
+
+{% block title%}
+Logout
+{%endblock%}
+{% block body %}
+<div id="gallerly" class="container ">
+  <h1> Gallery</h1>
+  <div class="image-viewer" >
+    {%for image in images%}
+    {% thumbnail image.pic "500x500" crop="center" as im %}
+    <a class="thumbnail"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}" class="rounded"/></a>
+    {% endthumbnail %}
+    {%endfor%}
+   <div class="preview hide rounded bg-dark">
+      <div class="wrapper">
+        <span class="arrow"></span>
+        <a class="prev">&larr; Prev</a>
+        <div class="preview-content">
+          <img src="" />
+          <div class="content">
+            <h3 class="title"></h3>
+            <span class="description"></span>
+          </div>
+        </div>
+        <a class="next">Next &rarr;</a>
+     <a class="close-preview">Close</a>
+      </div>
+  </div>
+</div>
+</div>
+<div class="jumbotron mt-5 z-depth-0 bg-transparent project_jumbotron " style="z-index: -2; min-height:700px; color: white; background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}});   background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: center;
+background-size: cover;">
+        <h2 class="display-4 ">{{project.name}}</h2>
+        <p class="lead ">{{project.description}}</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <br><br>
+        <h3 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Budget : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h3> 
+<br>
+        <a class="btn btn-primary btn-lg" href="#"  role="button">Learn more</a>
+      </div>
+
+      <div class="container">
+        <span class="text-muted display-4"> ->People working on this project</span>
+
+        <div class="text-default display-3 mt-4"><h1>Faculty</h1> </div>
+        <div class="card-deck"> 
+        {%for employee in employees%}
+        {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
+        {%if not employee.researcher%}
+       <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
+            <div class="card border  hoverable faculty_card roundedw juicy-peach-gradient color-block  mask waves-effect " >
+                <div class="container p-0">
+                <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+
+                  <div class="text-center">
+                
+                      {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+                      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                      {% endthumbnail %}
+          
+                  <hr class="featurette-divider">
+            </div>
+          
+            
+          
+             
+            <div class="card-body rounded_m">
+                <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+          
+                <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
+              </div>
+          
+            </a>
+          </div>
+          </div>
+          </div>
+          {%endif%}
+        {%endif%}
+        {%endfor%}
+      </div>
+        <div class="text-default display-3 mt-4"><h1>Students</h1> </div>
+        <div class="card-deck"> 
+        {%for employee in employees%}
+        {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
+        {%if employee.researcher%}
+        <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
+            <div class="card border  hoverable faculty_card rounded cloudy-knoxville-gradient color-block  mask waves-effect animated BounceInRight" >
+                <div class="container p-0">
+                <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+                  
+                  
+          
+                  <div class="text-center">
+                
+                      {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+                      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                      {% endthumbnail %}
+          
+                  <hr class="featurette-divider">
+            </div>
+          
+            
+          
+             
+            <div class="card-body rounded_m">
+                <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+          
+                <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
+              </div>
+          
+            </a>
+          </div>
+          </div>
+          </div>
+          {%endif%}
+        {%endif%}
+        {%endfor%}
+      </div>
+      </div>
+    
+{%endblock%}

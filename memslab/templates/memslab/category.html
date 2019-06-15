@@ -1,0 +1,98 @@
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load humanize %}
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+<div class="container-fluid text-info mt-5 ">
+        <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
+</div>
+
+ <div class="sticky-top text-right container-fluid"><a class="btn btn-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
+
+
+    <div class="container emp-profile col-10 z-depth-0 amber lighten-5">
+    
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img ">
+                        {% thumbnail employee.emp_pic "500x500" crop="top" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle mb-5 border">
+                    {% endthumbnail %}
+                        {% if user.is_authenticated and employee.user.id == user.id%}
+                            <div class="file btn btn-primary "   data-toggle="modal" data-target="#basicExampleModal" >
+                               Edit Profile Pic <i class="fas fa-edit"></i>
+                            </div>
+                   
+
+                            <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                     {{change_pic|crispy}}
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                                </form>
+                                <hr>
+                              </div>
+                            </div>
+                          </div>
+                      
+                        {%endif%}
+                    </div>
+                </div>
+                
+                <div class="jumbotron col-8 bg-transparent z-depth-0">
+                    <h1>{{det.topic}}</h1>
+                    <ul>
+                        <li><h3>{{det.sub_topic}}</h3></li>
+                        <ul><li><h5>{{det.entry}}</h5></li></ul>
+                    </ul>
+                </div>
+               
+                {% if user.is_authenticated and employee.user.id == user.id%}
+                <div class="col-md-2">
+                    <button type="submit" class=" btn btn-default rounded">Edit Profile <i class="fas fa-edit"></i></button>
+                </div>
+                {%endif%}
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <p>DETAIL </p>
+                        
+                        <a href="{%url 'memslab:profile'%}">Home</a><br/>
+                        {%for det in empdet%}
+                        <a href="{% url 'memslab:category' det.id%} ">{{det.topic}}</a><br/>
+                        {%endfor%}
+                   
+                    
+                    </div>
+                </div>
+        
+            </div>
+            <a href="{% url 'memslab:logout'%}" class="px-5"><button type="button" class="btn btn-danger "  >Logout</button></a>
+
+     
+
+    </div>
+
+
+ 
+{% endblock %}

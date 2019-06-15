@@ -1,0 +1,125 @@
+
+
+.hide {
+  display: none;
+}
+
+#gallerly.container {
+  width: 70%;
+
+}
+
+#gallerly .image-viewer {
+  position: relative;
+}
+
+#gallerly .image-viewer .preview {
+  position: absolute;
+  width: 100%;
+
+
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 20px;
+
+}
+
+#gallerly .image-viewer .preview img {
+  float: left;
+  height: 370px;
+
+  width: auto;
+  border-radius: 1px;
+  margin: 2%;
+  margin-right: 15px;
+}
+
+#gallerly .image-viewer > a > img {
+  height: 200px;
+}
+
+#gallerly .image-viewer > a {
+  cursor: pointer;
+
+  padding: 3px;
+  margin: 5px;
+  display: inline-block;
+}
+
+#gallerly .image-viewer > a:hover {
+  border: none;
+
+}
+
+#gallerly * {
+  position: relative;
+  -webkit-transition: all 0.15s ease;
+	-moz-transition: all 0.15s ease;
+	-ms-transition: all 0.15s ease;
+	-o-transition: all 0.15s ease;
+	transition: all 0.15s ease;
+}
+
+#gallerly .thumbnail.move-down {
+  top: 500px;
+
+}
+
+#gallerly .preview .description {
+  top: 5%;
+}
+
+#gallerly .preview a {
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+#gallerly .preview .wrapper {
+  position: relative;
+  display: block;
+}
+
+#gallerly .preview .close-preview {
+  position: absolute;
+  top: 10px;
+  right: 1%;
+}
+
+#gallerly .preview .prev {
+  position: absolute;
+  left: 0%;
+  top: 200px;
+}
+
+#gallerly .preview .next {
+  position: absolute;
+  right: 0%;
+  top: 200px;
+}
+
+
+#gallerly .preview .preview-content {
+  margin-left: 75px;
+  margin-right: 75px;
+}
+
+#gallerly .preview .title {
+  color: #ccc;
+  top: 10px;
+}
+
+#gallerly .preview .description {
+  color: rgba(204, 204, 204, 0.57);
+  top: 20px;
+}
+
+#gallerly .preview .arrow {
+  border-bottom: 10px solid #222;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  height: 0;
+  position: absolute;
+  top: -10px;
+  width: 0;
+}

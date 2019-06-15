@@ -1,0 +1,190 @@
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load humanize %}
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+<div class="container-fluid text-info mt-5 ">
+        <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
+</div>
+
+ <div class="sticky-top text-right container-fluid"><a class="btn btn-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
+
+
+    <div class="container emp-profile col-10 z-depth-0 amber lighten-5">
+    
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img ">
+                        {% thumbnail employee.emp_pic "500x500" crop="top" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle mb-5 border">
+                    {% endthumbnail %}
+                        {% if user.is_authenticated and employee.user.id == user.id%}
+                            <div class="file btn btn-primary "   data-toggle="modal" data-target="#basicExampleModal" >
+                               Edit Profile Pic <i class="fas fa-edit"></i>
+                            </div>
+                   
+
+                            <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                     {{change_pic|crispy}}
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                                </form>
+                                <hr>
+                              </div>
+                            </div>
+                          </div>
+                      
+                        {%endif%}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <p><h1 class="display-3 ">{{employee.user.first_name}} {{employee.user.last_name}}</h1>
+                                <h6>
+                                    <h1>{{employee.designation}}</h1>
+                                </h6>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+               
+                {% if user.is_authenticated and employee.user.id == user.id%}
+                <div class="col-md-2">
+                    <button type="submit" class=" btn btn-default rounded">Edit Profile <i class="fas fa-edit"></i></button>
+                </div>
+                {%endif%}
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <p>DETAIL </p>
+                        
+                        <a href="{%url 'memslab:profile'%}">Home</a><br/>
+                        {%for det in empdet%}
+
+                        <a href="{% url 'memslab:category' det.id%} ">{{empdet}}</a><br/>
+
+                        {%endfor%}
+                   
+                    
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                {% if user.is_authenticated and employee.user.id == user.id%}
+                            <div class="row">
+                                 
+                                        <div class="col-md-6">
+                                            <label>User Id</label>
+                                        </div>
+                                       
+                                        <div class="col-md-6">
+                                            <p>{{employee.id_no}}</p>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{employee.user.first_name}} {{employee.user.last_name}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{employee.user.email}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{employee.user.contact}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Designation</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{employee.designation}}</p>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Experience</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Expert</p>
+                                        </div>
+                                    </div>
+                                 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Total Projects</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>230</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Chamber Consultation Hours</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>{{employee.Chamber_Consultation_Hours}}</p>
+                                        </div>
+                                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Your Bio-</label><br/>
+                                    <p>{{employee.short_description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'memslab:logout'%}" class="px-5"><button type="button" class="btn btn-danger "  >Logout</button></a>
+
+     
+
+    </div>
+
+
+ 
+{% endblock %}
