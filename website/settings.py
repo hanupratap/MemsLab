@@ -145,4 +145,4 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
+THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]

@@ -2,17 +2,18 @@
 {%load thumbnail%}
 
 {% block title%}
-Logout
+{{project.name}}
 {%endblock%}
 {% block body %}
-<div id="gallerly" class="container ">
+<div id="gallerly" class="container col-11">
   <h1> Gallery</h1>
   <div class="image-viewer" >
     {%for image in images%}
-    {% thumbnail image.pic "500x500" crop="center" as im %}
+    {% thumbnail image.pic "800x800" crop="center" as im %}
     <a class="thumbnail"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}" class="rounded"/></a>
     {% endthumbnail %}
     {%endfor%}
+   
    <div class="preview hide rounded bg-dark">
       <div class="wrapper">
         <span class="arrow"></span>
@@ -39,7 +40,8 @@ background-size: cover;">
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <br><br>
-        <h3 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Budget : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h3> 
+        <h3 style="color: rgba(255, 255, 255, 0.664);">Sponsoring Agency : {{project.sponsoring_agency}}</h3>
+        <h4 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Budget : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h4> 
 <br>
         <a class="btn btn-primary btn-lg" href="#"  role="button">Learn more</a>
       </div>

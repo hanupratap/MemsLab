@@ -15,8 +15,9 @@ Lab
 <div class="container image-slider ">
    <div id="owl-demo" class="owl-carousel carousel owl-theme rounded  animated fadeIn">
     {%for project in projects%}
-    <div class="item px-2 sm-0 text-center article"><a href="{%url 'memslab:show_projects' project.name %}"><img src="{{project.project_pic.url}}" alt="{{project.name}}" class="rounded_m hoverable"/><figcaption class=" text-center top-left hidden-sm hidden-xs "><h2 class="display-4 bottom-left">{{project.name}}</h2> </figcaption><canvas height="30px"></canvas></a></div>
-
+    {% thumbnail project.project_pic '1200x800' as im %}
+    <div class="item px-2 sm-0 text-center "><a href="{%url 'memslab:show_projects' project.id %}"><img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}" style="max-height:700px; object-fit: cover;" class="rounded"/><figcaption class=" text-center top-left hidden-sm hidden-xs "><h2 class="display-4 bottom-left">{{project.name}}</h2> </figcaption><canvas height="30px"></canvas></a></div>
+    {% endthumbnail %}
     {% endfor %}
   </div>
 
@@ -32,13 +33,13 @@ Lab
 <div class="container ">
   <div class="row  unselectable  rounded  ">
     
-    <div class="container text-primary mt-3"> <h5>Ongoing <i class="far fa-caret-square-right"></i></h5></div>
+    <div class="container  mt-3"> <h5 class="col-2" style="border-bottom:2px solid rgba(8, 115, 202, 0.829);">Ongoing <i class="far fa-caret-square-right"></i></h5></div>
     {%for project in projects%}
     {% if project.status == 0 %}
    
-    <a href="{%url 'memslab:show_projects' project.name %} " style="text-decoration: none;">
+    <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
       <div class=" mask  view overlay zoom view overlay zoom   p-1 animated bounceInRight"   >
-      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0  " style="width:20rem; background: rgba(194, 194, 52, 0.123);" id="project_card">
+      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0 cloudy-knoxville-gradient" style="width:20rem;  " id="project_card">
       
        
           <div style=" display: inline-block; overflow: hidden; "> 
@@ -70,17 +71,17 @@ Lab
 
   <div class="row  unselectable  rounded mt-3 ">
     
-    <div class="container text-success"> <h5>Completed <i class="fas fa-check"></i></h5></div>
+    <div class="container"> <h5 class="col-2" style="border-bottom:2px solid rgba(8, 202, 8, 0.829);">Completed <i class="fas fa-check"></i></h5></div>
     {%for project in projects%}
     {% if project.status == 1 %}
    
-    <a href="{%url 'memslab:show_projects' project.name %} " style="text-decoration: none;">
+    <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
       <div class=" mask  view overlay zoom view overlay zoom   p-1 animated bounceInLeft"   >
-      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0 " style="width:20rem; background: rgba(118, 233, 64, 0.151);" id="project_card">
+      <div class="card border-0 waves-effect waves-light rounded_m project_cards overflow-hidden z-depth-0 heavy-rain-gradient" style="width:20rem;" id="project_card">
       
        
           <div style=" display: inline-block; overflow: hidden; "> 
-              {% thumbnail project.project_pic "300x200" crop="center" as im %}
+          {% thumbnail project.project_pic "300x200" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" mx-auto rounded_m_top card-img-top" alt="Generic placeholder image" >
           {% endthumbnail %}
             

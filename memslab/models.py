@@ -33,10 +33,10 @@ class Project(models.Model):
     budget = models.CharField(max_length=200, default=None, blank=True)
     def __str__(self):
         return self.name
-
+    sponsoring_agency = models.CharField(max_length=200, default='')
 
 class Departments(models.Model):
-    dep = models.CharField(max_length=100, default='')
+    dep = models.CharField(max_length=100, default='', blank=True)
     class Meta:
         verbose_name_plural = "Departmennts"
     def __str__(self):
@@ -81,13 +81,15 @@ class Employee_details_topic(models.Model):
 
 
 
-class Employee_details(models.Model):
+class Employeedetails(models.Model):
     user = models.ForeignKey(User, on_delete="models.DO_NOTHING", \
         blank=True, null=True)
     topic = models.ForeignKey(Employee_details_topic, \
         on_delete=models.DO_NOTHING, blank=False, null=True)
     sub_topic = models.CharField(max_length=500, default='')
     entry = models.TextField(default='')
+    def get_entry(self):
+        return self.entry.split('\n')
     class Meta:
         verbose_name_plural = "Employee Details"
     def __str__(self):

@@ -5,10 +5,6 @@
 <title>{% block title %}{%endblock%}</title>
 
 {% load thumbnail %}
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-<!-- Bootstrap core CSS -->
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Bootstrap core CSS -->
@@ -69,17 +65,17 @@
         <ul class="navbar-nav mr-auto " style="padding-right: 20px;">
           <li class="nav-item ">
           
-            <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/'%} active1 {%endif%}" href="{% url 'memslab:index' %}" id="navlink"> <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i> <span style="font-size:1.1vw;">Home</span> <span class="sr-only">(current)</span></a>
+            <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/'%} active1 {%endif%}" style="border-radius: 25px;" href="{% url 'memslab:index' %}" id="navlink"> <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i> <span style="font-size:1.1vw;">Home</span> <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link text-muted waves-effect {%if request.path == '/detail/'%}active1{%endif%}" href="{%url 'memslab:detail' %}" id="navlink"> <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
+            <a class="nav-link text-muted waves-effect {%if request.path == '/detail/'%}active1{%endif%}" style="border-radius: 25px;" href="{%url 'memslab:detail' %}" id="navlink"> <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
           </li>
           {% if user.is_authenticated%}
           <li class="nav-item " id="navlink">
-            <a class="nav-link  text-muted waves-effect {%if request.path == '/profile/'%} active1 {%endif%}" href="{%url 'memslab:profile'%}"><i class="fas fa-user-check">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
+            <a class="nav-link text-muted waves-effect {%if request.path == '/profile/'%} active1 {%endif%}" style="border-radius: 25px;" href="{%url 'memslab:profile'%}"><i class="fas fa-user-check">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
             {%else%}
             <li class="nav-item {%if request.path == '/Accounts/login'%} active1 {%endif%}">
-              <a class="nav-link text-muted waves-effect" href="{%url 'memslab:login'%}"><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
+              <a class="nav-link text-muted waves-effect" href="{%url 'memslab:login'%}" style="border-radius: 25px;"><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
               {%endif%}
             </li>
      
@@ -109,70 +105,73 @@
              {% block body %}
              {% endblock %}
              
+<!-- Footer -->
+
+<footer class="footer-distributed" style="margin-bottom: -5rem;">
+
+  <div class="footer-left">
+   <div  class="container-fluid"    style="background: url('https://vectr.com/tmp/b1lP4lPCyO/a9apc61e1.svg?width=640&height=640&select=a9apc61e1page0' ); opacity: 0.5; height: 45px;"></div>
+ 
+  <h3 style="margin-left: 80px;">BITS PILANI<span> Hyderabad Campus</span></h3>
+    <br>
+    <p class="footer-links">
+      <a href="#">Home</a>
+      ·
+      <a href="#">About</a>
+      ·
+      <a href="#">Contact</a>
+    </p>
+  </div>
+
+  <div class="footer-center">
+
+    <div>
+      <i class="fa fa-map-marker"></i>
+      <p><span>Shameerpet, Hyderabad</span> Telangana, India</p>
+    </div>
+
+    <div>
+      <i class="fa fa-phone"></i>
+     
+       <p>{{super_employee_phone}}</p>
+   
+     
+    </div>
+
+    <div>
+      <i class="fa fa-envelope"></i>
+
+      <p><a href="mailto:{{superuser_emails}}">{{superuser_emails}}</a></p>
+  
+    </div>
+
+  </div>
+
+  <div class="footer-right">
+
+    <p class="footer-company-about">
+      <span>About this Site</span>
+      This website is for  MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad.
+    </p>
+<!--  <div class="footer-icons">
+
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+      <a href="#"><i class="fa fa-github"></i></a>
+
+    </div>-->
+  
+
+  </div>
+</footer>
+
              
              
                 <section style="height:80px;"></section>
-                <!----------- Footer ------------>
-                
-                <footer class="footer-bs">
-                    <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-6 footer-brand animated fadeInLeft">
-                          <h1>BITS Pilani Hyderabad Campus</h1>
-                            <p>Premier technical and science institutes of higher learning in India. It was established by Birla Institute of Technology and Science, Pilani (Rajasthan) as one of its latest campuses in the year 2008 with the first batch graduating in the year 2012.</p>
-                            <p><a href="https://www.bits-pilani.ac.in/Hyderabad/" class="text-white">Visit Site <i class="fas fa-external-link-alt"></i></a></p>
-                        </div>
-                      <div class="col-md-3 col-lg-2 footer-nav animated fadeInRight">
-                          <div class="col-4">
-                                <ul class="pages">
-                                    <li><a href="{%url 'memslab:about' %}">About Us</a></li>
-                                    <li><a href="#">Contacts</a></li>
-                                    <li><a href="#">Terms & Condition</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                </ul>
-                            </div>
-                     
-                        </div>
-                 <!--  <div class="col-md-2 footer-social animated fadeInDown">
-                          <h4>Follow Us</h4>
-                          <ul>
-                              <li><a href="#">Facebook</a></li>
-                              <li><a href="#">Twitter</a></li>
-                              <li><a href="#">Instagram</a></li>
-                              <li><a href="#">RSS</a></li>
-                            </ul>
-                        </div>-->   
-                        <div class="col-md-3 footer-ns ">
-                            <h2>Newsletter</h2>
-                              <p>A rover wearing a fuzzy suit doesn’t alarm the real penguins</p>
-                              <p>
-                                  <form>
-                                      <div class="input-group">
-                                        <input id="email" type="text" class="form-control" name="email" placeholder="Email" style="height:30px;">
-                                        
-                                      </div>
-                                      <div class="button" style="padding-top: 10px;"><button type="submit" class="btn btn-success btn-lg">Send</button></div>
-                                      
-                              
-                                    </form>
-                               </p>
-                          </div>
-                    </div>   
-                  </div>
-           </footer>
-
-
-
-<!--<ul class="social">
-              <li><a href="#" class="fa fa-facebook"></a></li>
-              <li><a href="#" class="fa fa-twitter"></a></li>
-              <li><a href="#" class="fa fa-google"></a></li>
-              <li><a href="#" class="fa fa-linkedin"></a></li>          
-          </ul>--> 
+               
 </div>
 <!--JavaScript at end of body for optimized loading-->
-<!-- JQuery -->
-
 <!-- JQuery -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
@@ -181,7 +180,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-
 <!-- Include js plugin -->
 <script src="{% static 'memslab/owl.carousel.min.js' %}"></script> 
 <script src="{% static 'memslab/gallerly.js' %}"></script>
