@@ -5,7 +5,7 @@
 {{project.name}}
 {%endblock%}
 {% block body %}
-<div id="gallerly" class="container col-11">
+<div id="gallerly" class="container col-10">
   <h1> Gallery</h1>
   <div class="image-viewer" >
     {%for image in images%}
@@ -17,7 +17,7 @@
    <div class="preview hide rounded bg-dark">
       <div class="wrapper">
         <span class="arrow"></span>
-        <a class="prev">&larr; Prev</a>
+        <a class="prev unselectable">&larr; Prev</a>
         <div class="preview-content">
           <img src="" />
           <div class="content">
@@ -25,12 +25,13 @@
             <span class="description"></span>
           </div>
         </div>
-        <a class="next">Next &rarr;</a>
-     <a class="close-preview">Close</a>
+        <a class="next unselectable">Next &rarr;</a>
+     <a class="close-preview unselectable">Close</a>
       </div>
   </div>
 </div>
 </div>
+
 <div class="jumbotron mt-5 z-depth-0 bg-transparent project_jumbotron " style="z-index: -2; min-height:700px; color: white; background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}});   background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
@@ -124,5 +125,13 @@ background-size: cover;">
         {%endfor%}
       </div>
       </div>
-    
+      <div class=" container col-8 mt-5"><div class="jumbotron">
+        Additional information about Project:
+        {%if project.proj_file%}
+        <a href="{{project.proj_file.url}}"> <h4>{{project.filename}}</h4></a>
+        {%endif%}
+       
+      </div>
+    </div>
+      
 {%endblock%}

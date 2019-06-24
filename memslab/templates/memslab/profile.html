@@ -13,7 +13,7 @@ Lab
  <div class="sticky-top text-right container-fluid"><a class="btn btn-warning text-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
 {%endif%}
 
-    <div class="container emp-profile col-10 z-depth-0 mb-3 mx-auto rounded z-depth-1-half winter-neva-gradient" >
+    <div class="container emp-profile col-10 z-depth-0 mb-3 mx-auto rounded z-depth-1-half heavy-rain-gradient" >
     
 
             <div class="row">
@@ -74,20 +74,16 @@ Lab
                     </div>
                 </div>
                
-                {% if user.is_authenticated and employee.user.id == user.id%}
-                <div class="col-md-2">
-                    <button type="submit" class=" btn btn-primary rounded">Edit Profile <i class="fas fa-edit"></i></button>
-                </div>
-                {%endif%}
+                
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p>DETAIL </p>
+                        <p class="text-muted">DETAIL </p>
                         
-                        <a href="{%url 'memslab:profile'%}">Home</a><br/>
+                        <a class="cool-link" href="{%url 'memslab:profile'%}">Home</a><br/>
                         {%for d in empdet%}
-                        <a href="{%url 'memslab:category' username=employee.user.username top=d %}">{{d}}</a><br/>
+                        <a class="cool-link" href="{%url 'memslab:category' username=employee.user.username top=d %}">{{d}}</a><br/>
                         {%endfor%}
                    
                     
@@ -129,7 +125,7 @@ Lab
                                             <label>Phone</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{employee.user.contact}}</p>
+                                            <p>{{employee.phone}}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -147,16 +143,16 @@ Lab
                                             <label>Experience</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>Expert</p>
+                                            <p>{{employee.experience_in_years}} years</p>
                                         </div>
                                     </div>
                                  
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Total Projects</label>
+                                            <label>Present Projects</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>230</p>
+                                            <p>{{projs}}</p>
                                         </div>
                                     </div>
                                     <div class="row">

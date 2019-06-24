@@ -19,7 +19,7 @@ def IndexView(request):
         emp = Employee.objects.get(user=request.user)
     else:
         return render(request, 'memslab/index.html', {'employee_logggedin': None, \
-                'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'superuser_emails':superuser.values_list('email')[0][0], 'super_employee_phone':super_employee.phone[0][0]})
+                'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'superuser_emails':superuser.values_list('email')[0][0]})
     return render(request, 'memslab/index.html', {'employee_logggedin': emp,  \
         'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'superuser_emails':User.objects.filter(is_superuser=True).values_list('email')[0][0]})
 
@@ -31,6 +31,7 @@ def detail(request):
         emp = None
     return render(request, 'memslab/detail.html',{'employees': \
         Employee.objects.all(), 'employee_logggedin': emp, 'superuser_emails':User.objects.filter(is_superuser=True).values_list('email')[0][0]})
+
 @login_required
 def profile(request):
     if  request.user.is_authenticated:
@@ -66,6 +67,12 @@ def show_profile(request, username):
     categ = []
     prof = User.objects.get(username=username)
     employee = Employee.objects.get(user=prof)
+    authr = Project.objects.filter(Person1=prof)
+    authr1 = Project.objects.filter(Person2=prof)
+    authr2 = Project.objects.filter(Person3=prof)
+    authr3 = Project.objects.filter(Person4=prof)
+    authr4 = Project.objects.filter(Person5=prof)
+    projs = len(authr)+len(authr1)+len(authr2)+len(authr3)+len(authr4)
     emp_det = Employeedetails.objects.filter(user=prof)
     for e in emp_det:
         if e.topic in categ:
@@ -77,10 +84,10 @@ def show_profile(request, username):
         if form.is_valid():
             emp.emp_pic = request.FILES['emp_pic']
             emp.save()
-            return render(request, 'memslab/profile.html', {'employee': emp, \
-            'empdet':categ, 'employee_logggedin': emp, 'change_pic': form})
+            return render(request, 'memslab/profile.html', {'employee': employee, \
+            'empdet':categ, 'employee_logggedin': emp, 'change_pic': form,'projs':projs})
     else:
-        form = ProfilePic()    
+        form = ProfilePic()
     return render(request, 'memslab/profile.html', {'employee': employee, \
                 'employee_logggedin': emp, 'empdet':categ,'change_pic': form})
 

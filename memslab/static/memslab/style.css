@@ -70,8 +70,8 @@
   margin-top: -15%;
 }
 .profile-work p{
-  font-size: 12px;
-  color: #ffffff;
+  font-size: 13px;
+
   font-weight: 600;
   margin-top: 10%;
 }
@@ -582,4 +582,24 @@ header,main {display:table-row;
 		margin-left: 0;
 	}
 
+}
+
+.cool-link {
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+}
+
+.cool-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width .3s;
+}
+
+.cool-link:hover::after {
+  width: 100%;
+  transition: width .3s;
 }
