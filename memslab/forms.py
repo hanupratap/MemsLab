@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from memslab.models import Employee
+from memslab.models import Employee, Employeedetails, Employee_details_topic
+from django.contrib import admin
 
 
 class UserRegisterForm(UserCreationForm):
@@ -21,4 +22,16 @@ class ProfilePic(forms.ModelForm):
     class Meta:
         model = Employee
         fields = ('emp_pic',)
-          
+class Employee_form(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ('id_no','researcher','coordinator', 'designation','department','short_description','area', 'Chamber_Consultation_Hours', 'experience_in_years','phone')
+    
+class emp_details_subtopic(admin.TabularInline):
+    model = Employeedetails
+
+class Emp_details_topics(admin.ModelAdmin):
+    inlines = [emp_details_subtopic]
+    class Meta:
+        model = Employee_details_topic
+    

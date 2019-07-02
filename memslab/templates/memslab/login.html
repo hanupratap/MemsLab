@@ -8,6 +8,7 @@ Lab
 {% block body %}
 
 <!--Modal: Contact form-->
+{%if not user.is_authenticated%}
 <div class="modal-dialog cascading-modal" role="document">
 
     <!--Content-->
@@ -31,14 +32,20 @@ Lab
 
             <div class="text-center mt-4 mb-2">
                             <br>
-                        <button type="submit" class="btn btn-primary btn-lg bounce">LOGIN <i class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
+                        <button type="submit" class="btn btn-primary btn-lg animated bounce">LOGIN <i class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
 
             </div>
 
         </div>
     </div>
+{%else%}
+    <div class=" col-8  mx-auto  " style="font-size: 20px;">
+        <div class="jumbotron"><p>You are already logged in as <bold class="font-weight-bold">{{user.username}}</bold> </p><br><p><a href="{%url 'memslab:index'%}"> Go back to Home Page </a></p></div>
+        
+        <canvas height="100"></canvas>
+    </div>
     <!--/.Content-->
-</div>
+    {%endif%}
 <!--/Modal: Contact form-->
 
 

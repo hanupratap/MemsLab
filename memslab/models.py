@@ -1,8 +1,9 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 import os
 
+from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Departments(models.Model):
     dep = models.CharField(max_length=100, default='', blank=True)
@@ -10,8 +11,6 @@ class Departments(models.Model):
         verbose_name_plural = "Departmennts"
     def __str__(self):
         return '%s' % (self.dep)
-
-
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete="models.CASCADE", null=True)
@@ -29,10 +28,13 @@ class Employee(models.Model):
     #Employee working on project
     experience_in_years = models.PositiveIntegerField(default=0)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    skype_link = models.URLField(blank=True)
+    website_link =  models.URLField(blank=True)
     class Meta:
         verbose_name_plural = "Employees"
     def __str__(self):
         return '%s' % (self.user)
+
 
 class Project_type(models.Model):
     name = models.CharField(max_length=500, default='')
@@ -46,7 +48,8 @@ class Project(models.Model):
     specializaiton = models.ForeignKey(Project_type, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
     name = models.CharField(max_length=500, default='')
-    description = models.CharField(max_length=4000, default='')
+    description = models.TextField(default='')
+    short_description = models.TextField(default='')
     project_pic = models.ImageField(upload_to='project_image', blank=True)
     STATUS = ((0, 'Ongoing'), (1, 'Completed'))
     status = models.PositiveSmallIntegerField(choices=STATUS, default=0)
@@ -64,7 +67,7 @@ class Project(models.Model):
     def __str__(self):
         return self.name
     sponsoring_agency = models.CharField(max_length=200, default='')
-    proj_file = models.FileField(upload_to='project_files', null=True) 
+    proj_file = models.FileField(upload_to='project_files', null=True, blank=True) 
     def filename(self):
         return os.path.basename(self.proj_file.name)
 def create_profile(sender, **kwargs):
@@ -86,13 +89,8 @@ class project_image(models.Model):
     def __str__(self):
         return self.project.name
 
-
-
-
-
 class Employee_details_topic(models.Model):
     topic = models.CharField(max_length=500, default='')
-
     def __str__(self):
         return self.topic
 
@@ -106,12 +104,10 @@ class Employeedetails(models.Model):
         blank=True, null=True)
     topic = models.ForeignKey(Employee_details_topic, \
         on_delete=models.DO_NOTHING, blank=False, null=True)
-    sub_topic = models.CharField(max_length=500, default='')
-    entry = models.TextField(default='')
+    entry = RichTextUploadingField(default='', blank=True)
     def get_entry(self):
         return self.entry.split('\n')
     class Meta:
         verbose_name_plural = "Employee Details"
     def __str__(self):
         return self.user.first_name
-

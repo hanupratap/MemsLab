@@ -1,0 +1,33 @@
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load humanize %}
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+<div class="container-fluid text-primary mt-5 ">
+        <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
+</div>
+{% if user.is_authenticated and employee.user.id == user.id%}
+ <div class="sticky-top text-right container-fluid"><a class="btn btn-warning text-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
+{%endif%}
+<h1 class="col-10 mx-auto mb-5">Edit Profile<hr></h1>
+<div class="container col-10" style="font-size: 1vw;">
+    <div class="jumbotron heavy-rain-gradient text-dark rounded_m">
+        <h2>Personal Information</h2><hr>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{form.media}}
+
+        {{form|crispy }}
+        <hr>
+        <div class="text-right">
+            <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
+        </div>
+  
+    </form>
+    </div>
+</div>
+<hr class="m-5 col-10 mx-auto">
+
+{% endblock %}

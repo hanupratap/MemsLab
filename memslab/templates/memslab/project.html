@@ -5,29 +5,51 @@
 {{project.name}}
 {%endblock%}
 {% block body %}
-<div id="gallerly" class="container col-10">
-  <h1> Gallery</h1>
-  <div class="image-viewer" >
-    {%for image in images%}
-    {% thumbnail image.pic "800x800" crop="center" as im %}
-    <a class="thumbnail"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}" class="rounded"/></a>
-    {% endthumbnail %}
-    {%endfor%}
-   
-   <div class="preview hide rounded bg-dark">
-      <div class="wrapper">
-        <span class="arrow"></span>
-        <a class="prev unselectable">&larr; Prev</a>
-        <div class="preview-content">
-          <img src="" />
-          <div class="content">
-            <h3 class="title"></h3>
-            <span class="description"></span>
+<div class="display-4 text-muted container mb-5">Gallery</div>
+<div class="container-fluid col-7">
+<div id="gallerly" >
+        
+    <div class="image-viewer">
+
+      {% thumbnail project.project_pic "800x800" crop="center" as im %}
+      <a class="thumbnail"><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.description}}" class="rounded border z-depth-1"/></a>
+      {% endthumbnail %}
+      {%for image in images%}
+      {% thumbnail image.pic "800x800" crop="center" as im %}
+      <a class="thumbnail"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}" class="rounded border z-depth-1"/></a>
+      {% endthumbnail %}
+      {%endfor%}
+
+      <div class="preview hide ">
+
+        <div class="wrapper ">
+
+          <span class="arrow"></span>
+
+          <a class="prev unselectable"><i class="fas fa-chevron-left"></i> Prev</a>
+
+          <div class="preview-content">
+
+            <img src="" />
+
+            <div class="content">
+
+              <h3 class="title"></h3>
+
+              <span class="description"></span>
+
+            </div>
+
           </div>
+
+          <a class="next unselectable">Next <i class="fas fa-chevron-right"></i></a>
+
+          <a class="close-preview">Close</a>
+
         </div>
-        <a class="next unselectable">Next &rarr;</a>
-     <a class="close-preview unselectable">Close</a>
-      </div>
+
+    </div>
+
   </div>
 </div>
 </div>
@@ -41,10 +63,10 @@ background-size: cover;">
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <br><br>
-        <h3 style="color: rgba(255, 255, 255, 0.664);">Sponsoring Agency : {{project.sponsoring_agency}}</h3>
-        <h4 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Budget : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h4> 
+        <h3 style="color: rgba(255, 255, 255, 0.664);">Funding Agency : {{project.sponsoring_agency}}</h3>
+        <h4 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Total Funds : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h4> 
 <br>
-        <a class="btn btn-primary btn-lg" href="#"  role="button">Learn more</a>
+       
       </div>
 
       <div class="container">
@@ -125,10 +147,11 @@ background-size: cover;">
         {%endfor%}
       </div>
       </div>
-      <div class=" container col-8 mt-5"><div class="jumbotron">
+      
+      <div class=" container col-8-lg col-6-md col-4-sm mt-5"><div class="jumbotron">
         Additional information about Project:
         {%if project.proj_file%}
-        <a href="{{project.proj_file.url}}"> <h4>{{project.filename}}</h4></a>
+       <h4> <a class="btn btn-primary btn-lg col-12-sm" href="{{project.proj_file.url}}"  role="button">{{project.filename}}</a></h4>
         {%endif%}
        
       </div>

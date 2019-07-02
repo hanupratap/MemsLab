@@ -27,7 +27,7 @@ DEBUG = True
 THUMBNAIL_DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1']
 
 
 # Application definition
@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     'memslab.apps.MemslabConfig',
     'django.contrib.humanize',
     'sorl.thumbnail',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,7 +130,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS = (
@@ -141,12 +142,10 @@ LOGIN_REDIRECT_URL = '/memslab'
 
 LOGIN_URL = 'login'
 
-
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'MEMSlab'
-}
+

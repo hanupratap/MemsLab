@@ -8,27 +8,66 @@
 Lab
 {%endblock%}
 {% block body %}
+<div class="container col-8 text-left"><h1>Contact Us</h1></div>
 
-
-<div class="container">
-        <h1 class="text-center">Contact Address</h1>
-        <hr>
-          <div class="row">
-            <div id="map-container-google-2" class="z-depth-0-half map-container col-sm-8" >
-                    <iframe src="https://maps.google.com/maps?q=Bits-Hyderabad&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                      style="border:0"  width="100%" height="320" allowfullscreen></iframe>
-                  </div>
+ 
+<div class="row col-12">
+    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+        <div class="card-body ">
+          <h5 class="card-title">Coordinator</h5>
+          <p class="card-text "><h2>{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h2></p>
+          <a class="card-link" href="{%url 'memslab:show_profile' coordinator.user.username%}" >Go to Profile</a>
         
-            <div class="col-sm-4" id="contact2">
-                <h3>BITS Hyderabad</h3>
-                <hr align="left" width="50%">
-                <h4 class="pt-2">{{emp.name}}</h4>
-                <h4 class="pt-2">Contact</h4>
-                <i class="fas fa-phone" style="color:#000"></i> <a href="tel:+"> {{emp.user.phone}} </a><br>
-                <i class="fab fa-whatsapp" style="color:#000"></i><a href="tel:+"> 123456 </a><br>
-                <h4 class="pt-2">Email</h4>
-                <i class="fa fa-envelope" style="color:#000"></i> <a href="">test@test.com</a><br>
-              </div>
-          </div>
         </div>
-      {% endblock %}
+      </div>
+    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+        <div class="card-body ">
+          <h5 class="card-title">Address</h5>
+          <p class="card-text "><div class="mx-auto map-responsive " style="min-height:500px;"><iframe title="Map" class="p-0 m-1 border " width="100%" height="500px" frameborder="0" style="border:1"
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70" allowfullscreen></iframe>
+            </div></p>
+       
+        
+        </div>
+      </div>
+  
+
+  <div class="card mx-auto col-8 bg-dark text-light mb-4">
+      <div class="card-body ">
+        <h5 class="card-title">Email</h5>
+        <p class="card-text "><h2>{{coordinator.email}}</h2></p>
+        <a class="card-link" style="color: gray;" href="mailto:{{superuser_emails}}"><h3>{{coordinator.user.email}}</h3></a>
+      </div>
+    </div>
+    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+        <div class="card-body ">
+          <h5 class="card-title">Contact No.</h5>
+          <p class="card-text "><h3>{{coordinator.phone}}</h3></p>
+         
+        </div>
+      </div>
+
+    {%if coordinator.skype_link%}
+        <div class="card mx-auto col-8 bg-dark text-light mb-4">
+            <div class="card-body ">
+              <h5 class="card-title">Skype</h5>
+              <p class="card-text "></p>
+              <a class="card-link "style="color: gray;" href="{{coordinator.skype_link}}"><h3>{{coordinator.skype_link}}</h3></a>
+             
+            </div>
+          </div>
+          {%endif%}
+          
+    {%if coordinator.website_link%}
+    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+        <div class="card-body ">
+          <h5 class="card-title">Web</h5>
+          <p class="card-text "></p>
+          <a class="card-link " style="color: gray;" href="{{coordinator.website_link}}"><h3>{{coordinator.website_link}}</h3></a>
+         
+        </div>
+      </div>
+      {%endif%}
+
+</div>
+ {% endblock %}

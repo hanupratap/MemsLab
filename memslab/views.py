@@ -6,11 +6,15 @@ from django.contrib import messages
 from django.http import HttpResponse
 import random
 from django.contrib.auth.models import User
+from django.forms import inlineformset_factory
 
 
-from memslab.forms import UserRegisterForm, ProfilePic, LoginForm
+from memslab.forms import UserRegisterForm, ProfilePic, LoginForm, Employee_form
 from memslab.models import Employee, Employeedetails, \
     Employee_details_topic, Project, Project_type, project_image
+
+def get_coordinator():
+    return Employee.objects.filter(coordinator=True)[0]
 
 def IndexView(request):
     superuser = User.objects.filter(is_superuser=True)
@@ -19,9 +23,9 @@ def IndexView(request):
         emp = Employee.objects.get(user=request.user)
     else:
         return render(request, 'memslab/index.html', {'employee_logggedin': None, \
-                'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'superuser_emails':superuser.values_list('email')[0][0]})
+                'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'coordinator':get_coordinator})
     return render(request, 'memslab/index.html', {'employee_logggedin': emp,  \
-        'employees':Employee.objects.all(), 'projects': Project.objects.all(), 'superuser_emails':User.objects.filter(is_superuser=True).values_list('email')[0][0]})
+        'employees':Employee.objects.all(), 'projects': Project.objects.all(),'coordinator':get_coordinator})
 
 def detail(request):
 
@@ -30,7 +34,7 @@ def detail(request):
     else:
         emp = None
     return render(request, 'memslab/detail.html',{'employees': \
-        Employee.objects.all(), 'employee_logggedin': emp, 'superuser_emails':User.objects.filter(is_superuser=True).values_list('email')[0][0]})
+        Employee.objects.all(), 'employee_logggedin': emp,'coordinator':get_coordinator})
 
 @login_required
 def profile(request):
@@ -56,7 +60,7 @@ def profile(request):
     else:
         form = ProfilePic()
     return render(request, 'memslab/profile.html', {'employee': emp, \
-        'empdet':categ, 'employee_logggedin': emp, 'change_pic': form})
+        'empdet':categ, 'employee_logggedin': emp, 'change_pic': form, 'coordinator':get_coordinator})
 
 
 def show_profile(request, username):
@@ -85,11 +89,11 @@ def show_profile(request, username):
             emp.emp_pic = request.FILES['emp_pic']
             emp.save()
             return render(request, 'memslab/profile.html', {'employee': employee, \
-            'empdet':categ, 'employee_logggedin': emp, 'change_pic': form,'projs':projs})
+            'empdet':categ, 'employee_logggedin': emp, 'change_pic': form,'projs':projs, 'coordinator':get_coordinator})
     else:
         form = ProfilePic()
     return render(request, 'memslab/profile.html', {'employee': employee, \
-                'employee_logggedin': emp, 'empdet':categ,'change_pic': form})
+                'employee_logggedin': emp, 'empdet':categ,'change_pic': form, 'coordinator':get_coordinator})
 
 
 
@@ -104,8 +108,8 @@ def show_projects(request, project_id):
                 'https://images.unsplash.com/photo-1473831818960-c89731aabc3e?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&dl=randall-bruder-13662',
                 'https://www.allaboutcircuits.com/uploads/thumbnails/MEMS_close_post_actuator.jpg',
                 'http://4.bp.blogspot.com/_O9KFUaJsTaE/TNmpQGsMYMI/AAAAAAAAACc/EsFk0OtiPEw/s1600/Sandia+friction+device.jpg',
-                'https://cdn.dnaindia.com/sites/default/files/styles/full/public/2016/11/29/524004-quadrotor-board-electric-circuit-wiki-commons.jpg')
-
+                'https://calce.umd.edu/sites/calce.umd.edu/files/chris-ried-534420-unsplash.jpg',
+                'https://cdn.dnaindia.com/sites/default/files/styles/full/public/2016/11/29/524004-quadrotor-board-electric-circuit-wiki-commons.jpg',)
     bg = random.choices(bg_images)
     proj = Project.objects.get(id=project_id)
    
@@ -116,14 +120,14 @@ def show_projects(request, project_id):
     if  request.user.is_authenticated:
         emp = Employee.objects.get(user = request.user)
         return render(request, 'memslab/project.html', {'employee_logggedin': emp, \
-            'project': proj, 'images':image_object, 'employees':Employee.objects.all(),'background':bg[0],})
+            'project': proj, 'images':image_object, 'employees':Employee.objects.all(),'background':bg[0], 'coordinator':get_coordinator})
     else:
         return render(request, 'memslab/project.html', {'project': proj, 'employee_logggedin':None,\
-             'employees':Employee.objects.all(),'background':bg[0], 'images':image_object,})
+             'employees':Employee.objects.all(),'background':bg[0], 'images':image_object, 'coordinator':get_coordinator})
 
 def About(request):
     emp = Employee.objects.filter(designation="HOD")
-    return render(request, 'memslab/About.html', {'HOD':emp})
+    return render(request, 'memslab/About.html', {'HOD':emp, 'coordinator':get_coordinator})
 
 def register(request):
     if request.method == 'POST':
@@ -139,20 +143,22 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'memslab/register.html', \
-        {'form': form, 'employees': Employee.objects.all(), 'projects': Project.objects.all()})
+        {'form': form, 'employees': Employee.objects.all(), 'projects': Project.objects.all(), 'coordinator':get_coordinator})
 
 def login(request):
     login1 = LoginForm()  
-    return render(request, "login.html", {'form':login1})
+    return render(request, "login.html", {'form':login1, 'coordinator':get_coordinator})
 
 
 def prof_cat(request, username, top):
-
     
     if  request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
+    
+  
+
     if request.method == "POST":
         form = ProfilePic(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -179,4 +185,41 @@ def prof_cat(request, username, top):
         else:
             categ.append(e.topic)
 
-    return render(request, "memslab/category.html", {'employee_logggedin':emp, 'topics':topics, 'employee':employee,'empdet':categ,'change_pic': form})
+    return render(request, "memslab/category.html", {'employee_logggedin':emp, 'topics':topics, 'employee':employee, 'empdet':categ, 'change_pic': form, 'main_topic':top, 'coordinator':get_coordinator})
+
+@login_required
+def main_form(request, emp_id):
+    emp = Employee.objects.get(id=emp_id)
+    form = inlineformset_factory(User, Employee, fields=('user',
+    'id_no',
+    'emp_pic',
+    'researcher',
+    'coordinator',
+    'designation',
+    'department',
+    'short_description',
+    'Chamber_Consultation_Hours',
+    'experience_in_years',
+    'phone',))
+
+
+    if request.method == 'POST':
+       
+        formset = form(request.POST, instance=emp.user)
+        if formset.is_valid():
+            formset.save()
+            return redirect ('/memslab/profile', emp_id=emp_id)
+
+    formset = form(instance=emp.user)
+    return render(request, "memslab/forms.html", {'form':formset, 'employee':emp, 'coordinator':get_coordinator})
+
+def category_form(request, emp_id):
+    emp = Employee.objects.get(id=emp_id)    
+    form = inlineformset_factory(User, Employeedetails, fields=('topic', 'entry', ))
+    if request.method == 'POST':
+        formset = form(request.POST, instance=emp.user)
+        if formset.is_valid():
+            formset.save()
+            return redirect ('/memslab/profile', emp_id=emp_id)
+    formset = form(instance=emp.user)
+    return render(request, "memslab/forms.html", {'form':formset, 'employee':emp, 'coordinator':get_coordinator})

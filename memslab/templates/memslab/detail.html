@@ -6,13 +6,13 @@ Employee Details
 {%endblock%}
 {% block body %}
 
-<div class="container text-default ">
-    <div class="  mt-5  "style=" font-size:1.5vw; ">Faculty Coordinator</div>
-<div class="card-deck ">
+<div class="container text-default ml-5 ">
+    <div class="  mt-5  "style=" font-size:25px;">Faculty Coordinator</div>
+<div class="card-deck ml-5 ">
     {%for employee in employees%}
      {%if employee.coordinator %}
-     <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
-     <div class="card border rounded hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect " >
+     <div class="row col-lg-5  ">
+     <div class="card border rounded hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-12 " >
          <div class="container p-0">
          <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
            
@@ -20,7 +20,7 @@ Employee Details
    
            <div class="text-center">
          
-               {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+               {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
                {% endthumbnail %}
    
@@ -31,9 +31,9 @@ Employee Details
    
       
      <div class="card-body rounded_m">
-         <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+         <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
    
-         <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
+         <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
        </div>
    
      </a>
@@ -43,14 +43,13 @@ Employee Details
      {%endif%}
      {%endfor%}
      </div>
-</div>
-<div class="container text-default">
-    <div class="  mt-5  "style=" font-size:1.5vw; ">Faculty</div>
 
-<div class="card-deck  rounded  ">
+    <div class="  mt-5  "style=" font-size:25px; ">Faculty</div>
+
+<div class="card-deck  rounded  ml-5 ">
  {%for employee in employees%}
   {%if not employee.researcher and not employee.coordinator %}
-  <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
+  <div class="row col-12 col-lg-5 col-md-6 col-sm-8 ">
   <div class="card border  hoverable faculty_card rounded tempting-azure-gradient color-block  mask waves-effect " >
       <div class="container p-0">
       <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
@@ -59,7 +58,7 @@ Employee Details
 
         <div class="text-center">
       
-            {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+            {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
             {% endthumbnail %}
 
@@ -70,9 +69,9 @@ Employee Details
 
    
   <div class="card-body rounded">
-      <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+      <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
 
-      <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
+      <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
     </div>
 
   </a>
@@ -83,15 +82,15 @@ Employee Details
   {%endfor%}
   </div>
 
-  <div class=" text-left mt-5  text-default "style=" font-size:1.5vw; ">Students</div>
+  <div class=" text-left mt-5  text-default "style=" font-size:25px; ">Students</div>
   <br>
-  <div class="card-deck  rounded  ">
+  <div class="card-deck  rounded  ml-5 ">
     {%for employee in employees%}
   {%if  employee.researcher%}
-  <div class="row col-12 col-lg-4 col-md-5 col-sm-12 ">
+  <div class="row col-10 col-lg-4 col-md-6 col-sm-8 ">
   <div class="card border-0 rounded faculty_card winter-neva-gradient color-block z-depth-0  waves-effect hoverable" >    
   
-              <div class="container article">
+              <div class="container">
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
               </div>
           
@@ -105,7 +104,7 @@ Employee Details
 </div>
  
                 <div class="card-body rounded_m">
-                    <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+                    <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
               
                     <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
                   </div>
