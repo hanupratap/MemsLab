@@ -6,31 +6,34 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-primary mt-5 ">
+<div class="container-fluid text-muted mt-5  ">
   <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
 {% if user.is_authenticated and employee.user.id == user.id%}
-<div class="sticky-top text-right container-fluid"><a class="btn btn-sm z-depth-0  btn-warning text-primary " href="{%url 'admin:index' %}" >admin <i class="fas fa-external-link-alt"></i></a></div>
-<a href="{% url 'memslab:detail_form' employee.id %}" class="text-left ml-5"><div  class="btn btn-md btn-outline-primary waves-effect "  >
-  Edit  <i class="fas fa-edit"></i>
-</div></a>{%endif%}
+<div class="row mb-5">
+<div class="container col-2 text-left ml-5"><a href="{% url 'memslab:detail_form' employee.id %}" ><div  class="btn btn-md btn-outline-primary waves-effect "  >Edit <i class="fas fa-edit"></i>
+  </div></a></div>
+<div class="sticky-top text-right container-fluid col-2 mr-2"><a class="btn  z-depth-0  btn-warning text-primary " href="{%url 'admin:index' %}" >admin <i class="fas fa-external-link-alt"></i></a></div>
+</div>
+{%endif%}
 
-<div class="container emp-profile col-11 z-depth-0 mx-auto rounded z-depth-0 border heavy-rain-gradient " >
 
-            <div class="row ">
-                <div class="col-md">
-                    <div class=" row col-10">
+<div class="container  col-xl-11 col-xs-12 z-depth-0 mx-auto rounded z-depth-0 border-0 cloudy-knoxville-gradient  " >
+
+            <div class="row p-5">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10 mx-auto">
+                    <div class=" row">
                       <div class="container ">  {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                        <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border hidden-xs-up  ">
+                        <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
                      {% endthumbnail %}</div>
                       
                        
                    
-
-                      <div class="col-12"> {% if user.is_authenticated and employee.user.id == user.id%}
+                     {% if user.is_authenticated and employee.user.id == user.id%}
+                      <div class=" col-xl-10  col-lg-10 col-md-12 col-xs-10 col-sm-8 "> 
                            
                      
-                        <button type="button" class="file btn btn-sm btn-default col-12-sm " data-toggle="modal" data-target="#changePic">
+                        <button type="button" class="file btn btn-md btn-default  " data-toggle="modal" data-target="#changePic">
                           Change Pic <i class="fas fa-edit"></i>
                         </button>
                            <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
@@ -58,52 +61,52 @@ Lab
                              </div>
                            </div>
                          </div>
-                     
-                       {%endif%}
-                   
-                   </div>
-                   </div>
-                    <div class="row">    
-                      <div class=" col-4 ">
-                        <div class="profile-work ml-3">
-                            <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
-                            
-                            <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
-                            {%for d in empdet%}
-                            <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
-                            {%endfor%}
-                        
-                          
                         </div>
+                       {%endif%}
+                       <div class="profile-work  col-12">
+                          <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
+                          
+                          <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
+                          {%for d in empdet%}
+                          <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
+                          {%endfor%}
                       
-                </div></div>
+                        
+                      </div>
+                      </div>
+                   </div>
+                   
+                   
+           <div class="container col-xl-9 col-lg-8 col-md-12" style="word-wrap: break-word;">       
+              <div class=" mb-3  p-3 text-muted"><h1>{{main_topic}}</h1></div> 
+            
+                {%for topic in topics%}
+               <div class="bg-white ml-auto container mb-5 rounded">
+              
+                  {% autoescape on %}
+                  <div class="col-12 p-2">
+                     
+                 {% for point in topic.get_entry %}
+                     <p>
+                       {{point|safe}}
+                     </p>
+                     {%endfor%}
+                   
+               
+   
+                   </div>
+                  {% endautoescape %}
+          
+              </div>
+               {%endfor%}
+              
+              </div>
+          
                 
                
-            </div>
+        
       
 
-           <div class="container col-9 " style="word-wrap: break-word;">       
-           <div class="display-4 mb-3  p-3 text-muted">{{main_topic}}</div> 
-         
-             {%for topic in topics%}
-            <div class="bg-white ml-auto container mb-5 rounded">
-           
-               {% autoescape on %}
-               <div class="col-12 p-2">
-                  
-              {% for point in topic.get_entry %}
-                  <p>
-                    {{point|safe}}
-                  </p>
-                  {%endfor%}
-                
-            
-
-                </div>
-               {% endautoescape %}
-       
-           </div>
-            {%endfor%}</div>
      
             </div>
          

@@ -6,10 +6,10 @@ from django.contrib import messages
 from django.http import HttpResponse
 import random
 from django.contrib.auth.models import User
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, modelformset_factory
 
 
-from memslab.forms import UserRegisterForm, ProfilePic, LoginForm, Employee_form
+from memslab.forms import UserRegisterForm, ProfilePic, LoginForm, topic
 from memslab.models import Employee, Employeedetails, \
     Employee_details_topic, Project, Project_type, project_image
 
@@ -126,8 +126,12 @@ def show_projects(request, project_id):
              'employees':Employee.objects.all(),'background':bg[0], 'images':image_object, 'coordinator':get_coordinator})
 
 def About(request):
-    emp = Employee.objects.filter(designation="HOD")
-    return render(request, 'memslab/About.html', {'HOD':emp, 'coordinator':get_coordinator})
+    if  request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+ 
+    return render(request, 'memslab/About.html', {'employee_logggedin':emp, 'coordinator':get_coordinator, })
 
 def register(request):
     if request.method == 'POST':
@@ -147,7 +151,7 @@ def register(request):
 
 def login(request):
     login1 = LoginForm()  
-    return render(request, "login.html", {'form':login1, 'coordinator':get_coordinator})
+    return render(request, "memslab/login.html", {'form':login1, 'coordinator':get_coordinator})
 
 
 def prof_cat(request, username, top):
@@ -190,9 +194,8 @@ def prof_cat(request, username, top):
 @login_required
 def main_form(request, emp_id):
     emp = Employee.objects.get(id=emp_id)
-    form = inlineformset_factory(User, Employee, fields=('user',
+    form = inlineformset_factory(User, Employee, fields=(
     'id_no',
-    'emp_pic',
     'researcher',
     'coordinator',
     'designation',
@@ -202,17 +205,22 @@ def main_form(request, emp_id):
     'experience_in_years',
     'phone',))
 
-
+    form1 = modelformset_factory(Employee_details_topic, fields=('topic',),extra=1)
     if request.method == 'POST':
-       
         formset = form(request.POST, instance=emp.user)
         if formset.is_valid():
             formset.save()
-            return redirect ('/memslab/profile', emp_id=emp_id)
+        formset1 = form1(request.POST)
+        if formset1.is_valid():
+            instances = formset1.save(commit=False)
+            for instance in instances:
+                instance.save()
+        return redirect ('/memslab/profile', emp_id=emp_id)
 
     formset = form(instance=emp.user)
-    return render(request, "memslab/forms.html", {'form':formset, 'employee':emp, 'coordinator':get_coordinator})
-
+    formset1 = form1()
+    return render(request, "memslab/forms.html", {'form':formset, 'form1':formset1, 'employee':emp, 'coordinator':get_coordinator})
+@login_required
 def category_form(request, emp_id):
     emp = Employee.objects.get(id=emp_id)    
     form = inlineformset_factory(User, Employeedetails, fields=('topic', 'entry', ))
@@ -222,4 +230,21 @@ def category_form(request, emp_id):
             formset.save()
             return redirect ('/memslab/profile', emp_id=emp_id)
     formset = form(instance=emp.user)
+    return render(request, "memslab/forms.html", {'form':formset, 'employee':emp, 'coordinator':get_coordinator})
+@login_required
+def add_projects(request):
+    if  request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+
+    form = modelformset_factory(Project, fields=('specializaiton','name','description','short_description','project_pic','status','Person1','Person2','Person3','Person4','specializaiton','specializaiton','Person5','budget','sponsoring_agency','proj_file',), extra=2)
+    if request.method == 'POST':
+        formset = form(request.POST)
+        if formset.is_valid():
+            instances = formset.save(commit=False)
+            for instance in instances:
+                instance.save()
+                return redirect ('/memslab/', emp_id=emp.id)
+    formset = form()
     return render(request, "memslab/forms.html", {'form':formset, 'employee':emp, 'coordinator':get_coordinator})

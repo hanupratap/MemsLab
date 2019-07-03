@@ -22,8 +22,8 @@ class Employee(models.Model):
     designation = models.CharField(max_length=20, null=True)
     department = models.ForeignKey(Departments, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
-    short_description = models.TextField(max_length=400, default='', blank=True, null=True)
-    area = models.TextField(blank=True)
+    short_description = RichTextUploadingField(default='', blank=True)
+    area_of_interest = models.TextField(blank=True)
     Chamber_Consultation_Hours = models.CharField(max_length=200, default='yet to announce')
     #Employee working on project
     experience_in_years = models.PositiveIntegerField(default=0)
@@ -45,10 +45,11 @@ class Project_type(models.Model):
 
 
 class Project(models.Model):
+    
+    name = models.CharField(max_length=500, default='')
     specializaiton = models.ForeignKey(Project_type, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
-    name = models.CharField(max_length=500, default='')
-    description = models.TextField(default='')
+    description = RichTextUploadingField(default='', blank=True)
     short_description = models.TextField(default='')
     project_pic = models.ImageField(upload_to='project_image', blank=True)
     STATUS = ((0, 'Ongoing'), (1, 'Completed'))

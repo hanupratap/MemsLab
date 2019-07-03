@@ -6,13 +6,13 @@
 {%endblock%}
 {% block body %}
 <div class="display-4 text-muted container mb-5">Gallery</div>
-<div class="container-fluid col-7">
+<div class="container col-xl-6 col-lg-8 col-md-10 col-xs-12 ">
 <div id="gallerly" >
         
-    <div class="image-viewer">
+    <div class="image-viewer ">
 
       {% thumbnail project.project_pic "800x800" crop="center" as im %}
-      <a class="thumbnail"><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.description}}" class="rounded border z-depth-1"/></a>
+      <a class="thumbnail "><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.description}}" class="rounded border z-depth-1"/></a>
       {% endthumbnail %}
       {%for image in images%}
       {% thumbnail image.pic "800x800" crop="center" as im %}
@@ -20,7 +20,7 @@
       {% endthumbnail %}
       {%endfor%}
 
-      <div class="preview hide ">
+      <div class="preview hide rounded col-12 ">
 
         <div class="wrapper ">
 
@@ -28,7 +28,7 @@
 
           <a class="prev unselectable"><i class="fas fa-chevron-left"></i> Prev</a>
 
-          <div class="preview-content">
+          <div class="preview-content ">
 
             <img src="" />
 
@@ -70,9 +70,9 @@ background-size: cover;">
       </div>
 
       <div class="container">
-        <span class="text-muted display-4"> ->People working on this project</span>
+        <h1 class="text-muted"> ->People working on this project</h1>
 
-        <div class="text-default display-3 mt-4"><h1>Faculty</h1> </div>
+        <div class="text-default  mt-4"><h2>Faculty</h2> </div>
         <div class="card-deck"> 
         {%for employee in employees%}
         {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
@@ -108,19 +108,15 @@ background-size: cover;">
         {%endif%}
         {%endfor%}
       </div>
-        <div class="text-default display-3 mt-4"><h1>Students</h1> </div>
+        <div class="text-default mt-4"><h2>Students</h2> </div>
         <div class="card-deck"> 
         {%for employee in employees%}
         {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
         {%if employee.researcher%}
         <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
             <div class="card border  hoverable faculty_card rounded cloudy-knoxville-gradient color-block  mask waves-effect animated BounceInRight" >
-                <div class="container p-0">
                 <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-                  
-                  
-          
-                  <div class="text-center">
+                <div class="text-center">
                 
                       {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
                       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
@@ -139,7 +135,7 @@ background-size: cover;">
               </div>
           
             </a>
-          </div>
+        
           </div>
           </div>
           {%endif%}

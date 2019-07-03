@@ -12,18 +12,18 @@ Lab
 
  
 <div class="row col-12">
-    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+    <div class="card mx-auto col-xl-8 col-lg-8 col-10 bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Coordinator</h5>
-          <p class="card-text "><h2>{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h2></p>
-          <a class="card-link" href="{%url 'memslab:show_profile' coordinator.user.username%}" >Go to Profile</a>
+          <p class="card-text "><h3>{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h3></p>
+          <a class="card-link text-primary"  href="{%url 'memslab:show_profile' coordinator.user.username%}" >Go to Profile</a>
         
         </div>
       </div>
-    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Address</h5>
-          <p class="card-text "><div class="mx-auto map-responsive " style="min-height:500px;"><iframe title="Map" class="p-0 m-1 border " width="100%" height="500px" frameborder="0" style="border:1"
+          <p class="card-text "><div class="mx-auto map-responsive " style="min-height:500px;"><iframe title="Map" class="p-0 m-0 border " width="100%" height="500px" frameborder="10" style="border:0"
             src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70" allowfullscreen></iframe>
             </div></p>
        
@@ -32,38 +32,38 @@ Lab
       </div>
   
 
-  <div class="card mx-auto col-8 bg-dark text-light mb-4">
+  <div class="card mx-auto  col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
       <div class="card-body ">
         <h5 class="card-title">Email</h5>
         <p class="card-text "><h2>{{coordinator.email}}</h2></p>
-        <a class="card-link" style="color: gray;" href="mailto:{{superuser_emails}}"><h3>{{coordinator.user.email}}</h3></a>
+        <a class="card-link text-primary"  href="mailto:{{superuser_emails}}"><h5>{{coordinator.user.email}}</h5></a>
       </div>
     </div>
-    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Contact No.</h5>
-          <p class="card-text "><h3>{{coordinator.phone}}</h3></p>
+          <p class="card-text "><h4>{{coordinator.phone}}</h4></p>
          
         </div>
       </div>
 
     {%if coordinator.skype_link%}
-        <div class="card mx-auto col-8 bg-dark text-light mb-4">
+        <div class="card mx-auto  col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
             <div class="card-body ">
               <h5 class="card-title">Skype</h5>
               <p class="card-text "></p>
-              <a class="card-link "style="color: gray;" href="{{coordinator.skype_link}}"><h3>{{coordinator.skype_link}}</h3></a>
+              <a class="card-link text-primary" href="{{coordinator.skype_link}}"><h5>{{coordinator.skype_link}}</h5></a>
              
             </div>
           </div>
           {%endif%}
           
     {%if coordinator.website_link%}
-    <div class="card mx-auto col-8 bg-dark text-light mb-4">
+    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Web</h5>
           <p class="card-text "></p>
-          <a class="card-link " style="color: gray;" href="{{coordinator.website_link}}"><h3>{{coordinator.website_link}}</h3></a>
+          <a class="card-link text-primary" href="{{coordinator.website_link}}"><h5>{{coordinator.website_link}}</h5></a>
          
         </div>
       </div>

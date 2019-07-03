@@ -9,14 +9,20 @@ Lab
 
 <br>
 <br>
-<br>                
-<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-10-lg col-12 align-items-center">
+<br> 
+{% if user.is_authenticated%}
+{%if not employee.researcher%}
+<div class="text-right container-fluid col-12 "><a href="{%url 'memslab:add_projects'%}"><button class="btn btn-primary rounded_mn"><i class="fas fa-plus"></i> Manage Project</button></a></div>       
+{%endif%} 
+{%endif%} 
+
+<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10 align-items-center">
 
   {%for project in projects%}
   {% thumbnail project.project_pic '600x600' as im %}
   <div class="item pr-5 hidden  " >
     <a href="{%url 'memslab:show_projects' project.id %}" data-toggle="tooltip" title="{{project.specializaiton}}">
-      <img src="{{im.url|resolution:'1.5x'}}" alt="{{project.id}}"  class="rounded ml-lg-5 "/>
+      <img src="{{im.url|resolution:'1.5x'}}" alt="{{project.id}}"  class="rounded ml-lg-5 ml-md-4 ml-sm-4 ml-4 "/>
       <figcaption class=" top-left "><h2 class="bottom-left" style="word-wrap: break-word;">{{project.name}}</h2></figcaption>
     </a>
   </div>
@@ -24,34 +30,27 @@ Lab
   {% endfor %}
 
 </div>
-<div class="owl-">
+<div class="owl-nav">
     <div class="owl-controls ">
         <div class="custom-nav owl-nav unselectable" ></div>
     </div>
     <br>
 </div>
 
-<div class="outer-index">
- 
+<div class="row container col-10 col-6-md col-10-sm col-12-xs  mt-5 mx-5  project_list_title" ><h2>->Projects List</h2></div>
+
+    <div class="mx-5 mt-5 col-10  col-6-md col-10-sm col-12-xs"> <h5 class="text-muted col-2 ">Ongoing <i class="far fa-caret-square-right ongoing" ></i></h5><hr> </div>
     
-  
-
- 
-
-   
-
-<div class="container col-10 col-6-md col-10-sm col-12-xs  mt-5  project_list_title" ><h2>->Projects List</h2></div>
-<div class=" col-12 " >
-    <div class="ml-5 mt-5 col-10"> <h5 class="text-muted col-2 ">Ongoing <i class="far fa-caret-square-right ongoing" ></i></h5><hr> </div>
-    
-  <div class="row unselectable  rounded container-fluid mx-2">
+  <div class="row unselectable col-12 container-fluid text-center mx-0">
     {%for project in projects%}
     {% if project.status == 0 %}
    
     <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
      
-      <div class=" mask  view overlay zoom view overlay zoom   p-1 animated bounceInRight col-md"  >
-      <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0 bg-white" >
+      <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft col-12"  >
+      <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white " >
+       
+       
           <div style=" display: inline-block; overflow: hidden; "> 
               {% thumbnail project.project_pic "300x200" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
@@ -67,56 +66,48 @@ Lab
       </div>
       </footer>
     </blockquote>
-    </div> 
-
-  </a><!-- /.col-lg-4 -->
+  </div>
+  </a>
   {%endif%}
     {%endfor%}
   </div>
-  <div class="ml-5 mt-5 col-10"> <h5 class="text-muted col-2 ">Completed <i class="fas fa-check Completed" ></i></h5><hr> </div>
- 
-  <div class="row unselectable  container-fluid mx-2">
-    
-        {%for project in projects%}
-    {% if project.status == 1 %}
-   
-    <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
-      <div class=" mask  view overlay zoom view overlay zoom animated bounceInLeft"   >
-      <div class=" card border waves-effect waves-light  project_cards overflow-hidden z-depth-0  bg-white ">
-      
+  <div class="mx-5 mt-5 col-10  col-6-md col-10-sm col-12-xs"> <h5 class="text-muted col-2 ">Completed <i class="fas fa-check Completed" ></i></h5><hr> </div>
+  <div class="row unselectable col-12 container-fluid text-center">
+      {%for project in projects%}
+      {% if project.status == 1 %}
+     
+      <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
        
-          <div style=" display: inline-block; overflow: hidden; "> 
-          {% thumbnail project.project_pic "300x200" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"  class=" mx-auto border-bottom  card-img-top" alt="{{project.name}} pic" >
-          {% endthumbnail %}
-            
-
+        <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft col-12"  >
+        <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white " >
+         
+         
+            <div style=" display: inline-block; overflow: hidden; "> 
+                {% thumbnail project.project_pic "300x200" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
+            {% endthumbnail %}
+            </div> <br>
+      <span class=" overflow-auto  text-center"><h4>{{project.name}}</h4></span> 
+        <p class="blockquote bq-success" >{{project.short_description}}</p>
+       <blockquote>
+        <footer class="footer " >
+          <div class="text-muted project_faculty_name ">
+           <cite title="Source Title"> Project specializaiton  <strong>{{project.specializaiton}}</strong></cite>
           </div>
-
-
-      <br>
-      
-    <span class=" overflow-auto  text-center"><h4 >{{project.name}}</h4></span> 
-      <p class="blockquote bq-success ">{{project.short_description}}</p>
-     <blockquote>
-      <footer class="footer" >
-        <div class="text-muted project_faculty_name " >
-         <cite title="Source Title"> Project specializaiton  <strong>{{project.specializaiton}}</strong></cite>
         </div>
-      </div>
-      </footer>
-    </blockquote>
-    </div> 
-  </a><!-- /.col-lg-4 -->
-  {%endif%}
-    {%endfor%}
-  </div>
+        </footer>
+      </blockquote>
+    </div>
+    </a>
+    {%endif%}
+      {%endfor%}
+    </div>
 
 
 
-</div>
+
 <br>
-</div>
+
 <br>
 
 

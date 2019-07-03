@@ -51,6 +51,14 @@ INSTALLED_APPS = [
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
+CKEDITOR_CONFIGS = {
+    'default' : {
+        'height':300,
+        'width':700,
+        
+    }
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

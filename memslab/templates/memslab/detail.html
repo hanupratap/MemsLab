@@ -6,13 +6,15 @@ Employee Details
 {%endblock%}
 {% block body %}
 
-<div class="container text-default ml-5 ">
-    <div class="  mt-5  "style=" font-size:25px;">Faculty Coordinator</div>
-<div class="card-deck ml-5 ">
-    {%for employee in employees%}
+
+    
+<div class="row col-12">
+  <div class="container text-default m-3  col-12 "style=" font-size:25px;">Faculty Coordinator</div>
+  <div class="row col-12  mx-auto">  
+  {%for employee in employees%}
      {%if employee.coordinator %}
-     <div class="row col-lg-5  ">
-     <div class="card border rounded hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-12 " >
+   
+     <div class="card border rounded hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
          <div class="container p-0">
          <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
            
@@ -39,18 +41,18 @@ Employee Details
      </a>
    </div>
    </div>
-   </div>
+
      {%endif%}
      {%endfor%}
-     </div>
+    </div>
 
-    <div class="  mt-5  "style=" font-size:25px; ">Faculty</div>
+<div class=" container text-default m-3 col-12 m-sm-0 "style=" font-size:25px; ">Faculty</div>
 
-<div class="card-deck  rounded  ml-5 ">
+<div class="row col-12 mx-auto">
  {%for employee in employees%}
   {%if not employee.researcher and not employee.coordinator %}
-  <div class="row col-12 col-lg-5 col-md-6 col-sm-8 ">
-  <div class="card border  hoverable faculty_card rounded tempting-azure-gradient color-block  mask waves-effect " >
+  
+  <div class="card border  hoverable faculty_card rounded tempting-azure-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
       <div class="container p-0">
       <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
         
@@ -77,22 +79,20 @@ Employee Details
   </a>
 </div>
 </div>
-</div>
+
   {%endif%}
   {%endfor%}
-  </div>
-
-  <div class=" text-left mt-5  text-default "style=" font-size:25px; ">Students</div>
+</div>
+  <div class=" container text-default m-3 col-12 "style=" font-size:25px; ">Students</div>
   <br>
-  <div class="card-deck  rounded  ml-5 ">
+  <div class="row col-12 mx-auto ">
     {%for employee in employees%}
   {%if  employee.researcher%}
-  <div class="row col-10 col-lg-4 col-md-6 col-sm-8 ">
-  <div class="card border-0 rounded faculty_card winter-neva-gradient color-block z-depth-0  waves-effect hoverable" >    
+
+  <div class="card border-0 rounded faculty_card winter-neva-gradient color-block z-depth-0  waves-effect hoverable  col-xl-2 col-lg-4 col-md-6 col-sm-6  " >    
   
               <div class="container">
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-              </div>
           
       <div class="text-center">
           {% thumbnail employee.emp_pic "130x130" crop="center" as im %}
@@ -108,12 +108,14 @@ Employee Details
               
                     <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
                   </div>
+                </a>
+              </div>
 </div>
-</a>
-</div>
+
+
   {%endif%}
   {%endfor%}
-  </div>
+</div>
 </div>
 
 {% endblock %}

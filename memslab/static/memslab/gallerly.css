@@ -6,20 +6,25 @@
 
 #gallerly.container {
   width: 100%;
+
 }
 
 #gallerly .image-viewer {
   position: relative;
+ 
+
 }
 
 #gallerly .image-viewer .preview {
   position: absolute;
-  width: 100%;
+  width: 95%;
+  left: auto;
+  right: auto;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 20px;
   background: #222;
-
+ 
 }
 @media (max-width: 1206px) { 
   #gallerly .image-viewer .preview{ 
@@ -36,8 +41,15 @@ display: none;
   margin-right: 15px;
 }
 
+
+
 #gallerly .image-viewer > a > img {
   height: 160px;
+}
+@media (max-width: 1206px) { 
+  #gallerly .image-viewer > a > img {
+    height: 250px;
+  }
 }
 
 #gallerly .image-viewer > a {

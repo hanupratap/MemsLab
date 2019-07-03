@@ -6,28 +6,22 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-primary mt-5 ">
+<div class="container-fluid text-muted mt-5 ">
         <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
 {% if user.is_authenticated and employee.user.id == user.id%}
- <div class="sticky-top text-right container-fluid"><a class="btn btn-sm z-depth-0  btn-warning text-primary " href="{%url 'admin:index' %}" >admin <i class="fas fa-external-link-alt"></i></a></div>
+<div class="row mb-5">
+<div class="container col-2 ml-5 text-left"><a href="{% url 'memslab:form' employee.id %}" ><div  class="btn btn-md btn-outline-primary waves-effect "  >Edit <i class="fas fa-edit"></i>
+  </div></a></div>
+</div>
 {%endif%}
-{% if user.is_authenticated and employee.user.id == user.id%}
-<a href="{% url 'memslab:form' employee.id %}"><div  style="font-size:0.9vw;" class="btn btn-outline-primary waves-effect btn-sm text-left ml-5"  >
-    Edit  <i class="fas fa-edit"></i>
- </div></a>
- {%else%}
- <div  class=" col-3 float-right"  >
-        &nbsp;
-     </div>
- {%endif%}
-    <div class="container emp-profile col-11 z-depth-0 mx-auto rounded z-depth--0 heavy-rain-gradient border  mb-5" >
+    <div class="container  col-11  z-depth-0 mx-auto rounded  cloudy-knoxville-gradient border  mb-5"  >
  
-            <div class="row ">
-                <div class="col-sm">
-                    <div class=" row col-10 ">
-                         <div class=" col-xs-2"> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                                <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border hidden-xs-up  ">
+            <div class="row p-5 ">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto">
+                    <div class="row">
+                         <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
+                                <img src="{{ im.url }}"  class="rounded-circle border-0 prof_pic col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
                              {% endthumbnail %}</div>
                           
                         
@@ -35,9 +29,9 @@ Lab
 
                      
                          {% if user.is_authenticated and employee.user.id == user.id%}
-                         <div class='col-12 col-3-sm '> 
+                         <div class='col-xl-10  col-lg-10 col-md-12 col-xs-10 col-sm-8 '> 
                     
-                            <button type="button" class="file btn btn-md btn-default col-12-sm " data-toggle="modal" data-target="#changePic">
+                            <button type="button" class="file btn btn-md btn-default  " data-toggle="modal" data-target="#changePic">
                                     Change Pic <i class="fas fa-edit"></i>
                                   </button>
 
@@ -68,107 +62,112 @@ Lab
                           </div>
                         </div>
                         {%endif%}
-                    
-                  
-                    </div>
-                </div>
-                <div class="col-md-9">         
-                    <div class="profile-head ml-5">
-                        <p><h1 class="" style="word-wrap: break-word; font-size: 4vw;">{{employee.user.first_name}} {{employee.user.last_name}}</h1>
-                            <hr>
-                                <h6>
-                                    <h1 class='font-weight-light' style="font-size: 2vw;">{{employee.designation}} <br></h1>
-                   
-                    </div></div>
-           
-               
-                      
-                      <div class=" col-4 ">
-                        <div class="profile-work ml-0">
+                        <div class="profile-work  col-12">
                             <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
                             
                             <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
                             {%for d in empdet%}
                             <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
                             {%endfor%}
-                        
-                          
                         </div>
                       
+                  
+                    </div>
                 </div>
-                <div class="col-md-8" style="font-size: 20px;">
-                        <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                  <a class="nav-item nav-link active" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
-                                  <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Timeline</a>
-                                </div>
-                              </nav>
-                              <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab"> 
-                            <table class="table  rounded table-responsive-md border">
-                                <tbody >
-                                        {% if user.is_authenticated and employee.user.id == user.id%}
-                                        <tr>
-                                          <th scope=" row " class="font-weight-bold text-muted" style="font-size:18px;">User Id</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.id_no}}</td>
-                                        </tr>
-                                        {%endif%}
-                                        <tr>
-                                          <th scope="row" class="font-weight-bold text-muted"style="font-size:18px;">Name</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.first_name}} {{employee.user.last_name}}</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Email</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.email}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Phone</th>
-                                            <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.phone}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Designation</th>
-                                            <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
-                                        </tr>
-                                      </tbody>
-                            </table>
+                <div class="container col-xl-9 col-lg-8 col-md-12 ">         
+                 <div class="row"> 
+                   <div class="container">          
+
+                      <p><h1  style="word-wrap: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</h1><hr>
+                      <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br></h2>
+                   </div>
+
+                   <div class="container mt-5">
+                      <nav>
+                          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h4>About</h4></a>
+                            <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h4>Timeline</h4></a>
+                          </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab"> 
+                      <table class="table   table-responsive-lg " >
+                          <tbody >
+                                  {% if user.is_authenticated and employee.user.id == user.id%}
+                                  <tr>
+                                    <th scope=" row " class="font-weight-bold text-muted" style="font-size:18px;">User Id</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.id_no}}</td>
+                                  </tr>
+                                  {%endif%}
+                                  <tr>
+                                    <th scope="row" class="font-weight-bold text-muted"style="font-size:18px;">Name</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.first_name}} {{employee.user.last_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Email</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.email}}</td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Phone</th>
+                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.phone}}</td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Designation</th>
+                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
+                                  </tr>
+                                </tbody>
+                      </table>
+                  </div>
+                    
+                  <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> <table class="table table-transparent rounded table-responsive-lg"> 
+                          <tbody>
+                               
+                                  <tr>
+                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.experience_in_years}} years</td>
+                                  </tr>
+                             
+                                  <tr>
+                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Present Projects</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{projs}}</td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Chamber Consultation Hours</th>
+                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.Chamber_Consultation_Hours}}</td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
+                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
+                                  </tr>
+                                  <tr>
+
+                                    </tr>
+                                </tbody>
+                      </table>
+                  </div>
+                  <div class="row mt-5">
+                      <div class=" text-muted col-12" ><h2>Short Description- </h2></div>
+                      <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
+                    </div>
                         </div>
-                          
-                        <div class="tab-pane fade border" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> <table class="table table-transparent">
-                                <tbody>
-                                     
-                                        <tr>
-                                          <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.experience_in_years}} years</td>
-                                        </tr>
-                                   
-                                        <tr>
-                                          <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Present Projects</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{projs}}</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Email</th>
-                                          <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.email}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Chamber Consultation Hours</th>
-                                            <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.Chamber_Consultation_Hours}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
-                                            <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
-                                        </tr>
-                                      </tbody>
-                            </table>
-                        </div>
-                              </div>
-                       </div>
+                   </div>
+             </div>
+                
+      
+                  </div>
+           
+               
+                       
+                 
                        {% if user.is_authenticated and employee.user.id == user.id%}
-            <a href="{% url 'memslab:logout'%}" class="px-5"><button type="button" class="btn btn-danger "  >Logout</button></a>
+                       <div class="col-12"><a href="{% url 'memslab:logout'%}" class="px-5"><button type="button" class="btn btn-danger "  >Logout</button></a></div>
 
      {%endif%}
 
     </div>
 
 </div>
- 
+{% if user.is_authenticated and employee.user.id == user.id%}
+<div class=" p-3 text-right container col-6 mr-5"><a class="btn  btn-warning text-primary " href="{%url 'admin:index' %}" >Admin <i class="fas fa-external-link-alt"></i></a></div>
+{%endif%}
 {% endblock %}
