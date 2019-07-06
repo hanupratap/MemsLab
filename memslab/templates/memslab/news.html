@@ -1,0 +1,41 @@
+{% extends 'memslab/Base.html'%}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load humanize %}
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}
+<div class="container-fluid text-muted mt-5 ">
+        <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
+</div>
+{% if user.is_authenticated and employee.user.id == user.id%}
+<div class="container-fluid   ">
+    <div class="container-fluid  text-right"><a href="{% url 'memslab:register'%}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
+    </button></a></div>
+  <div class="container-fluid text-left p-1 mt-5"><a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
+</button></a></div>
+</div>
+{%endif%}
+{%if request.user.is_superuser%}
+<div class="container-fluid p-1 text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
+{%endif%}
+<div class="container-fluid ml-5 display-4">NEWS</div>
+<div class="container-fluid ">
+    <div class="row ">         
+         {%for obj in objs%}
+        <div class=" mx-auto card p-5 col-10 border rounded_mn  p-5 grey lighten-5">
+            <div class="card-title col-12 "> 
+        <h1 class="display-4">{{obj.topic}}</h1>
+      <div class="card-body col-12 table-responsive grey lighten-4" style="  max-height: 300px;">    {{obj.entry|safe}}</div>
+ 
+   <div class="footer mt-5  text-muted mb-5 text-right"> Published By {{obj.user}}<br> {{obj.created_at|naturaltime}}</div>
+      </div> 
+    </div>
+    {%endfor%}
+</div>
+
+
+</div>
+
+{% endblock %}

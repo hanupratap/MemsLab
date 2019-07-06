@@ -2,18 +2,17 @@
 import random
 
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory, modelformset_factory
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from memslab.forms import LoginForm, ProfilePic,\
-     UserRegisterForm,  Project_add, EditUserForm
+from memslab.forms import LoginForm, ProfilePic, Project_add, EditUserForm
 from memslab.models import (Employee, Employee_details_topic, \
-    Employeedetails, Project, Project_type, project_image)
+    Employeedetails, Project, Project_type, project_image,News)
 
 def get_coordinator():
     return Employee.objects.filter(coordinator=True)[0]
@@ -137,19 +136,14 @@ def About(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request)
             messages.success(request, 'Successfully Created')
-            return redirect('{%url "memslab:index"%}')
+            return redirect('/')
     else:
-        form = UserRegisterForm()
-    return render(request, 'memslab/register.html',
-                  {'form': form, 'employees': Employee.objects.all(), 'projects': Project.objects.all(), 'coordinator': get_coordinator})
+        form = UserCreationForm()
+    return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
 
 def prof_cat(request, username, top):
 
@@ -163,7 +157,7 @@ def prof_cat(request, username, top):
         if form.is_valid():
             emp.emp_pic = request.FILES['emp_pic']
             emp.save()
-            return render(request, 'memslab/profile.html')
+            return render(request, 'memslab/profile.html', {'employee_logggedin': emp,'employee': emp,'coordinator': get_coordinator})
     else:
         form = ProfilePic()
     categ = []
@@ -190,19 +184,29 @@ def prof_cat(request, username, top):
 @login_required
 def main_form(request, emp_id):
     emp = Employee.objects.get(id=emp_id)
- 
-    form = inlineformset_factory(User, Employee, fields=(
-        'id_no',
-        'researcher',
-        'coordinator',
-        'designation',
-        'department',
-        'short_description',
-        'Chamber_Consultation_Hours',
-        'experience_in_years',
-        'phone','education_short',))
+    if emp.researcher:
+        form = inlineformset_factory(User, Employee, fields=(
+            'id_no',
+            'researcher',
+            'coordinator',
+            'designation',
+            'department',
+            'short_description',
+            'Chamber_Consultation_Hours',
+            'experience_in_years',
+            'phone','education_short',))
+    else: 
+        form = inlineformset_factory(User, Employee, fields=(
+            'id_no',
+            'designation',
+            'department',
+            'short_description',
+            'Chamber_Consultation_Hours',
+            'experience_in_years',
+            'phone',
+            'education_short',))
 
-    form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=1, can_delete=True)
+    form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=1, can_delete=False)
     if request.method == 'POST':
         form_user = EditUserForm(request.POST or None, request.FILES or None, instance=request.user)
         formset = form(request.POST, instance=emp.user)
@@ -211,6 +215,8 @@ def main_form(request, emp_id):
             formset.save()
         if formset1.is_valid():
             formset1.save()
+        if form_user.is_valid():
+            form_user.save()
  
           
         return redirect('/profile' ,emp_id=emp_id)
@@ -266,15 +272,20 @@ def change_password(request):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = PasswordChangeForm(user=request.user)
+
     if request.method == 'POST':
-        form == PasswordChangeForm(request.POST )
+        form = PasswordChangeForm( request.user,request.POST)
         if form.is_valid():
-            form.save()
-        return redirect('/profile')
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('/profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
     else:
-        form = PasswordChangeForm(user=request.user)
-        return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator})
+        form = PasswordChangeForm(request.user)
+    return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator})
+
 def add_delete_projects(request):
     form = modelformset_factory(Project, fields=('name',),extra=0,can_delete=True)
     if request.user.is_authenticated:
@@ -326,3 +337,10 @@ def manage_project_images(request, proj_id):
     else:
         formset1 = form1(instance=project)
         return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator,'add_project_images':True})
+def news(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    objs = News.objects.all()
+    return render(request, "memslab/news.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator,'objs':objs })

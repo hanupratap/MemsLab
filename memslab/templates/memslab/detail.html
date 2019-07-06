@@ -7,14 +7,15 @@ Employee Details
 {% block body %}
 
 
-    <div class="container-fluid">
+<div class="container-fluid  ">
 <div class="row  ">
   <div class="container text-default z-depth-1 p-4 mt-5 col-11 border rounded_m_top grey lighten-5"><h3>Faculty Coordinator</h3></div>
-  <div class="container-fluid border border-top-0   grey lighten-5 col-11 rounded_m_bottom  mx-auto ">  <div class="row  animated bounceInLeft">  
+  <div class="container-fluid border border-top-0  grey lighten-5 col-11 rounded_m_bottom  ">  
+    <div class="row animated bounceInLeft">  
   {%for employee in employees%}
      {%if employee.coordinator %}
    
-     <div class="card border rounded_mn hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
+     <div class="card border  rounded_mn hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
          <div class="container  ">
          <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
            

@@ -25,12 +25,12 @@ Lab
             <div class="row ">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto  mb-5 p-5">
                     <div class=" row ">
-                      <div class="container ">  {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
+                      <div class="container col-12">  {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
                         <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
                      {% endthumbnail %}</div>
                       
-                     <div class="container mx-auto pl-5 pl-lg-0 col-12">     
-                      <button type="button" class=" btn btn-md btn-default  col-10 " data-toggle="modal" data-target="#changePic">
+                     <div class="container col-12">     
+                      <button type="button" class=" btn btn-md btn-default col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  " data-toggle="modal" data-target="#changePic">
                             Change Pic <i class="fas fa-edit"></i>
                           </button></div>
                    
@@ -66,14 +66,14 @@ Lab
                          </div>
                         </div>
                        {%endif%}
-                       <div class="profile-work  col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m">
-                        <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
-                        <div class="">   <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
-                        {%for d in empdet%}
-                        <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
-                        {%endfor%}</div>
-                     
-                    </div>
+                       <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 ">
+                          <p class="text-muted mt-5 font-weight-bold" style="font-size: 17px;">DETAIL </p>
+                          <div class=" font-weight-bold ">   <a class="cool-link   ml-3" style="font-size: 15px; " href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
+                          {%for d in empdet%}
+                          <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
+                          {%endfor%}</div>
+                       
+                      </div>
                       </div>
                    </div>
                    

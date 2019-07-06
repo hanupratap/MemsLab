@@ -27,7 +27,7 @@ DEBUG = True
 THUMBNAIL_DEBUG = True
 
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','192.168.1.3','127.0.0.1']
 
 
 # Application definition
@@ -164,4 +164,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('bitshydmemslab@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('microelectro@19')
-DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

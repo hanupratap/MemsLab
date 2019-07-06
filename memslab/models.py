@@ -13,12 +13,12 @@ class Departments(models.Model):
         return '%s' % (self.dep)
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete="models.CASCADE", null=True)
-    id_no = models.CharField(max_length=50, default='')
+    user = models.OneToOneField(User, on_delete="models.CASCADE")
+    id_no = models.CharField(max_length=50, blank=True)
     emp_pic = models.ImageField(upload_to='profile_image', \
         blank=True, default='profile_image/default_img.png')
-    researcher = models.BooleanField(default=False)
-    coordinator = models.BooleanField(default=False)
+    researcher = models.BooleanField(default=False, null=True)
+    coordinator = models.BooleanField(default=False, null=True)
     designation = models.CharField(max_length=20, null=True)
     education_short = models.CharField(max_length=500, null=True)
     department = models.ForeignKey(Departments, \
@@ -26,16 +26,20 @@ class Employee(models.Model):
     short_description = RichTextUploadingField(default='', blank=True)
     area_of_interest = models.TextField(blank=True)
     Chamber_Consultation_Hours = models.CharField(max_length=200, default='yet to announce')
-    #Employee working on project
     experience_in_years = models.PositiveIntegerField(default=0)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
     skype_link = models.URLField(blank=True)
     website_link =  models.URLField(blank=True)
     class Meta:
         verbose_name_plural = "Employees"
+
     def __str__(self):
         return '%s ' % (self.user.first_name + ' '+  self.user.last_name) 
 
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Employee.objects.create(user=instance)
+    post_save.connect(create_user_profile, sender=User)
 
 class Project_type(models.Model):
     name = models.CharField(max_length=500, default='')
@@ -104,3 +108,14 @@ class Employeedetails(models.Model):
         verbose_name_plural = "Employee Details"
     def __str__(self):
         return self.user.first_name
+
+class News(models.Model):
+    user = models.ForeignKey(Employee, on_delete='models.CASCADE',blank=True, null=True)
+    topic = models.CharField(max_length=300, blank=True)
+    entry = RichTextUploadingField(default='', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+    class Meta:
+        verbose_name_plural = "News"
+    def __str__(self):
+        return self.topic

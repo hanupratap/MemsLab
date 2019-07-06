@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^manage_projects/$', views.add_delete_projects, name='add_delete_projects'),
     url(r'^add_projects/$', views.add_projects, name='add_projects'),
     url(r'^manage_project_images/(?P<proj_id>[\d\-]+)/$', views.manage_project_images, name='manage_project_images'),
-
+    url(r'^news/$', views.news, name="news"),
     url(r'^watchman/', include('watchman.urls')),
 ]   

@@ -8,11 +8,12 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container col-8 text-left"><h1>Contact Us</h1></div>
+<div class="container-fluid col-12 text-left mt-5">
+  <h1 class="ml-3">Contact Us</h1>
 
  
-<div class="row col-12">
-    <div class="card mx-auto col-xl-8 col-lg-8 col-10 bg-dark text-light mb-4">
+<div class="row  ">
+    <div class="card mx-auto col-12 col-xl-10 bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Coordinator</h5>
           <p class="card-text "><h3>{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h3></p>
@@ -20,7 +21,7 @@ Lab
         
         </div>
       </div>
-    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
+    <div class="card mx-auto   col-12 col-xl-10 bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Address</h5>
           <p class="card-text "><div class="mx-auto map-responsive " style="min-height:500px;"><iframe title="Map" class="p-0 m-0 border " width="100%" height="500px" frameborder="10" style="border:0"
@@ -32,14 +33,14 @@ Lab
       </div>
   
 
-  <div class="card mx-auto  col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
+  <div class="card mx-auto  col-12 col-xl-10  bg-dark text-light mb-4">
       <div class="card-body ">
         <h5 class="card-title">Email</h5>
         <p class="card-text "><h2>{{coordinator.email}}</h2></p>
         <a class="card-link text-primary"  href="mailto:{{superuser_emails}}"><h5>{{coordinator.user.email}}</h5></a>
       </div>
     </div>
-    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
+    <div class="card mx-auto  col-12 col-xl-10  bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Contact No.</h5>
           <p class="card-text "><h4>{{coordinator.phone}}</h4></p>
@@ -48,7 +49,7 @@ Lab
       </div>
 
     {%if coordinator.skype_link%}
-        <div class="card mx-auto  col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
+        <div class="card mx-auto  col-12 col-xl-10 bg-dark text-light mb-4">
             <div class="card-body ">
               <h5 class="card-title">Skype</h5>
               <p class="card-text "></p>
@@ -59,7 +60,7 @@ Lab
           {%endif%}
           
     {%if coordinator.website_link%}
-    <div class="card mx-auto col-xl-8 col-lg-8 col-10  bg-dark text-light mb-4">
+    <div class="card mx-auto col-12 col-xl-10 bg-dark text-light mb-4">
         <div class="card-body ">
           <h5 class="card-title">Web</h5>
           <p class="card-text "></p>
@@ -69,5 +70,6 @@ Lab
       </div>
       {%endif%}
 
+</div>
 </div>
  {% endblock %}

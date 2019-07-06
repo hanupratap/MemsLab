@@ -6,6 +6,7 @@
 Lab
 {%endblock%}
 {% block body %}
+<div class="container-fluid" style="min-width: 900px;">
 <div class="container text-muted text-left ml-5 ">
         <small > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
@@ -30,30 +31,38 @@ Lab
 
 
 <div class="container col-12 pt-5">
-    <div class="container bg-light rounded p-5 ">
-        <h2> Information</h2><hr>
+
     <form method="post" style="font-size: 150%;" enctype= multipart/form-data>{% csrf_token %}
-    
+        <div class="container bg-light rounded p-5 mb-5">
+                <h1> Information</h1>
+                <hr>
         {%if form_main%}
         {{form_main|crispy}}
         {%endif%}
         {%if form%}
         {{form.media}}
         {{form|crispy }}   
+   
         {%endif%}
-        <hr>
-        {%if form1%}
-        <div class="text-muted mt-5  mx-auto"><h1>Set Topics</h1>
+    </div>
+        <hr>  {%if form1%}
+        <div class="container bg-light rounded p-5 mt-5 ">
+                <h1>Add Topics </h1>
+                <hr>
+      
+        <div class="text-muted mt-5  mx-auto">
         {{form1|crispy}}
         {%endif%}</div>
+    </div>
         <div class="text-right m-5">
             <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
         </div>
   
     </form>
 
-    </div>
 
+
+</div>
 </div>
 </div>
 {% endblock %}

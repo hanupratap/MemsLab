@@ -10,13 +10,15 @@ Lab
         <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
 {% if user.is_authenticated and employee.user.id == user.id%}
-<div class="container-fluid mt-5 ">
-  <div class="container-fluid text-left"><a href="{% url 'memslab:form' employee.id %}" ><button  class="btn btn-sm btn-outline-primary waves-effect ml-0"  >Edit <i class="fas fa-edit"></i>
+<div class="container-fluid   ">
+    <div class="container-fluid  text-right"><a href="{% url 'memslab:register'%}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
+    </button></a></div>
+  <div class="container-fluid text-left p-1 mt-5"><a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
 </button></a></div>
-<div class="container-fluid text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
-
 </div>
-
+{%endif%}
+{%if request.user.is_superuser%}
+<div class="container-fluid p-1 text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
 {%endif%}
     <div class="container  col-12 col-xl-10  z-depth-0 mx-auto rounded_m  border  "  >
  
@@ -24,14 +26,14 @@ Lab
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto">
                     <div class="row ">
                          <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                                <img src="{{ im.url }}"  class="rounded-circle border-0 prof_pic col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+                                <img src="{{ im.url }}"  class="rounded-circle border-0   col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
                              {% endthumbnail %}
                             
                         
                             </div>
                           
                         <div class="container col-12">     
-                          <button type="button" class=" btn btn-md btn-default  col-10 " data-toggle="modal" data-target="#changePic">
+                          <button type="button " class=" btn btn-md btn-default  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  " data-toggle="modal" data-target="#changePic">
                                 Change Pic <i class="fas fa-edit"></i>
                               </button></div>
                        
@@ -65,9 +67,9 @@ Lab
                           </div>
 
                         {%endif%}
-                        <div class="profile-work  col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m">
-                            <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
-                            <div class="">   <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
+                        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 ">
+                            <p class="text-muted mt-5 font-weight-bold" style="font-size: 17px;">DETAIL </p>
+                            <div class=" font-weight-bold ">   <a class="cool-link   ml-3" style="font-size: 15px; " href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
                             {%for d in empdet%}
                             <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
                             {%endfor%}</div>
@@ -151,8 +153,8 @@ Lab
                  
                         </div>
                         {%if employee.short_description%}
-                        <div class="container-fluid mb-5 bg-white">
-                        <div class="row mt-5 rounded_m border p-5">
+                        <div class="container-fluid mb-5 bg-white rounded_m ">
+                        <div class="row mt-5 border p-5 rounded_m">
                             <div class=" text-muted col-12" ><h2>Description- </h2></div>
                             <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
                           </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from memslab.models import Employee,Project,Employeedetails,Employee_details_topic,Departments,project_image,Project_type
+from memslab.models import Employee,Project,Employeedetails,Employee_details_topic,Departments,project_image,Project_type, News
 from django.contrib.auth.models import Group
 from django import forms
 # Register your models here.
@@ -24,7 +24,6 @@ admin.site.register(Employee_details_topic, Emp_details_topics)
 admin.site.register(Departments)
 admin.site.register(project_image)
 admin.site.register(Project_type)
-admin.site.unregister(Group)
+admin.site.register(News)
 
 
-admin.site.site_url = "/memslab"

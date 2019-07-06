@@ -12,18 +12,18 @@ Lab
 <br> 
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
-<div class="text-right container-fluid col-12 "><a href="{%url 'memslab:add_delete_projects'%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>       
+<div class="text-right container-fluid col-12 pb-5 "><a href="{%url 'memslab:add_delete_projects'%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>       
 {%endif%} 
 {%endif%} 
 
 
-<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10 align-items-center">
+<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  align-items-center p-xl-4">
 
   {%for project in projects%}
-  {% thumbnail project.project_pic '600x600' as im %}
+  {% thumbnail project.project_pic '500x500' as im %}
   <div class="item pr-5 hidden  " >
     <a href="{%url 'memslab:show_projects' project.id %}" data-toggle="tooltip" title="{{project.specializaiton}}">
-      <img src="{{im.url|resolution:'1.5x'}}" alt="{{project.id}}"  class="rounded ml-lg-5 ml-md-4 ml-sm-4 ml-4 "/>
+      <img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}"  class="rounded ml-lg-5 ml-md-4 ml-sm-4 ml-4 "/>
       <figcaption class=" top-left "><h2 class="bottom-left" style="word-wrap: break-word;">{{project.name}}</h2></figcaption>
     </a>
   </div>
@@ -38,14 +38,14 @@ Lab
     <br>
 </div>
 
-<div class=" container-fluid border   col-xl-10 col-11 p-4  rounded mb-5 mt-5 mx-auto  project_list_title z-depth-1  grey lighten-5" ><h2>Projects List</h2></div>
+<div class=" container-fluid border   col-xl-10 col-11 p-4  rounded mb-5 mt-5 mx-auto   project_list_title  z-depth-1  grey lighten-5" ><h2>Projects List</h2></div>
 
 
-<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m hoverable "> 
-    <div class=" container-fluid rounded_m_top grey lighten-5  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" style="cursor: pointer;" ><h4 class="text-muted pt-4 pb-0 pl-3  ">Ongoing <i class="far fa-caret-square-right  ongoing" ></i></h4>
+<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m  depth_toggle grey lighten-5 shadow_blue"> 
+    <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" style="cursor: pointer;" ><h3 class="text-muted pt-4 pb-0 pl-3  ">Ongoing <i class="far fa-caret-square-right  ongoing" ></i></h3>
       <div class="text-right"><i class="fas fa-caret-down"></i> </div>
      </div>
-    <div class="container-fluid collapse" id="collapseExample" > 
+    <div class="container-fluid collapse  " id="collapseExample" > 
       <div class="row unselectable col-12 pb-5 pt-5  " > 
   {%for project in projects%}
   {% if project.status == 0 %}
@@ -57,8 +57,8 @@ Lab
      
      
         <div style=" display: inline-block; overflow: hidden; "> 
-            {% thumbnail project.project_pic "300x200" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
+            {% thumbnail project.project_pic "200x200" crop="center" as im %}
+            <img src="{{im.url|resolution:'2x'}}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
         {% endthumbnail %}
         </div> <br>
   <span class=" overflow-auto  text-center"><h4>{{project.name}}</h4></span> 
@@ -79,11 +79,11 @@ Lab
 </div>
    
 </div>
-    <div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m hoverable "> 
-        <div class=" container-fluid rounded_m_top grey lighten-5  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" style="cursor: pointer;" ><h4 class="text-muted text-left pt-4 pb-0 pl-3 ">Completed <i class="fas fa-check Completed" ></i></h4>
+    <div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m depth_toggle  grey lighten-5 shadow_blue"> 
+        <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" style="cursor: pointer;" ><h3 class="text-muted text-left pt-4 pb-0 pl-3 ">Completed <i class="fas fa-check Completed" ></i></h3>
            <div class="text-right"><i class="fas fa-caret-down"></i> </div>
           </div>
-        <div class="container-fluid collapse" id="collapseExample1" > 
+        <div class="container-fluid collapse " id="collapseExample1" > 
           <div class="row unselectable col-12    pb-5 pt-5" > 
       {%for project in projects%}
       {% if project.status == 1 %}
