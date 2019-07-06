@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from memslab.models import Employee, Employeedetails, Employee_details_topic
+from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm)
+from memslab.models import Employee, Project
 
 
 
@@ -23,7 +23,14 @@ class ProfilePic(forms.ModelForm):
         model = Employee
         fields = ('emp_pic',)
         
-class topic(forms.ModelForm):
+class EditUserForm(UserChangeForm):
     class Meta:
-        model = Employee_details_topic
-        fields = ('topic',)
+        model = User
+        fields = (
+            'email','first_name','last_name',
+        )
+
+class Project_add(forms.ModelForm):
+    class Meta:
+        model = Project
+        exclude = []

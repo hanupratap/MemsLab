@@ -38,7 +38,7 @@
 
 </head>
 
-<body class=" rgba-grey-slight">
+<body class=" grey lighten-4 ">
 
  
 
@@ -74,20 +74,20 @@
         <ul class="navbar-nav mr-auto " style="padding-right: 20px;">
           <li class="nav-item ">
           
-            <a class="nav-link text-muted waves-effect  {%if request.path == '/memslab/'%} active1 {%endif%}" style="border-radius: 25px;" href="{% url 'memslab:index' %}" id="navlink"> <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i>Home</a>
+            <a class="nav-link text-muted waves-effect  {%if request.path == '/'%} active1 {%endif%}" style="border-radius: 25px;" href="{% url 'memslab:index' %}" id="navlink"> <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i>Home</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/detail/'%}active1{%endif%}" style="border-radius: 25px;" href="{%url 'memslab:detail' %}" id="navlink"> <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
+            <a class="nav-link text-muted waves-effect {%if request.path == '/detail/'%}active1{%endif%}" style="border-radius: 25px;" href="{%url 'memslab:detail' %}" id="navlink"> <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/about/'%}active1{%endif%}" style="border-radius: 25px;" href="{%url 'memslab:about' %}" id="navlink"> <i class="far fa-id-badge"> &nbsp;</i>Contact</a>
+              <a class="nav-link text-muted waves-effect {%if request.path == '/about/'%}active1{%endif%}" style="border-radius: 25px;" href="{%url 'memslab:about' %}" id="navlink"> <i class="far fa-id-badge"> &nbsp;</i>Contact</a>
             </li>
           {% if user.is_authenticated%}
           <li class="nav-item " id="navlink">
-            <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/profile/'%} active1 {%endif%}" style="border-radius: 25px;" href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
+            <a class="nav-link text-muted waves-effect {%if request.path == '/profile/'%} active1 {%endif%}" style="border-radius: 25px;" href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
             {%else%}
             <li class="nav-item">
-              <a class="nav-link text-muted waves-effect {%if request.path == '/memslab/login/'%} active1 {%endif%}" href="{%url 'memslab:login'%}" style="border-radius: 25px;"><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
+              <a class="nav-link text-muted waves-effect {%if request.path == '/login/'%} active1 {%endif%}" href="{%url 'memslab:login'%}" style="border-radius: 25px;"><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
               {%endif%}
             </li>
  
@@ -187,7 +187,7 @@
 </footer>
    
              
-                <section style="height:80px;"> <div class="text-muted text-right "><small>Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></div></section>
+                <section style="height:80px;" class="text-bottom"> <div class="text-muted text-right  "><small>Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></div></section>
                
 </div>
 <!--JavaScript at end of body for optimized loading-->
@@ -266,19 +266,28 @@ $(window).on('load', function () {
   
     </script>
 
-    
 <script>
 
 new WOW().init();
 </script>
 <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
+(function($) {
+    var $window = $(window),
+        $html = $('gallerly-container');
+
+    function resize() {
+        if ($window.width() < 514) {
+            return $html.addClass('collapse');
+        }
+
+        $html.removeClass('mobile');
     }
-  </script>
+
+    $window
+        .resize(resize)
+        .trigger('resize');
+})(jQuery);</script>
+  
 </body>
 
 </html>

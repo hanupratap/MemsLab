@@ -20,6 +20,7 @@ class Employee(models.Model):
     researcher = models.BooleanField(default=False)
     coordinator = models.BooleanField(default=False)
     designation = models.CharField(max_length=20, null=True)
+    education_short = models.CharField(max_length=500, null=True)
     department = models.ForeignKey(Departments, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
     short_description = RichTextUploadingField(default='', blank=True)
@@ -33,7 +34,7 @@ class Employee(models.Model):
     class Meta:
         verbose_name_plural = "Employees"
     def __str__(self):
-        return '%s' % (self.user)
+        return '%s ' % (self.user.first_name + ' '+  self.user.last_name) 
 
 
 class Project_type(models.Model):
@@ -45,7 +46,6 @@ class Project_type(models.Model):
 
 
 class Project(models.Model):
-    
     name = models.CharField(max_length=500, default='')
     specializaiton = models.ForeignKey(Project_type, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
@@ -54,23 +54,15 @@ class Project(models.Model):
     project_pic = models.ImageField(upload_to='project_image', blank=True)
     STATUS = ((0, 'Ongoing'), (1, 'Completed'))
     status = models.PositiveSmallIntegerField(choices=STATUS, default=0)
-    Person1 = models.ForeignKey(User, on_delete=models.DO_NOTHING, \
-        related_name="first_proj", null=True, blank=True)
-    Person2 = models.ForeignKey(User, on_delete=models.DO_NOTHING,\
-         related_name="second_proj", null=True, blank=True)
-    Person3 = models.ForeignKey(User, on_delete=models.DO_NOTHING, \
-        related_name="third_proj", null=True, blank=True)
-    Person4 = models.ForeignKey(User, on_delete=models.DO_NOTHING, \
-        related_name="forth_proj", null=True, blank=True)
-    Person5 = models.ForeignKey(User, on_delete=models.DO_NOTHING, \
-        related_name="fifth_proj", null=True, blank=True)
     budget = models.CharField(max_length=200, default=None, blank=True)
     def __str__(self):
         return self.name
+    people = models.ManyToManyField(Employee)
     sponsoring_agency = models.CharField(max_length=200, default='')
     proj_file = models.FileField(upload_to='project_files', null=True, blank=True) 
     def filename(self):
         return os.path.basename(self.proj_file.name)
+
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:

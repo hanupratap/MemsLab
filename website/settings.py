@@ -27,7 +27,7 @@ DEBUG = True
 THUMBNAIL_DEBUG = True
 
 
-ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
 # Application definition
@@ -146,7 +146,7 @@ STATICFILES_DIRS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = '/memslab'
+LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
 
@@ -157,3 +157,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('bitshydmemslab@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('microelectro@19')
+DEFAULT_FROM_EMAIL  = EMAIL_HOST_USER

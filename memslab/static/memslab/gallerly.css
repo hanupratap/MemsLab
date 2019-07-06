@@ -17,7 +17,7 @@
 
 #gallerly .image-viewer .preview {
   position: absolute;
-  width: 95%;
+  width: 100%;
   left: auto;
   right: auto;
   padding-left: 10px;
@@ -40,7 +40,18 @@ display: none;
   top: 50%;
   margin-right: 15px;
 }
+@media (max-width: 1400px) { 
+  #gallerly .image-viewer .preview img{ 
+    float: left;
+    height: 250px;
+    width: auto;
+    border-radius: 1px;
+    margin: 2%;
+    top: 50%;
+    margin-right: 10px;
 
+  } 
+} 
 
 
 #gallerly .image-viewer > a > img {

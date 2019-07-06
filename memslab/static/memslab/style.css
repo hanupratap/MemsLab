@@ -18,7 +18,7 @@
 
 }
 .profile-img{
-  
+  box-sizing: border-box;
   background: transparent;
 }
 .profile-img img{
@@ -59,14 +59,14 @@
   border-bottom:2px solid #0062cc;
 }
 .profile-work{
-  padding: 14%;
-  margin-top: -15%;
+  padding: 0;
+  margin-top: 0;
 }
 .profile-work p{
   font-size: 13px;
 
   font-weight: 600;
-  margin-top: 10%;
+  margin-top: 0%;
 }
 .profile-work a{
   text-decoration: none;
@@ -88,6 +88,14 @@
 .rounded_m {
   border-radius: 10px!important;
 }
+.rounded_m_bottom {
+border-bottom-left-radius: 10px!important;  
+border-bottom-right-radius: 10px!important;
+}
+.rounded_m_top {
+  border-top-left-radius: 10px!important;  
+  border-top-right-radius: 10px!important;
+  }
 .rounded_mn {
   border-radius: 25px!important;
 }
@@ -209,9 +217,8 @@
 
 .active1
 { 
-  background: rgba(0, 0, 0, 0.055);
+  background: rgba(0, 0, 0, 0.13);
   border-radius: 25px;
-
 }
 .faculty_card a
 { color: black;
@@ -221,6 +228,7 @@
 .faculty_card
 {
   padding:10px;
+ 
   transition: 0.2s;
   background-size: 200% auto;
   font-family: 'Lato';
@@ -235,8 +243,9 @@
 
 .faculty_card:hover
 {  transition: transform 0.2s;
+  
   transform: scale(1,1);
-  padding:10px;
+
   filter: brightness(1);
   background-position: right center;
   transform: scale(1.1);
@@ -276,7 +285,7 @@
 {
   transition: all 0.3s;
   color: #292c2f;
-  cursor:pointer;
+
   width: 18rem;
 
 }
@@ -284,7 +293,7 @@
   .project_cards
 {
   transition: all 0.3s;
-  cursor:pointer;
+   
   width: 13rem;
   left: auto;
   right: auto;
@@ -600,5 +609,31 @@ body {margin:0;
 }
 
 .table th, .table td { 
-  border-top: none !important; 
+  border-top: none !important;
+ 
+}
+.second-table th, .second-table td{
+  min-width: 200px; 
+}
+
+.category_desc
+{
+  overflow: hidden;
+  word-wrap: break-word;
+}
+@media only screen and (max-width: 500px) {
+  .category_desc
+{
+  overflow: scroll;
+  word-wrap: none;
+}
+}
+
+ 
+ @media (min-width: 1206px) {
+  .collapse.dont-collapse-sm {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
 }

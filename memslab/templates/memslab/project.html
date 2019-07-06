@@ -5,11 +5,18 @@
 {{project.name}}
 {%endblock%}
 {% block body %}
-<div class="display-4 text-muted container mb-5">Gallery</div>
-<div class="container col-xl-6 col-lg-8 col-md-10 col-xs-12 ">
-<div id="gallerly" >
+{% if user.is_authenticated%}
+{%if not employee.researcher%}
+<div class="text-right container-fluid col-12 "><a href="{%url 'memslab:manage_projects' project.id%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Edit Project</button></a></div>       
+{%endif%} 
+{%endif%} 
+
+<div class="container-fluid border rounded_m col-xl-8 col-lg-8 col-md-10 col-xs-12" > 
+<div class="display-4 text-muted container p-3" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Gallery <i class="fas fa-chevron-circle-down"></i></div>
+<div class="container  mx-auto  collapse dont-collapse-sm" id="collapseExample" > 
+<div id="gallerly" class="mb-5"  >
         
-    <div class="image-viewer ">
+    <div class="image-viewer mx-auto ">
 
       {% thumbnail project.project_pic "800x800" crop="center" as im %}
       <a class="thumbnail "><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.description}}" class="rounded border z-depth-1"/></a>
@@ -36,7 +43,7 @@
 
               <h3 class="title"></h3>
 
-              <span class="description"></span>
+              <span class="description "></span>
 
             </div>
 
@@ -53,29 +60,34 @@
   </div>
 </div>
 </div>
-
+</div>
 <div class="jumbotron mt-5 z-depth-0 bg-transparent project_jumbotron " style="z-index: -2; min-height:700px; color: white; background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}});   background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
 background-size: cover;">
         <h2 class="display-4 ">{{project.name}}</h2>
-        <p class="lead ">{{project.description}}</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+       
+        <p class="lead ">{{project.specializaiton}}</p>
+        <hr class="my-4 ">
+        <p class="p-2">{{project.short_description}}</p>
         <br><br>
         <h3 style="color: rgba(255, 255, 255, 0.664);">Funding Agency : {{project.sponsoring_agency}}</h3>
         <h4 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Total Funds : <i class="fas fa-rupee-sign"></i> {{project.budget}}</h4> 
 <br>
        
       </div>
-
-      <div class="container">
+      <div class="container-fluid mt-5 col-10 text-left mx-auto"><h2>Description</h2></div>
+      <div class="container col-xl-10 col-11 mt-5 border rounded_m p-5 bg-white ">
+          {{project.description|safe}}
+        </div>
+      <div class="container mt-5 ">
         <h1 class="text-muted"> ->People working on this project</h1>
-
+        
+<div class="container">
+</div>
         <div class="text-default  mt-4"><h2>Faculty</h2> </div>
         <div class="card-deck"> 
-        {%for employee in employees%}
-        {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
+        {%for employee in project.people.all%}
         {%if not employee.researcher%}
        <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
             <div class="card border  hoverable faculty_card roundedw juicy-peach-gradient color-block  mask waves-effect " >
@@ -94,7 +106,7 @@ background-size: cover;">
             
           
              
-            <div class="card-body rounded_m">
+            <div class="card-body  ">
                 <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
           
                 <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
@@ -104,41 +116,41 @@ background-size: cover;">
           </div>
           </div>
           </div>
-          {%endif%}
         {%endif%}
         {%endfor%}
       </div>
         <div class="text-default mt-4"><h2>Students</h2> </div>
         <div class="card-deck"> 
-        {%for employee in employees%}
-        {%if employee.user == project.Person1 or employee.user == project.Person2 or employee.user == project.Person3 or employee.user == project.Person5 or employee.user == project.Person5%}
-        {%if employee.researcher%}
-        <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
-            <div class="card border  hoverable faculty_card rounded cloudy-knoxville-gradient color-block  mask waves-effect animated BounceInRight" >
-                <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-                <div class="text-center">
-                
-                      {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
-                      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-                      {% endthumbnail %}
-          
-                  <hr class="featurette-divider">
-            </div>
-          
+            {%for employee in project.people.all%}        
+            {%if employee.researcher%}
+        <div class="row  col-12 col-lg-4 col-md-5 col-sm-12   ">
+          <div class="card border  hoverable faculty_card roundedw cloudy-knoxville-gradient  color-block  mask waves-effect " >
+            <div class="container p-0">
+            <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+
+              <div class="text-center">
             
-          
-             
-            <div class="card-body rounded_m">
-                <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
-          
-                <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
-              </div>
-          
-            </a>
+                  {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                  {% endthumbnail %}
+      
+              <hr class="featurette-divider">
+        </div>
+      
         
+      
+         
+        <div class="card-body  ">
+            <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
+      
+            <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
           </div>
+      
+        </a>
+      </div>
+      </div>
           </div>
-          {%endif%}
+
         {%endif%}
         {%endfor%}
       </div>

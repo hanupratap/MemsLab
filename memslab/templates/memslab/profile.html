@@ -10,34 +10,37 @@ Lab
         <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
 {% if user.is_authenticated and employee.user.id == user.id%}
-<div class="row mb-5">
-<div class="container col-2 ml-5 text-left"><a href="{% url 'memslab:form' employee.id %}" ><div  class="btn btn-md btn-outline-primary waves-effect "  >Edit <i class="fas fa-edit"></i>
-  </div></a></div>
+<div class="container-fluid mt-5 ">
+  <div class="container-fluid text-left"><a href="{% url 'memslab:form' employee.id %}" ><button  class="btn btn-sm btn-outline-primary waves-effect ml-0"  >Edit <i class="fas fa-edit"></i>
+</button></a></div>
+<div class="container-fluid text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
+
 </div>
+
 {%endif%}
-    <div class="container  col-11  z-depth-0 mx-auto rounded  cloudy-knoxville-gradient border  mb-5"  >
+    <div class="container  col-12 col-xl-10  z-depth-0 mx-auto rounded_m  border  "  >
  
-            <div class="row p-5 ">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto">
-                    <div class="row">
+            <div class="row ">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto">
+                    <div class="row ">
                          <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                                <img src="{{ im.url }}"  class="rounded-circle border-0 prof_pic col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
-                             {% endthumbnail %}</div>
-                          
+                                <img src="{{ im.url }}"  class="rounded-circle border-0 prof_pic col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+                             {% endthumbnail %}
+                            
                         
-                    
+                            </div>
+                          
+                        <div class="container col-12">     
+                          <button type="button" class=" btn btn-md btn-default  col-10 " data-toggle="modal" data-target="#changePic">
+                                Change Pic <i class="fas fa-edit"></i>
+                              </button></div>
+                       
 
                      
                          {% if user.is_authenticated and employee.user.id == user.id%}
-                         <div class='col-xl-10  col-lg-10 col-md-12 col-xs-10 col-sm-8 '> 
-                    
-                            <button type="button" class="file btn btn-md btn-default  " data-toggle="modal" data-target="#changePic">
-                                    Change Pic <i class="fas fa-edit"></i>
-                                  </button>
-
-                            <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
-                            <div class="modal-dialog modal-full-height modal-top" role="document">
-                              <div class="modal-content">
+                            <div class="modal fade text-muted p-0 " id="changePic" tabindex="0" role="dialog" aria-labelledby="label" aria-hidden="true">
+                            <div class="modal-dialog modal-top modal-md" role="document">
+                              <div class="modal-content p-2">
                                 <div class="modal-header">
                                   <h5 class="modal-title " id="label">Change profile Pic</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -48,50 +51,50 @@ Lab
                                     {% csrf_token %}
                                     <br>
                                      {{change_pic|crispy}}
-                                <div class="modal-body">
-
+                                <div class="modal-body col-xl-12">
+                                    High quality images are always favourable
                                 </div>
                                 <div class="modal-footer">
-                                  <button class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                  <button class="btn btn-outline-primary waves-effect btn-md" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary btn-md">Save changes</button>
                                 </div>
                                 </form>
                                 <hr>
                               </div>
                             </div>
                           </div>
-                        </div>
+
                         {%endif%}
-                        <div class="profile-work  col-12">
+                        <div class="profile-work  col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m">
                             <p class="text-muted mt-5" style="font-size: 17px;">DETAIL </p>
-                            
-                            <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
+                            <div class="">   <a class="cool-link  ml-3" style="font-size: 15px;" href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
                             {%for d in empdet%}
                             <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
-                            {%endfor%}
+                            {%endfor%}</div>
+                         
                         </div>
                       
                   
                     </div>
                 </div>
-                <div class="container col-xl-9 col-lg-8 col-md-12 ">         
+                <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3" >         
                  <div class="row"> 
-                   <div class="container">          
+                   <div class="container col-11 rounded_m border mt-5 p-5 bg-white">          
 
-                      <p><h1  style="word-wrap: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</h1><hr>
+                      <p><h1   style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}} {{employee.user.last_name}}</h1> 
                       <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br></h2>
                    </div>
 
-                   <div class="container mt-5">
-                      <nav>
+                   <div class="container col-11 mt-5 ">
+                      <nav >
                           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h4>About</h4></a>
-                            <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h4>Timeline</h4></a>
+                            <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h5>About</h5></a>
+                            <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h5>Timeline</h5></a>
                           </div>
                         </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab"> 
-                      <table class="table   table-responsive-lg " >
+                        <div class="tab-content border border-top-0 rounded_m_bottom bg-white" id="nav-tabContent">
+                          <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab"> 
+                      <table class="table  table-responsive-lg " >
                           <tbody >
                                   {% if user.is_authenticated and employee.user.id == user.id%}
                                   <tr>
@@ -120,7 +123,7 @@ Lab
                   </div>
                     
                   <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> <table class="table table-transparent rounded table-responsive-lg"> 
-                          <tbody>
+                          <tbody class="second-table rounded_m ">
                                
                                   <tr>
                                     <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
@@ -128,11 +131,11 @@ Lab
                                   </tr>
                              
                                   <tr>
-                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Present Projects</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{projs}}</td>
+                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Education</th>
+                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.education_short}}</td>
                                   </tr>
                                   <tr>
-                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Chamber Consultation Hours</th>
+                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:17px;">Chamber Consultation Hours</th>
                                       <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.Chamber_Consultation_Hours}}</td>
                                   </tr>
                                   <tr>
@@ -145,29 +148,23 @@ Lab
                                 </tbody>
                       </table>
                   </div>
-                  <div class="row mt-5">
-                      <div class=" text-muted col-12" ><h2>Short Description- </h2></div>
-                      <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
-                    </div>
-                        </div>
-                   </div>
-             </div>
-                
-      
-                  </div>
-           
-               
-                       
                  
-                       {% if user.is_authenticated and employee.user.id == user.id%}
-                       <div class="col-12"><a href="{% url 'memslab:logout'%}" class="px-5"><button type="button" class="btn btn-danger "  >Logout</button></a></div>
-
-     {%endif%}
-
-    </div>
+                        </div>
+                        {%if employee.short_description%}
+                        <div class="container-fluid mb-5 bg-white">
+                        <div class="row mt-5 rounded_m border p-5">
+                            <div class=" text-muted col-12" ><h2>Description- </h2></div>
+                            <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
+                          </div>
+                        </div>
+                          {%endif%}
+                   </div>
+             </div></div>    </div>
 
 </div>
-{% if user.is_authenticated and employee.user.id == user.id%}
-<div class=" p-3 text-right container col-6 mr-5"><a class="btn  btn-warning text-primary " href="{%url 'admin:index' %}" >Admin <i class="fas fa-external-link-alt"></i></a></div>
-{%endif%}
+<div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
+<div class="col-12"><a href="{% url 'memslab:logout'%}" class="px-0"><button type="button" class="btn btn-danger btn-lg "  >Logout</button></a></div>
+
+{%endif%}</div>
+
 {% endblock %}

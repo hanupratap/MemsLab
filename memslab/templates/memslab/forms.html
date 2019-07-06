@@ -12,38 +12,48 @@ Lab
 {% if user.is_authenticated and employee.user.id == user.id%}
  <div class="sticky-top text-right container-fluid"><a class="btn btn-sm btn-warning text-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
 {%endif%}
-<div class="container" style="min-width: 1200px;">
+<div class="container col-xl-10" style="min-width: 600px;">
     
 
 
-<div class="col-10 mb-5"><h1>Edit Profile</h1><hr></div>
-<div class="container-fluid ">
+
+{%if projects%}
+<div class="col-12 mb-5  "><h1>Manage Projects</h1><hr></div>
+<a href="{%url 'memslab:add_projects'%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Add projects</button></a>
+{%else%}
+<div class="col-12 mb-5  "><h1>Edit Page</h1><hr></div>
+{%endif%}
+
+{%if manage_project_images%}
+<a href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Manage_project_images</button></a>
+{%endif%}
+
+
+<div class="container col-12 pt-5">
     <div class="container bg-light rounded p-5 ">
-        <h2>Personal Information</h2><hr>
-    <form method="POST" class="post-form">{% csrf_token %}
-    <h4>
-      
-        <div class="col-12">
-        
-        {{form.media}}
-        {{form|crispy }}    </h4>
-           
-   
+        <h2> Information</h2><hr>
+    <form method="post" style="font-size: 150%;" enctype= multipart/form-data>{% csrf_token %}
     
-        {%if form1%}
-        Topics for Details<br>
-       {{form1|crispy}}
+        {%if form_main%}
+        {{form_main|crispy}}
         {%endif%}
-        <hr></div>
-        
+        {%if form%}
+        {{form.media}}
+        {{form|crispy }}   
+        {%endif%}
+        <hr>
+        {%if form1%}
+        <div class="text-muted mt-5  mx-auto"><h1>Set Topics</h1>
+        {{form1|crispy}}
+        {%endif%}</div>
         <div class="text-right m-5">
             <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
         </div>
   
     </form>
-    </div>
-</div>
-</div>
-<hr class="m-5 col-10 mx-auto">
 
+    </div>
+
+</div>
+</div>
 {% endblock %}

@@ -17,10 +17,19 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls , name='admin'),
     url(r'^ckeditor/',include('ckeditor_uploader.urls')),
+    url(r'^reset-password/$', auth_views.PasswordResetView.as_view(\
+        template_name='memslab/password_reset.html', success_url=reverse_lazy('password_reset_done')), name='memslab:password_reset'),
+    url(r'^reset-password/done/$', auth_views.PasswordResetDoneView.as_view(\
+        template_name='memslab/password_reset_done.html'), name='password_reset_done'),
+    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.PasswordResetConfirmView.as_view(\
+        template_name='memslab/password_reset_confirm.html'), name='memslab:password_reset_confirm'),
+    
     url(r'^', include('memslab.urls')),
 ]
 
