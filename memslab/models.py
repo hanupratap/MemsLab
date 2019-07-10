@@ -1,6 +1,6 @@
 import os
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -13,7 +13,7 @@ class Departments(models.Model):
         return '%s' % (self.dep)
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete="models.CASCADE")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     id_no = models.CharField(max_length=50, blank=True)
     emp_pic = models.ImageField(upload_to='profile_image', \
         blank=True, default='profile_image/default_img.png')
@@ -75,7 +75,7 @@ def create_profile(sender, **kwargs):
     post_save.connect(create_profile, sender=user)
 
 class project_image(models.Model):
-    project = models.ForeignKey(Project ,on_delete="models.DO_NOTHING", \
+    project = models.ForeignKey(Project ,on_delete=models.DO_NOTHING, \
         blank=True, null=True)
     pic = models.ImageField(upload_to='project_image', blank=True)
     title = models.CharField(max_length=100, default='')
@@ -97,7 +97,7 @@ class Employee_details_topic(models.Model):
 
 
 class Employeedetails(models.Model):
-    user = models.ForeignKey(User, on_delete="models.DO_NOTHING", \
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, \
         blank=True, null=True)
     topic = models.ForeignKey(Employee_details_topic, \
         on_delete=models.DO_NOTHING, blank=False, null=True)
@@ -110,12 +110,15 @@ class Employeedetails(models.Model):
         return self.user.first_name
 
 class News(models.Model):
-    user = models.ForeignKey(Employee, on_delete='models.CASCADE',blank=True, null=True)
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE,blank=True, null=True)
     topic = models.CharField(max_length=300, blank=True)
     entry = RichTextUploadingField(default='', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+    pic = models.ImageField(upload_to='project_image', blank=True)
+    summary = models.TextField(blank=True)
     class Meta:
         verbose_name_plural = "News"
     def __str__(self):
         return self.topic
+

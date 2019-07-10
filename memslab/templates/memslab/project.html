@@ -7,19 +7,19 @@
 {% block body %}
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
-<div class="text-right container-fluid col-12  "><a href="{%url 'memslab:manage_projects' project.id%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Edit Project</button></a></div>       
+<div class="text-left mt-3 container col-12  "><a href="{%url 'memslab:manage_projects' project.id%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Edit Project</button></a></div>       
 {%endif%} 
 {%endif%} 
 
-<div class="container-fluid border rounded_m col-xl-8 col-lg-8 col-md-10 col-xs-12 pt-5 mt-5 pb-5 bg-white" style="cursor: pointer;"> 
-<div class="display-4 text-muted  container p-3" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="gallerly-collapsible">Gallery </div>
+<div class="container-fluid border shadow-sm rounded_m col-xl-8 col-lg-8 col-md-10 col-xs-12 pt-5 mt-5 pb-5 bg-white" style="cursor: pointer;"> 
+<div class="  text-muted text-left container p-3" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="gallerly-collapsible"><h1>Gallery <i class="fas fa-caret-down"></i> </h1></div>
 <div class="container  mx-auto show collapse " id="collapseExample" > 
 <div id="gallerly" class="mb-5 "  >
         
     <div class="image-viewer mx-auto ">
 
       {% thumbnail project.project_pic "800x800" crop="center" as im %}
-      <a class="thumbnail "><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.description}}" class="rounded border z-depth-1"/></a>
+      <a class="thumbnail "><img src="{{im.url}}" data-title="{{project.name}}" data-description="{{project.short_description}}" class="rounded border z-depth-1"/></a>
       {% endthumbnail %}
       {%for image in images%}
       {% thumbnail image.pic "800x800" crop="center" as im %}
@@ -61,7 +61,7 @@
 </div>
 </div>
 </div>
-<div class="jumbotron mt-5 z-depth-0 bg-transparent project_jumbotron " style="z-index: -2; min-height:700px; color: white; background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}});   background-repeat: no-repeat;
+<div class="jumbotron mt-5  bg-transparent project_jumbotron " style="z-index: -2; min-height:700px; color: white; background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}});   background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
 background-size: cover;">
@@ -76,21 +76,24 @@ background-size: cover;">
 <br>
        
       </div>
-      <div class="container-fluid mt-5 col-10 text-left mx-auto"><h2>Description</h2></div>
-      <div class="container col-xl-10 col-11 mt-5 border rounded_m p-5 bg-white table-responsive" >
+      <div class="container-fluid mt-5 col-10 text-left mx-auto"><h1>Description</h1></div>
+      <div class="container shadow-sm  col-xl-10 col-11 mt-5 border rounded_m p-5 bg-white table-responsive" >
           {{project.description|safe}}
         </div>
       <div class="container mt-5 ">
-        <h1 class="text-muted"> ->People working on this project</h1>
+        <h2 class="text-muted"> ->People working on this project</h2>
         
 <div class="container">
 </div>
+
         <div class="text-default  mt-4"><h2>Faculty</h2> </div>
         <div class="card-deck"> 
         {%for employee in project.people.all%}
         {%if not employee.researcher%}
        <div class="row col-12 col-lg-4 col-md-5 col-sm-12  ">
-            <div class="card border  hoverable faculty_card roundedw juicy-peach-gradient color-block  mask waves-effect " >
+         {%if employee%}
+      
+            <div class="card  shadow-sm border  hoverable faculty_card roundedw deep-blue-gradient color-block  mask waves-effect " >
                 <div class="container p-0">
                 <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
 
@@ -116,6 +119,10 @@ background-size: cover;">
           </div>
           </div>
           </div>
+          {%else%}
+          <h1>NONE</h1>
+          {%endif%}
+              
         {%endif%}
         {%endfor%}
       </div>
@@ -123,8 +130,11 @@ background-size: cover;">
         <div class="card-deck"> 
             {%for employee in project.people.all%}        
             {%if employee.researcher%}
-        <div class="row  col-12 col-lg-4 col-md-5 col-sm-12   ">
-          <div class="card border  hoverable faculty_card roundedw cloudy-knoxville-gradient  color-block  mask waves-effect " >
+         
+        <div class="row  col-12 col-lg-4 col-md-5 col-sm-12   ">   
+          {%if employee%}
+          <div class="card shadow-sm border  hoverable faculty_card roundedw 
+          heavy-rain-gradient color-block  mask waves-effect " >
             <div class="container p-0">
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
 
@@ -149,17 +159,20 @@ background-size: cover;">
         </a>
       </div>
       </div>
+      {%else%}
+          <h1>NONE</h1>
+          {%endif%}
           </div>
-
+          
         {%endif%}
         {%endfor%}
       </div>
       </div>
       
-      <div class=" container col-8-lg col-6-md col-4-sm mt-5"><div class="jumbotron">
+      <div class=" container col-8-lg col-6-md col-4-sm mt-5"><div class="jumbotron shadow-lg">
         Additional information about Project:
         {%if project.proj_file%}
-       <h4> <a class="btn btn-primary btn-lg col-12-sm" href="{{project.proj_file.url}}"  role="button">{{project.filename}}</a></h4>
+       <h4> <a class="btn btn-primary btn-lg col-12-sm" href="{{project.proj_file.url}}" target="_blank" role="button">{{project.filename}}</a></h4>
         {%endif%}
        
       </div>

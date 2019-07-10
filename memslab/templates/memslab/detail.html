@@ -9,13 +9,13 @@ Employee Details
 
 <div class="container-fluid  ">
 <div class="row  ">
-  <div class="container text-default z-depth-1 p-4 mt-5 col-11 border rounded_m_top grey lighten-5"><h3>Faculty Coordinator</h3></div>
-  <div class="container-fluid border border-top-0  grey lighten-5 col-11 rounded_m_bottom  ">  
-    <div class="row animated bounceInLeft">  
+  <div class="container text-dark z-depth-1 p-4 mt-5 col-11 border rounded_m_top purple lighten-4"><h2>Faculty Coordinator</h2></div>
+  <div class="container-fluid border border-top-0  grey lighten-5 col-11 rounded_m_bottom  faculty_container ">  
+    <div class="row animated bounceInLeft ">  
   {%for employee in employees%}
      {%if employee.coordinator %}
    
-     <div class="card border  rounded_mn hoverable faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
+     <div class="card border   rounded_mn hoverable  shadow-sm faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
          <div class="container  ">
          <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
            
@@ -48,11 +48,12 @@ Employee Details
     </div></div>
 
 
-    <div class="container  text-default z-depth-1 grey lighten-5  p-4 mt-5 col-11 border rounded_m_top "><h3>Faculty</h3></div><div class="container-fluid border border-top-0 mx-1 col-11   mx-auto grey lighten-5 ">  <div class="row  animated bounceInLeft">  
+    <div class="container  text-dark z-depth-1  green p-4 mt-5 col-11 border rounded_m_top lighten-4 "><h2>Faculty</h2></div>
+    <div class="container-fluid border border-top-0 mx-1 col-11   mx-auto grey lighten-5 faculty_container ">  <div class="row  animated bounceInLeft">  
   {%for employee in employees%}
   {%if not employee.researcher and not employee.coordinator %}
    
-     <div class="card border rounded_mn hoverable faculty_card  tempting-azure-gradient  color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
+     <div class="card border rounded_mn hoverable shadow-sm faculty_card  tempting-azure-gradient  color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
          <div class="container ">
          <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
            
@@ -83,11 +84,11 @@ Employee Details
      {%endif%}
      {%endfor%}
     </div></div> 
-    <div class="container text-default z-depth-1  p-4 mt-5 col-11 border rounded_m_top grey lighten-5"><h3>Students</h3></div>  <div class="container-fluid border border-top-0 mx-1 col-11  mx-auto grey lighten-5">  <div class="row animated bounceInLeft ">  
+    <div class="container text-dark z-depth-1  p-4 mt-5 col-11 border rounded_m_top blue lighten-4"  ><h2>Students</h2></div>  <div class="faculty_container container-fluid border border-top-0 mx-1 col-11  mx-auto grey lighten-5">  <div class="row animated bounceInLeft ">  
     {%for employee in employees%}
     {%if  employee.researcher%}
      
-       <div class="card border rounded_mn hoverable faculty_card  winter-neva-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
+       <div class="card border rounded_mn hoverable shadow-sm faculty_card  winter-neva-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
            <div class="container  ">
            <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
              

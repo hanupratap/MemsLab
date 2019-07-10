@@ -7,31 +7,35 @@ Lab
 {%endblock%}
 {% block body %}
 <div class="container-fluid" style="min-width: 900px;">
-<div class="container text-muted text-left ml-5 ">
-        <small > Last Updated {{employee.user.last_login|naturaltime }}</small>
-</div>
+ 
 {% if user.is_authenticated and employee.user.id == user.id%}
  <div class="sticky-top text-right container-fluid"><a class="btn btn-sm btn-warning text-primary" href="{%url 'admin:index' %}">Go to admin page  <i class="fas fa-external-link-alt"></i></a></div>
 {%endif%}
 <div class="container col-xl-10" style="min-width: 600px;">
     
-
-
-
+{%if register_user%}
+<a href="{%url 'memslab:register_faculty'%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Add Faculty</button></a>
+<a href="{%url 'memslab:register_student'%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Add Student</button></a>
+{%endif%}
+{%if news%}
+<a href="{%url 'memslab:news_add'%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Add News</button></a>
+{%endif%}
 {%if projects%}
 <div class="col-12 mb-5  "><h1>Manage Projects</h1><hr></div>
 <a href="{%url 'memslab:add_projects'%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Add projects</button></a>
 {%else%}
-<div class="col-12 mb-5  "><h1>Edit Page</h1><hr></div>
+
+<div class="col-12 mb-5  "><h1>Edit Page</h1><hr></div> 
 {%endif%}
 
 {%if manage_project_images%}
 <a href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn btn-primary" ><i class="fas fa-plus"></i> Manage_project_images</button></a>
 {%endif%}
+ {%if form%}
 
-
+ 
 <div class="container col-12 pt-5">
-
+   
     <form method="post" style="font-size: 150%;" enctype= multipart/form-data>{% csrf_token %}
         <div class="container bg-light rounded p-5 mb-5">
                 <h1> Information</h1>
@@ -39,11 +43,11 @@ Lab
         {%if form_main%}
         {{form_main|crispy}}
         {%endif%}
-        {%if form%}
+    
         {{form.media}}
         {{form|crispy }}   
    
-        {%endif%}
+       
     </div>
         <hr>  {%if form1%}
         <div class="container bg-light rounded p-5 mt-5 ">
@@ -60,9 +64,9 @@ Lab
   
     </form>
 
+ {%endif%}
 
-
 </div>
 </div>
-</div>
+</div><canvas style="min-height: 500px;"></canvas>
 {% endblock %}

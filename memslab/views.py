@@ -10,7 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from memslab.forms import LoginForm, ProfilePic, Project_add, EditUserForm
+from memslab.forms import LoginForm, ProfilePic, Project_add, UserRegisterForm, EditUserForm, News_add
 from memslab.models import (Employee, Employee_details_topic, \
     Employeedetails, Project, Project_type, project_image,News)
 
@@ -63,8 +63,7 @@ def profile(request):
                                                             'empdet': categ, 'employee_logggedin': emp, 'change_pic': form})
     else:
         form = ProfilePic()
-    return render(request, 'memslab/profile.html', {'employee': emp,
-                                                    'empdet': categ, 'employee_logggedin': emp, 'change_pic': form, 'coordinator': get_coordinator})
+    return render(request, 'memslab/profile.html', {'employee': emp, 'empdet': categ, 'employee_logggedin': emp, 'change_pic': form, 'coordinator': get_coordinator})
 
 
 def show_profile(request, username):
@@ -133,17 +132,42 @@ def About(request):
 
     return render(request, 'memslab/About.html', {'employee_logggedin': emp, 'coordinator': get_coordinator, })
 
-
 def register(request):
+      return render(request, 'memslab/forms.html',{'register_user': True, 'coordinator': get_coordinator})
+
+def register_faculty(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
+            instance = form.save(commit=False)
             form.save()
-            messages.success(request, 'Successfully Created')
+            messages.success(request, 'Successfully Created Faculty')
+            emp = Employee.objects.get(user=instance)
+            emp.researcher = False
+            emp.coordinator = False
+            emp.save()
             return redirect('/')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()
     return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+
+
+def register_student(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            form.save()
+            messages.success(request, 'Successfully Created Student')
+            emp = Employee.objects.get(user=instance)
+            emp.researcher = True
+            emp.coordinator = False
+            emp.save()
+            return redirect('/')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+
 
 def prof_cat(request, username, top):
 
@@ -184,27 +208,17 @@ def prof_cat(request, username, top):
 @login_required
 def main_form(request, emp_id):
     emp = Employee.objects.get(id=emp_id)
-    if emp.researcher:
-        form = inlineformset_factory(User, Employee, fields=(
-            'id_no',
-            'researcher',
-            'coordinator',
-            'designation',
-            'department',
-            'short_description',
-            'Chamber_Consultation_Hours',
-            'experience_in_years',
-            'phone','education_short',))
-    else: 
-        form = inlineformset_factory(User, Employee, fields=(
-            'id_no',
-            'designation',
-            'department',
-            'short_description',
-            'Chamber_Consultation_Hours',
-            'experience_in_years',
-            'phone',
-            'education_short',))
+    form = inlineformset_factory(User, Employee, fields=(
+        'id_no',
+        'designation',
+        'researcher',
+        'coordinator',
+        'department',
+        'short_description',
+        'Chamber_Consultation_Hours',
+        'experience_in_years',
+        'phone',
+        'education_short',))
 
     form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=1, can_delete=False)
     if request.method == 'POST':
@@ -265,7 +279,7 @@ def manage_project(request, proj_id):
     else:     
         formset = form(queryset=Project.objects.filter(id=proj_id))
         
-        return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'project':project,'manage_project_images':True})
+        return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator,'project':project,'manage_project_images':True})
 
 def change_password(request):
     if request.user.is_authenticated:
@@ -284,7 +298,7 @@ def change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator})
+    return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator,'employee_logggedin': emp})
 
 def add_delete_projects(request):
     form = modelformset_factory(Project, fields=('name',),extra=0,can_delete=True)
@@ -300,11 +314,9 @@ def add_delete_projects(request):
                 instance.proj_id = project.id
                 instance.save()
                 formset.save_m2m()
-                return redirect('/'  )
-    
-    
+                return redirect('/'  ) 
     formset = form()
-    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':True})
+    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':True,'employee_logggedin': emp})
 
 def add_projects(request):
     if request.user.is_authenticated:
@@ -319,7 +331,7 @@ def add_projects(request):
     
     else:
         formset = Project_add()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':False})
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':False,'employee_logggedin': emp})
 
 def manage_project_images(request, proj_id):
     if request.user.is_authenticated:
@@ -336,7 +348,7 @@ def manage_project_images(request, proj_id):
             return redirect('/')
     else:
         formset1 = form1(instance=project)
-        return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator,'add_project_images':True})
+        return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator,'add_project_images':True,'employee_logggedin': emp})
 def news(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -344,3 +356,45 @@ def news(request):
         emp = None
     objs = News.objects.all()
     return render(request, "memslab/news.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator,'objs':objs })
+
+def news_detail(request, news_id):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    obj = News.objects.get(id=news_id)
+    return render(request, "memslab/news_details.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator,'obj':obj })
+
+def news_edit(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    form = modelformset_factory(News, fields=('topic',), can_delete=True )
+    if request.method == 'POST':
+        formset = form(request.POST or None, request.FILES or None, queryset=News.objects.filter(user=emp))
+        if formset.is_valid():
+            formset.save()
+            return redirect('/news')
+       
+    else:     
+        formset = form( queryset=News.objects.filter(user=emp))
+    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True,'employee_logggedin': emp})
+
+def news_add(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+  
+    if request.method == 'POST':
+        formset = News_add(request.POST or None, request.FILES or None)
+        if formset.is_valid():
+            obj = formset.save(commit=False)
+            obj.user = emp
+            formset.save()
+            return redirect('/')
+       
+    else:     
+        formset = News_add()
+        return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator ,'employee_logggedin': emp})

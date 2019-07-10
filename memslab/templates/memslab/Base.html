@@ -9,6 +9,7 @@
 <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <meta name="MicroElectro-Mechanical System Lab" content="Bits Pilani Hyderabad Campus MEMS Lab projects"/>
 <meta name="keywords" content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel"/>
+ 
 {% load thumbnail %}
 
 <!-- Font Awesome -->
@@ -38,82 +39,94 @@
 
 </head>
 
-<body class=" grey lighten-4 ">
-        <nav class="unselectable  shadow-0   navbar navbar-expand-lg navbar-dark stylish-color  navbar-expand-lg  z-depth-0 text-center "  >
+<body class="grey lighten-3">
+  <div class="header ">     
+ 
+      
+     <nav class="unselectable  shadow-0   navbar navbar-light bg-white   bg-transparent  navbar-expand-lg  z-depth-0  pt-3  pb-1  shadow-sm "  style="font-size: 120%;">
+        {%if employee_logggedin is none%}
+        <a class="nav-link avatar  p-3" href="{% url 'memslab:index' %}">
+          <img src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png" alt="Bits-logo" style="width: 70px;">
+        </a>
+ 
+      {% else %}
+          <a class="nav-link dropdown-toggle avatar  p-3" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+       {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+              {% endthumbnail %}
+
+              <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
+            </a>            
+            
+            <div class=" dropdown-menu  ml-3 "   aria-labelledby="navbarDropdownMenuLink-55">
+          
+                <a class="dropdown-item  p-3   " href="{%url 'memslab:profile'%}"> Profile  </a><hr>
+              <a class="dropdown-item   p-3    " href="{% url 'memslab:logout'%}">Logout</a> 
+              
+             </div>
+       
+
+      
   
-            {%if employee_logggedin is none%}
-            <a class="nav-item avatar " href="{% url 'memslab:index' %}">
-              <img src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png" alt="Bits-logo" style="width: 9vh;">
-            </a>
-          
-          {% else %}
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-           {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
-                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-                  {% endthumbnail %}
-
-                </a>
-            <div class="nav-item dropdown-menu dropdown-secondary col-xl-2 col-lg-2 col-md-4 col-12" style="z-index: 10" aria-labelledby="navbarDropdownMenuLink-55">
-          
-             <div class=" text-center ml-5"  > <a class="dropdown-item   col-12" href="{%url 'memslab:profile'%}">Profile </a></div> 
-             <div class=" text-center ml-5 " ><a class="dropdown-item  " href="{% url 'memslab:logout'%}">Logout</a></div> 
-           
-          </div>
-          {%endif%}
-
+             {%endif%}
+        <a href="{%url 'memslab:index'%}"><div class=" navbar-brand-inline animated Fade navbar-name   text-primary-dark ml-auto " >
+          MEMS 
+        </div></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span><i class="fas fa-bars"></i></span>
           </button>
     
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto" >
-          <li class="nav-item  ">
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav font-weight-bold  ml-auto  p-4 mr-3  navigation" >
+          <li class="nav-item  mx-auto mr-lg-5 ">
           
-            <a class=" rounded nav-link  {%if request.path == '/'%} active1 {%endif%}"   href="{% url 'memslab:index' %}" > <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i>Home <span class="sr-only">(current)</span></a>
+            <a class="  rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/'%}  blue-text {%else%}  black-text{%endif%}  "   href="{% url 'memslab:index' %}" > <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i>Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item ">
-            <a class="rounded nav-link   {%if request.path == '/detail/'%}active1{%endif%} "   href="{%url 'memslab:detail' %}" > <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
+          <li class="nav-item  mx-auto mr-lg-5">
+            <a class=" rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/detail/'%} blue-text {%else%} black-text {%endif%}"   href="{%url 'memslab:detail' %}" > <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
           </li>
-          <li class="nav-item ">
-              <a class=" rounded nav-link {%if request.path == '/about/'%}active1{%endif%}"   href="{%url 'memslab:about' %}" > <i class="far fa-id-badge"> &nbsp;</i>Contact</a>
+          <li class="nav-item  mx-auto mr-lg-5">
+              <a class=" rounded    p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/about/'%}  blue-text {%else%} black-text {%endif%}  "   href="{%url 'memslab:about' %}" > <i class="far fa-id-badge"> &nbsp;</i>Contact</a>
             </li>
-            <li class="nav-item ">
-                <a class=" rounded nav-link {%if request.path == '/news/'%}active1{%endif%}"   href="{%url 'memslab:news' %}" > <i class="far fa-newspaper"> &nbsp;</i>News</a>
+            <li class="nav-item  mx-auto mr-lg-5">
+                <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 nav-text {%if request.path == '/news/'%}  blue-text {%else%}  black-text  {%endif%}"   href="{%url 'memslab:news' %}" > <i class="far fa-newspaper"> &nbsp;</i>News</a>
               </li>
           {% if user.is_authenticated%}
-          <li class="nav-item" id="navlink">
-            <a class="rounded nav-link  {%if request.path == '/profile/'%}active1  {%endif%}"   href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>{{user.first_name}} {{user.last_name}}</a>
+          <li class="nav-item mx-auto mr-lg-5" id="navlink">
+            <a class=" rounded p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/profile/'%}  blue-text {%else%} black-text {%endif%}  "   href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>Profile</a>
+          </li>
             {%else%}
-            <li class="nav-item ">
-              <a class=" rounded nav-link {%if request.path == '/login/'%} active1 {%endif%}" href="{%url 'memslab:login'%}" ><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login<span class="sr-only">(current)</span></a>
-              {%endif%}
+            <li class=" nav-item  mx-auto mr-lg-5"  data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
+              
+              <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/login/'%}   blue-text{%else%}  black-text  {%endif%}" href="{%url 'memslab:login'%}" ><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login*<span class="sr-only">(current)</span></a>
             </li>
- 
+              {%endif%}
+          
         </ul>
 
-        <div class=" animated Fade text-right font-weight-light text-default"  id="name" >
-          <h1>MEMS</h1>
-        </div>
+ 
+
 
   
-    </nav>
+    </nav></div>
+  
 
-    <div class="header sticky-top">
-        <div class="progress-container">
-          <div class="progress-bar" id="myBar"></div>
-        </div> 
-      </div>
+ 
 
        
 {% if messages %}
   {% for message in messages%}
-    <div class="alert alert-{{message.tags}} p-5">
+    <div class="alert alert-{{message.tags}} col-10 mx-auto rounded border ">
       {{message}}
     </div>
   {%endfor%}
 {%endif%}
+
+
+
+
          {% block body %}
-             {% endblock %}
+          {% endblock %}
 
                         
 <!-- Footer -->
@@ -132,8 +145,10 @@
       <a href="{%url 'memslab:detail'%}" >People</a>
       ·
       <a href="{%url 'memslab:about'%}">Contact</a>
+      ·
+      <a href="{%url 'memslab:news'%}">News</a>
       <br><br>
-      <a href="https://www.bits-pilani.ac.in/Hyderabad/">Old Site <i class="fas fa-external-link-alt"></i> </a>
+      <a href="https://www.bits-pilani.ac.in/Hyderabad/" target="_blank">Old Site <i class="fas fa-external-link-alt"></i> </a>
     </p>
   </div>
 
@@ -187,7 +202,7 @@
 </footer>
    
              
-                <section style="height:80px;" class="text-bottom"> <div class="text-muted text-right  "><small>Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></div></section>
+                <section style="height:80px;" class="text-bottom"> <div class=" text-right mr-1  "><a target='_blank'href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/"><small class="text-muted me">Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a></div></section>
                
 </div>
 <!--JavaScript at end of body for optimized loading-->
@@ -214,6 +229,13 @@ AutoHeight.Defaults = {
 
 
 
+<script>
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    document.getElementsByClassName("header").height = "30px";
+  } else {
+    document.getElementsByClassName("header").style.fontSize = "90px";
+  }
+  </script>
 
 <script>
 
@@ -225,7 +247,7 @@ $(window).on('load', function () {
       //decomment for text buttions     //navText:["<h3>Prev</h3>","<h3>Next</h3>"], 
       
       // decommecnt for arrow buttons   //  //decomment fro stock buttons     //
-      nav:false,
+ 
       slideSpeed : 300,
       paginationSpeed : 400,
       autoHeight:true,
@@ -265,7 +287,21 @@ $(window).on('load', function () {
   
   
     </script>
-
+<script>function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  }</script>
+<script>
+    function signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+  </script>
 <script>
 
 new WOW().init();
@@ -288,7 +324,7 @@ $(window).resize(function(){
 
 togglePanel();
 </script>
-
+ 
 </body>
 
 </html>

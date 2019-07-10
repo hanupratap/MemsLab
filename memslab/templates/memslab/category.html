@@ -6,21 +6,25 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-muted mt-5  ">
-  <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
+<div class="container-fluid text-muted  mt-5 mb-5 ">
+    <small  > Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
-{% if user.is_authenticated and employee.user.id == user.id%}
-<div class="container-fluid mt-5 ">
-  <div class="container-fluid text-left"><a href="{% url 'memslab:detail_form' employee.id %}" ><button  class="btn btn-sm btn-outline-primary waves-effect ml-0"  >Edit <i class="fas fa-edit"></i>
-</button></a></div>
-<div class="container-fluid text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
 
-</div>
+  {% if user.is_authenticated and employee.user.id == user.id%}
+ <div class="container mb-5 border p-4 bg-white rounded_m  shadow-lg">
+  <h3>Functions</h3>
+ <a href = "{%url 'memslab:register' %}"> <button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
+</button></a> 
+ <a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
+</button></a> 
 
 {%endif%}
+{%if request.user.is_superuser%}
+ <a  href="{%url 'admin:index' %}" ><button class="btn btn-md   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a> 
 
-
-<div class="container col-12 col-lg-10 z-depth-0 mx-auto rounded z-depth-0 border     " >
+</div>
+{%endif%}  
+<div class="container shadow-lg col-12 col-lg-10  mx-auto rounded border profile-container     " >
 
             <div class="row ">
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto  mb-5 p-5">
@@ -28,12 +32,12 @@ Lab
                       <div class="container col-12">  {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
                         <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
                      {% endthumbnail %}</div>
-                      
+                     {%if request.user == employee.user%}
                      <div class="container col-12">     
                       <button type="button" class=" btn btn-md btn-default col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  " data-toggle="modal" data-target="#changePic">
                             Change Pic <i class="fas fa-edit"></i>
                           </button></div>
-                   
+                   {%endif%}
                      {% if user.is_authenticated and employee.user.id == user.id%}
                       <div class=" col-xl-10  col-lg-10 col-md-12 col-xs-10 col-sm-8 p-0"> 
                            

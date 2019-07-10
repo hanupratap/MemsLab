@@ -1,5 +1,7 @@
 <!-- Loads th path to your static files -->
 {% extends 'memslab/Base.html'%}
+{% load socialaccount %}
+
 
 {%load thumbnail%}
 {% block title%}
@@ -7,17 +9,16 @@ Lab
 {%endblock%}
 {% block body %}
 
-<br>
-<br>
-<br> 
+
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
-<div class="text-right container-fluid col-12 pb-5 "><a href="{%url 'memslab:add_delete_projects'%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>       
+<div class="text-left container  col-12  "><a href="{%url 'memslab:add_delete_projects'%} "><button class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>       
 {%endif%} 
 {%endif%} 
 
+ 
 
-<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  align-items-center p-xl-4">
+<div id="owl-demo"  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  align-items-center p-xl-4 animated fadeIn">
 
   {%for project in projects%}
   {% thumbnail project.project_pic '500x500' as im %}
@@ -38,31 +39,31 @@ Lab
     <br>
 </div>
 
-<div class=" container-fluid border   col-xl-10 col-11 p-4  rounded mb-5 mt-5 mx-auto   project_list_title  z-depth-1  grey lighten-5" ><h2>Projects List</h2></div>
+<div class=" container-fluid border   col-xl-10 col-11 p-4    mb-5 mt-5 mx-auto  text-white project_list_title shadow-sm default-color-dark" ><h3>Projects List</h3></div>
 
 
-<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m  depth_toggle grey lighten-5 shadow_blue"> 
-    <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" style="cursor: pointer;" ><h3 class="text-muted pt-4 pb-0 pl-3  ">Ongoing <i class="far fa-caret-square-right  ongoing" ></i></h3>
+<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border   blue  lighten-5"> 
+    <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" style="cursor: pointer;" ><h3 class="  pt-4 pb-0 pl-3  ">Ongoing <i class="far fa-caret-square-right special-color ongoing p-3 rounded-circle" ></i></h3>
       <div class="text-right"><i class="fas fa-caret-down"></i> </div>
      </div>
-    <div class="container-fluid collapse  " id="collapseExample" > 
-      <div class="row unselectable col-12 pb-5 pt-5  " > 
+    <div class="container-fluid collapse project_container " id="collapseExample" > 
+      <div class="row unselectable col-12    pb-5 pt-5 " > 
   {%for project in projects%}
   {% if project.status == 0 %}
  
   <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;" >
    
     <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft "  >
-    <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white " >
+    <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white shadow-sm" >
      
      
         <div style=" display: inline-block; overflow: hidden; "> 
-            {% thumbnail project.project_pic "200x200" crop="center" as im %}
-            <img src="{{im.url|resolution:'2x'}}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
+            {% thumbnail project.project_pic "300x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;" class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image" >
         {% endthumbnail %}
         </div> <br>
   <span class=" overflow-auto  text-center"><h4>{{project.name}}</h4></span> 
-    <p class="blockquote bq-primary" >{{project.short_description}}</p>
+    <p class="blockquote bq-success" >{{project.short_description}}</p>
    <blockquote>
     <footer class="footer" >
       <div class="text-muted project_faculty_name ">
@@ -79,18 +80,18 @@ Lab
 </div>
    
 </div>
-    <div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rounded_m depth_toggle  grey lighten-5 shadow_blue"> 
-        <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" style="cursor: pointer;" ><h3 class="text-muted text-left pt-4 pb-0 pl-3 ">Completed <i class="fas fa-check Completed" ></i></h3>
+    <div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border green lighten-5   "> 
+        <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" style="cursor: pointer;" ><h3 class="  text-left pt-4 pb-0 pl-3 ">Completed <i class="fas fa-check Completed   special-color p-3 rounded-circle" ></i></h3>
            <div class="text-right"><i class="fas fa-caret-down"></i> </div>
           </div>
-        <div class="container-fluid collapse " id="collapseExample1" > 
-          <div class="row unselectable col-12    pb-5 pt-5" > 
+        <div class="container-fluid collapse project_container " id="collapseExample1" > 
+          <div class="row unselectable col-12    pb-5 pt-5 "   > 
       {%for project in projects%}
       {% if project.status == 1 %}
       <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;" >
    
           <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft "  >
-          <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white " >
+          <div class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white shadow-sm" >
            
            
               <div style=" display: inline-block; overflow: hidden; "> 

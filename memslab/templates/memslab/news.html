@@ -6,33 +6,63 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-muted mt-5 ">
-        <small style="font-size: 15px;" > Last Updated {{employee.user.last_login|naturaltime }}</small>
-</div>
-{% if user.is_authenticated and employee.user.id == user.id%}
-<div class="container-fluid   ">
-    <div class="container-fluid  text-right"><a href="{% url 'memslab:register'%}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
-    </button></a></div>
-  <div class="container-fluid text-left p-1 mt-5"><a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
-</button></a></div>
-</div>
-{%endif%}
-{%if request.user.is_superuser%}
-<div class="container-fluid p-1 text-right"><a  href="{%url 'admin:index' %}" ><button class="btn btn-sm   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a></div>
-{%endif%}
-<div class="container-fluid ml-5 display-4">NEWS</div>
-<div class="container-fluid ">
-    <div class="row ">         
-         {%for obj in objs%}
-        <div class=" mx-auto card p-5 col-10 border rounded_mn  p-5 grey lighten-5">
-            <div class="card-title col-12 "> 
-        <h1 class="display-4">{{obj.topic}}</h1>
-      <div class="card-body col-12 table-responsive grey lighten-4" style="  max-height: 300px;">    {{obj.entry|safe}}</div>
+
+  {% if user.is_authenticated and employee.user.id == user.id   %}
+  
+  <div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg "> 
+    <h3>Functions</h3>
+  
+ <a href="{% url 'memslab:news_edit' %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit<i class="fas fa-edit"></i>
  
-   <div class="footer mt-5  text-muted mb-5 text-right"> Published By {{obj.user}}<br> {{obj.created_at|naturaltime}}</div>
+   
+   
+  {%if request.user.is_superuser%}
+   
+   <a  href="{%url 'admin:index' %}" ><button class="btn btn-md   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a> 
+
+  
+  {%endif%}
+  {%endif%}
+
+ 
+       </div>
+<div class="container col-10  mx-auto p-5 mdb-color display-4 text-info mt-5 mb-5">NEWS</div>
+<div class="container-fluid ">
+  {%if objs%}
+    <div class="row animated fadeIn">         
+         {%for obj in objs%}
+         <a href="{% url 'memslab:news_detail' obj.id %}" > 
+           <div class=" mx-auto card  col-10 border  grey lighten-5 border shadow-sm">
+            <div class="card-title col-12 "> 
+        <h2 class=" border-bottom text-primary p-2">{{obj.topic}}</h2>
+      {%if obj.pic%}  
+      <div class="row  mt-1">  
+        <div class="col-xl-2 col-lg-3 col-sm-12  ">
+          {% thumbnail obj.pic '200x200' as im %}
+      <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m"   />
+  {% endthumbnail %}
+        </div>
+     
+        <div class="card-body col-xl-10 col-lg-9 col-sm-12 m-0 mt-lg-1  text-dark rounded" style="font-size: 110%;"  >    {{obj.summary}}</div></div>
+    
+        {%else%}
+        
+        <div class="card-body col-12 grey lighten-4"  >    {{obj.summary}}</div>
+        {%endif%}
+      
+     
+ {%if obj.user%}
+   <div class="footer mt-2   text-right  rounded">  <a href="{%url 'memslab:show_profile' obj.user.user.username %}" class=" mb-1"> Published By {{obj.user}} </a> <br> 
+    
+    {{obj.created_at|naturaltime}}</div>
+ {%endif%}
       </div> 
     </div>
+  </a>
     {%endfor%}
+    {%else%}
+    <h1> No NEWS Update available</h1>
+    {%endif%}
 </div>
 
 
