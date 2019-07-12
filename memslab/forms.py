@@ -38,7 +38,7 @@ class EditUserForm(UserChangeForm):
     class Meta:
         model = User
         fields = (
-            'email','first_name','last_name',
+            'email','first_name','last_name','username',
         )
 
 class Project_add(forms.ModelForm):

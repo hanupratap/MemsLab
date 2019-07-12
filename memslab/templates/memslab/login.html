@@ -18,34 +18,39 @@ Lab
         <div class="modal-header primary-color white-text">
             <h4 class="title">
                 <i class="fa fa-pencil-alt"></i> Login Form</h4>
-                
-         
+
+
         </div>
         <!--Body-->
         <div class="modal-body">
-                <form method="POST">
-                        {% csrf_token %}
-                     <div class="container" style="font-size:28px;" >{{ form|crispy }}</div>
-                        
+            <form method="POST">
+                {% csrf_token %}
+                <div class="container" style="font-size:28px;">{{ form|crispy }}</div>
 
-            </div>
-
-            <div class="text-center mt-4 mb-2">
-                            <br>
-                        <button type="submit" class="btn btn-primary btn-lg animated bounce">LOGIN <i class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
-
-            </div>
 
         </div>
+
+        <div class="text-center mt-4 mb-2">
+            <br>
+            <button type="submit" class="btn btn-primary btn-lg animated bounce">LOGIN <i
+                    class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
+
+        </div>
+        <span class="ml-auto p-3 font-weight-bold"><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
     </div>
+</div>
 {%else%}
-    <div class=" col-8  mx-auto  " style="font-size: 20px;">
-        <div class="jumbotron"><p>You are already logged in as <bold class="font-weight-bold">{{user.username}}</bold> </p><br><p><a href="{%url 'memslab:index'%}"> Go back to Home Page </a></p></div>
-        
-        <canvas height="100"></canvas>
+<div class=" col-8  mx-auto  " style="font-size: 20px;">
+    <div class="jumbotron">
+        <p>You are already logged in as <bold class="font-weight-bold">{{user.username}}</bold>
+        </p><br>
+        <p><a href="{%url 'memslab:index'%}"> Go back to Home Page </a></p>
     </div>
-    <!--/.Content-->
-    {%endif%}
+
+    <canvas height="100"></canvas>
+</div>
+<!--/.Content-->
+{%endif%}
 <!--/Modal: Contact form-->
 
 

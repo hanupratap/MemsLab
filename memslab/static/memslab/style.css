@@ -160,9 +160,6 @@ border-bottom-right-radius: 10px!important;
 
 .faculty_card:hover
 {  transition: transform 0.2s;
-  
-  transform: scale(1,1);
-
   filter: brightness(1);
   background-position: right center;
   transform: scale(1.1);
@@ -245,9 +242,6 @@ border-bottom-right-radius: 10px!important;
 
   }
 
- 
- 
- 
   .navbar-toggle {
     /* (80px - button height 34px) / 2 = 23px */
     margin-top: 23px;
@@ -258,11 +252,10 @@ border-bottom-right-radius: 10px!important;
 {
  
   letter-spacing: 5px;
- 
- 
   font-size: 28px;
   font-weight: 450;
-  padding: 10px;
+  
+ 
 }
    
  
@@ -565,7 +558,7 @@ border-bottom: 1px rgb(129, 129, 129) solid;
 .profile-container
 {
   background-color: rgba(238, 222, 222, 0.925);
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.38' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.38' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
 
 .faculty_container

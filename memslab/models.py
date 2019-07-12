@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from ckeditor_uploader.fields import RichTextUploadingField
-
+from phone_field import PhoneField
 class Departments(models.Model):
     dep = models.CharField(max_length=100, default='', blank=True)
     class Meta:
@@ -27,7 +27,7 @@ class Employee(models.Model):
     area_of_interest = models.TextField(blank=True)
     Chamber_Consultation_Hours = models.CharField(max_length=200, default='yet to announce')
     experience_in_years = models.PositiveIntegerField(default=0)
-    phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    phone = PhoneField(null=True,blank=True, help_text='Contact phone number')
     skype_link = models.URLField(blank=True)
     website_link =  models.URLField(blank=True)
     class Meta:
@@ -36,10 +36,12 @@ class Employee(models.Model):
     def __str__(self):
         return '%s ' % (self.user.first_name + ' '+  self.user.last_name) 
 
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Employee.objects.create(user=instance)
-    post_save.connect(create_user_profile, sender=User)
+ 
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Employee.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
 class Project_type(models.Model):
     name = models.CharField(max_length=500, default='')
@@ -55,7 +57,7 @@ class Project(models.Model):
         on_delete=models.DO_NOTHING, null=True, blank=True)
     description = RichTextUploadingField(default='', blank=True)
     short_description = models.TextField(default='')
-    project_pic = models.ImageField(upload_to='project_image', blank=True)
+    project_pic = models.ImageField(upload_to='project_image', default='project_image/default_image.png', blank=True)
     STATUS = ((0, 'Ongoing'), (1, 'Completed'))
     status = models.PositiveSmallIntegerField(choices=STATUS, default=0)
     budget = models.CharField(max_length=200, default=None, blank=True)
@@ -115,7 +117,7 @@ class News(models.Model):
     entry = RichTextUploadingField(default='', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    pic = models.ImageField(upload_to='project_image', blank=True)
+    pic = models.ImageField(upload_to='news_images', blank=True, default='news_images/default-image.jpg')
     summary = models.TextField(blank=True)
     class Meta:
         verbose_name_plural = "News"

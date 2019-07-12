@@ -7,119 +7,130 @@ Lab
 {%endblock%}
 {% block body %}
 <div class="container-fluid text-muted  mt-5 mb-5 ">
-    <small  > Last Updated {{employee.user.last_login|naturaltime }}</small>
+  <small> Last Updated {{employee.user.last_login|naturaltime }}</small>
 </div>
 
-  {% if user.is_authenticated and employee.user.id == user.id%}
- <div class="container mb-5 border p-4 bg-white rounded_m  shadow-lg">
+{% if user.is_authenticated and employee.user.id == user.id%}
+<div class="container mb-5 border p-4 bg-white rounded_m  shadow-lg">
   <h3>Functions</h3>
- <a href = "{%url 'memslab:register' %}"> <button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
-</button></a> 
- <a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
-</button></a> 
+  <a href="{%url 'memslab:register' %}"> <button class="btn  btn-md  btn-outline-primary waves-effect ">Add User <i
+        class="fas fa-edit"></i>
+    </button></a>
+  <a href="{% url 'memslab:detail_form' employee.id %}"><button
+      class="btn  btn-md  btn-outline-primary waves-effect ">Edit<i class="fas fa-edit"></i>
+    </button></a>
 
-{%endif%}
-{%if request.user.is_superuser%}
- <a  href="{%url 'admin:index' %}" ><button class="btn btn-md   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a> 
+  {%endif%}
+  {%if request.user.is_superuser%}
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md   btn-warning text-primary ">admin <i
+        class="fas fa-external-link-alt"></i></button></a>
 
 </div>
-{%endif%}  
-<div class="container shadow-lg col-12 col-lg-10  mx-auto rounded border profile-container     " >
+{%endif%}
+<div class="container shadow-lg col-12 col-lg-11  mx-auto rounded border profile-container   animated fadeIn    ">
 
-            <div class="row ">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto  mb-5 p-5">
-                    <div class=" row ">
-                      <div class="container col-12">  {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                        <img src="{{ im.url }}" width="100%" height="100%" class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
-                     {% endthumbnail %}</div>
-                     {%if request.user == employee.user%}
-                     <div class="container col-12">     
-                      <button type="button" class=" btn btn-md btn-default col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  " data-toggle="modal" data-target="#changePic">
-                            Change Pic <i class="fas fa-edit"></i>
-                          </button></div>
-                   {%endif%}
-                     {% if user.is_authenticated and employee.user.id == user.id%}
-                      <div class=" col-xl-10  col-lg-10 col-md-12 col-xs-10 col-sm-8 p-0"> 
-                           
-                     
-                 
-                           <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
-                           <div class="modal-dialog modal-full-height modal-top" role="document">
-                             <div class="modal-content">
-                               <div class="modal-header">
-                                 <h5 class="modal-title " id="label">Change profile Pic</h5>
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                   <span aria-hidden="true">&times;</span>
-                                 </button>
-                               </div>
-                               <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
-                                   {% csrf_token %}
-                                   <br>
-                                    {{change_pic|crispy}}
-                               <div class="modal-body">
+  <div class="row ">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto  mb-5 p-5">
+      <div class=" row ">
+        <div class="container col-12"> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
+          <img src="{{ im.url }}" width="100%" height="100%"
+            class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
+          {% endthumbnail %}</div>
+        {%if request.user == employee.user%}
+        <div class="container col-12">
+          <button type="button" class=" btn btn-md btn-default col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  "
+            data-toggle="modal" data-target="#changePic">
+            Change Pic <i class="fas fa-edit"></i>
+          </button></div>
+        {%endif%}
+        {% if user.is_authenticated and employee.user.id == user.id%}
+        <div class=" col-xl-12  col-lg-12 col-md-12 col-xs-12 col-sm-8 p-0">
 
-                               </div>
-                               <div class="modal-footer">
-                                 <button class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
-                                 <button type="submit" class="btn btn-primary">Save changes</button>
-                               </div>
-                               </form>
-                               <hr>
-                             </div>
-                           </div>
-                         </div>
-                        </div>
-                       {%endif%}
-                       <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 ">
-                          <p class="text-muted mt-5 font-weight-bold" style="font-size: 17px;">DETAIL </p>
-                          <div class=" font-weight-bold ">   <a class="cool-link   ml-3" style="font-size: 15px; " href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
-                          {%for d in empdet%}
-                          <a class="cool-link  ml-3 mt-2" style="font-size: 15px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
-                          {%endfor%}</div>
-                       
-                      </div>
-                      </div>
-                   </div>
-                   
-                   
-           <div class="container col-xl-9 col-lg-10 col-md-12 border-left ">       
-             
-            <div class="  border col-11 mx-auto rounded_m mt-5 mb-5 p-3 p-xl-5 p-lg-5 text-muted bg-white"><h1>{{main_topic}}</h1></div> 
-            <div class="container-fluid">   
-            {%for topic in topics%}
-                <div class="bg-white border col-11 mb-5 mx-auto container  rounded_m " >
-              
-                  {% autoescape on %}
-                  <div class=" category_desc p-4" >
-                     
-                 {% for point in topic.get_entry %}
-                     <p>
-                       {{point|safe}}
-                     </p>
-                     {%endfor%}
-                   
-               
-   
-                   </div>
-                  {% endautoescape %}
-          
+
+
+          <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label"
+            aria-hidden="true">
+            <div class="modal-dialog modal-full-height modal-top" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title " id="label">Change profile Pic</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <br>
+                  {{change_pic|crispy}}
+                  <div class="modal-body">
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+                <hr>
               </div>
-               {%endfor%}
-              </div> 
-              </div>
-          
-                
-               
-        
-      
-
-     
             </div>
+          </div>
+        </div>
+        {%endif%}
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 ">
+          <p class="text-muted mt-5 font-weight-bold" style="font-size: 17px;">DETAIL </p>
+          <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 15px; "
+              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
+            {%for d in empdet%}
+            <a class="cool-link  ml-3 mt-2" style="font-size: 15px;"
+              href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br />
+            {%endfor%}</div>
+
+        </div>
+      </div>
     </div>
 
-    <div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
-      <div class="col-12"><a href="{% url 'memslab:logout'%}" class="px-0"><button type="button" class="btn btn-danger btn-lg "  >Logout</button></a></div>
-      
-      {%endif%}</div>
- 
+
+    <div class="container col-xl-9 col-lg-10 col-md-12 border-left ">
+
+      <div class="  border col-11 mx-auto rounded_m mt-5 mb-5 p-3 p-xl-5 p-lg-5 text-muted bg-white">
+        <h1>{{main_topic}}</h1>
+      </div>
+      <div class="container-fluid">
+        {%for topic in topics%}
+        <div class="bg-white border col-11 mb-5 mx-auto container  rounded_m ">
+
+          {% autoescape on %}
+          <div class=" category_desc p-4">
+
+            {% for point in topic.get_entry %}
+            <p>
+              {{point|safe}}
+            </p>
+            {%endfor%}
+
+
+
+          </div>
+          {% endautoescape %}
+
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+<div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
+  <div class="col-12"><a href="{% url 'logout'%}" class="px-0"><button type="button"
+        class="btn btn-danger btn-lg ">Logout</button></a></div>
+
+  {%endif%}</div>
+
 {% endblock %}

@@ -7,175 +7,202 @@ Lab
 {%endblock%}
 {% block body %}
 <div class="container-fluid text-muted  mt-5 mb-5 ">
-    <small  > Last Updated {{employee.user.last_login|naturaltime }}</small>
-</div>  
+  <small> Last Updated {{employee.user.last_login|naturaltime }}</small>
+</div>
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg "> 
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
 
-  <h3>Functions</h3>
 
- 
- <a href = "{%url 'memslab:register' %}"> <button  class="btn  btn-md  btn-outline-primary waves-effect "  >Add User <i class="fas fa-edit"></i>
-</button></a> 
- <a href="{% url 'memslab:form' employee.id %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit Profile<i class="fas fa-edit"></i>
-</button></a> 
- 
- 
-{%if request.user.is_superuser%}
- 
- <a  href="{%url 'admin:index' %}" ><button class="btn btn-md   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a> 
- 
 
-{%endif%}
-{%endif%}
- </div>
-    <div class="container   col-12 col-xl-10  shadow-lg mx-auto rounded_m profile-container  border  "  >
- 
-            <div class="row ">
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto ">
-                    <div class="row animated fadeIn">
-                         <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-                                <img src="{{ im.url }}"  class="rounded-circle border-0   col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
-                             {% endthumbnail %}
-                            
-                        
-                            </div>
-                          {%if request.user == employee.user%}
-                        <div class="container col-12">     
-                          <button type="button " class=" btn btn-md btn-default  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  " data-toggle="modal" data-target="#changePic">
-                                Change Pic <i class="fas fa-edit"></i>
-                              </button></div>
-                       {%endif%}
+  <a href="{%url 'memslab:register' %}"> <button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Add User <i
+        class="fas fa-edit"></i>
+    </button></a>
+  <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
+      Profile<i class="fas fa-edit"></i>
+    </button></a>
 
-                     
-                         {% if user.is_authenticated and employee.user.id == user.id%}
-                            <div class="modal fade text-muted p-0 " id="changePic" tabindex="0" role="dialog" aria-labelledby="label" aria-hidden="true">
-                            <div class="modal-dialog modal-top modal-md" role="document">
-                              <div class="modal-content p-2">
-                                <div class="modal-header">
-                                  <h5 class="modal-title " id="label">Change profile Pic</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <br>
-                                     {{change_pic|crispy}}
-                                <div class="modal-body col-xl-12">
-                                    High quality images are always favourable
-                                </div>
-                                <div class="modal-footer">
-                                  <button class="btn btn-outline-primary waves-effect btn-md" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary btn-md">Save changes</button>
-                                </div>
-                                </form>
-                                <hr>
-                              </div>
-                            </div>
-                          </div>
 
-                        {%endif%}
-                        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 animated fadeIn ">
-                            <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
-                            <div class=" font-weight-bold ">   <a class="cool-link   ml-3" style="font-size: 16px; " href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br/>
-                            {%for d in empdet%}
-                            <a class="cool-link  ml-3 mt-2" style="font-size: 16px;" href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br/>
-                            {%endfor%}</div>
-                         
-                        </div>
-                      
-                  
-                    </div>
+  {%if request.user.is_superuser%}
+
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md rounded_mn   btn-warning text-primary ">Admin<i
+        class="fas fa-external-link-alt"></i></button></a>
+
+
+  {%endif%}
+  {%endif%}
+</div>
+<div class="container   col-12 col-xl-11  shadow-lg mx-auto rounded_m profile-container  border  ">
+
+  <div class="row ">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto ">
+      <div class="row animated fadeIn">
+        <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
+          <img src="{{ im.url }}" class="rounded-circle border-0   col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+          {% endthumbnail %}
+
+
+        </div>
+        {%if request.user == employee.user%}
+        <div class="container col-12">
+          <button type="button " class=" btn btn-md btn-default  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  "
+            data-toggle="modal" data-target="#changePic">
+            Change Pic <i class="fas fa-edit"></i>
+          </button></div>
+        {%endif%}
+
+
+        {% if user.is_authenticated and employee.user.id == user.id%}
+        <div class="modal fade text-muted p-0 " id="changePic" tabindex="0" role="dialog" aria-labelledby="label"
+          aria-hidden="true">
+          <div class="modal-dialog modal-top modal-md" role="document">
+            <div class="modal-content p-2">
+              <div class="modal-header">
+                <h5 class="modal-title " id="label">Change profile Pic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <br>
+                {{change_pic|crispy}}
+                <div class="modal-body col-xl-12">
+                  High quality images are always favourable
                 </div>
-                <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3  " >         
-                 <div class="row"> 
-                   <div class="container col-11 rounded_m border mt-5 p-5 bg-white animated fadeIn">          
-                      <p><h1   style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}} {{employee.user.last_name}}</h1> 
-                      <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br></h2>
-                   </div>
+                <div class="modal-footer">
+                  <button class="btn btn-outline-primary waves-effect btn-md" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary btn-md">Save changes</button>
+                </div>
+              </form>
+              <hr>
+            </div>
+          </div>
+        </div>
 
-                   <div class="container col-11 mt-5 ">
-                      <nav >
-                          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom " id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h5 class="font-weight-bold">About</h5></a>
-                            <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom  " id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h5 class="font-weight-bold">Timeline</h5></a>
-                          </div>
-                        </nav>
-                        <div class="tab-content border border-top-0 rounded_m_bottom bg-white animated  fadeIn" id="nav-tabContent">
-                          <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab"> 
-                      <table class="table  table-responsive-lg " >
-                          <tbody >
-                                  {% if user.is_authenticated and employee.user.id == user.id%}
-                                  <tr>
-                                    <th scope=" row " class="font-weight-bold text-muted" style="font-size:18px;">User Id</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.id_no}}</td>
-                                  </tr>
-                                  {%endif%}
-                                  <tr>
-                                    <th scope="row" class="font-weight-bold text-muted"style="font-size:18px;">Name</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.first_name}} {{employee.user.last_name}}</td>
-                                  </tr>
-                                  <tr>
-                                    <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Email</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.user.email}}</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Phone</th>
-                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.phone}}</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row"  class="font-weight-bold text-muted"style="font-size:18px;">Designation</th>
-                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
-                                  </tr>
-                                </tbody>
-                      </table>
-                  </div>
-                    
-                  <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> <table class="table table-transparent rounded table-responsive-lg"> 
-                          <tbody class="second-table rounded_m ">
-                               
-                                  <tr>
-                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.experience_in_years}} years</td>
-                                  </tr>
-                             
-                                  <tr>
-                                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Education</th>
-                                    <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.education_short}}</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:17px;">Chamber Consultation Hours</th>
-                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.Chamber_Consultation_Hours}}</td>
-                                  </tr>
-                                  <tr>
-                                      <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
-                                      <td class="font-weight-bold text-primary"style="font-size:18px;">{{employee.designation}}</td>
-                                  </tr>
-                                  <tr>
+        {%endif%}
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 animated fadeIn ">
+          <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
+          <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
+              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
+            {%for d in empdet%}
+            <a class="cool-link  ml-3 mt-2" style="font-size: 16px;"
+              href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br />
+            {%endfor%}</div>
 
-                                    </tr>
-                                </tbody>
-                      </table>
-                  </div>
-                 
-                        </div>
-                        {%if employee.short_description%}
-                        <div class="container-fluid mb-5 bg-white rounded_m animated fadeIn">
-                        <div class="row mt-5 border p-5 rounded_m">
-                            <div class=" text-muted col-12" ><h2>Description- </h2></div>
-                            <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
-                          </div>
-                        </div>
-                          {%endif%}
-                   </div>
-             </div></div>    </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3  ">
+      <div class="row">
+        <div class="container col-11 rounded_m border mt-5 p-5 bg-white animated fadeIn">
+          <p>
+            <h1 style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
+              {{employee.user.last_name}}</h1>
+            <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br>
+            </h2>
+        </div>
+
+        <div class="container col-11 mt-5 ">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom "
+                id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+                aria-selected="true">
+                <h5 class="font-weight-bold">About</h5>
+              </a>
+              <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom  "
+                id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
+                aria-selected="false">
+                <h5 class="font-weight-bold">Timeline</h5>
+              </a>
+            </div>
+          </nav>
+          <div class="tab-content border border-top-0 rounded_m_bottom bg-white animated  fadeIn" id="nav-tabContent">
+            <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab">
+              <table class="table  table-responsive-lg ">
+                <tbody>
+                  {% if user.is_authenticated and employee.user.id == user.id%}
+                  <tr>
+                    <th scope=" row " class="font-weight-bold text-muted" style="font-size:18px;">User Id</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.id_no}}</td>
+                  </tr>
+                  {%endif%}
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Name</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.user.first_name}}
+                      {{employee.user.last_name}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Email</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Phone</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.phone}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.designation}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <table class="table table-transparent rounded table-responsive-lg">
+                <tbody class="second-table rounded_m ">
+
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.experience_in_years}}
+                      years</td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Education</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.education_short}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:17px;">Chamber Consultation
+                      Hours</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">
+                      {{employee.Chamber_Consultation_Hours}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
+                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.designation}}</td>
+                  </tr>
+                  <tr>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          {%if employee.short_description%}
+          <div class="container-fluid mb-5 bg-white rounded_m animated fadeIn">
+            <div class="row mt-5 border p-5 rounded_m">
+              <div class=" text-muted col-12">
+                <h2>Description- </h2>
+              </div>
+              <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
+            </div>
+          </div>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 <div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
-<div class="col-12"><a href="{% url 'memslab:logout'%}" class="px-0"><button type="button" class="btn btn-danger btn-lg "  >Logout</button></a></div>
+  <div class="col-12"><a href="{% url 'logout'%}" class="px-0"><button type="button"
+        class="btn btn-danger btn-lg ">Logout</button></a></div>
 
-{%endif%}</div>
+  {%endif%}</div>
 
 {% endblock %}

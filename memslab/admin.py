@@ -3,7 +3,7 @@ from memslab.models import Employee,Project,Employeedetails,Employee_details_top
 from django.contrib.auth.models import Group
 from django import forms
 # Register your models here.
-admin.site.site_header = 'MEMS Admin'
+admin.site.site_header = 'MEMSLab '
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display=('user','designation','researcher','id_no')

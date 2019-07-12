@@ -34,7 +34,6 @@ ALLOWED_HOSTS = ['localhost','192.168.1.3','127.0.0.1']
 
 INSTALLED_APPS = [
     'watchman',
-    'memslab.apps.SuitConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,14 +46,9 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
- 
+    'phone_field',
+    'password_reset',
 ]
- 
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
@@ -65,20 +59,7 @@ CKEDITOR_CONFIGS = {
         
     }
 }
-ACCOUNT_EMAIL_REQUIRED = True
-
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_SUBJECT_PREFIX = '[dev user skeleton] '
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'example@gmail.com'
-
-EMAIL_HOST_PASSWORD = 'examplepwd'
-EMAIL_USE_TLS = True
+ 
 
 SOCIALACCOUNT_PROVIDERS = {
     'google_oauth2': {
@@ -88,14 +69,12 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
-AUTHENTICATION_BACKENDS = (
-  
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
- 
+AUTHENTICATION_BACKENDS = (
+ 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+ 'social_core.backends.google.GoogleOpenId',  # for Google authentication
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 'django.contrib.auth.backends.ModelBackend'
 )
  
 SITE_ID = 1
@@ -123,6 +102,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+                'social_django.context_processors.login_redirect', # <- Here
+                'social_django.context_processors.backends',  # <- Here
+
   
             ],
         },
@@ -190,6 +172,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'memslab:index'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -198,11 +181,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='675104815315-mnjink33pfp8jqnmv6fquvpkkb3igjkq.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WpM6k0k2mNTOEAqm0LwWr2iR' #Paste Secret Key
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('bitshydmemslab@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('microelectro@19')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = 'bitshydmemslab@gmail.com'
+EMAIL_HOST_PASSWORD = 'bitshyderabad@17'
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True

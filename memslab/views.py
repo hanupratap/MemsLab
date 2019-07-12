@@ -107,7 +107,8 @@ def show_projects(request, project_id):
                  'https://www.allaboutcircuits.com/uploads/thumbnails/MEMS_close_post_actuator.jpg',
                  'http://4.bp.blogspot.com/_O9KFUaJsTaE/TNmpQGsMYMI/AAAAAAAAACc/EsFk0OtiPEw/s1600/Sandia+friction+device.jpg',
                  'https://calce.umd.edu/sites/calce.umd.edu/files/chris-ried-534420-unsplash.jpg',
-                 'https://cdn.dnaindia.com/sites/default/files/styles/full/public/2016/11/29/524004-quadrotor-board-electric-circuit-wiki-commons.jpg',)
+                 'https://cdn.dnaindia.com/sites/default/files/styles/full/public/2016/11/29/524004-quadrotor-board-electric-circuit-wiki-commons.jpg',
+                 'http://netkumar1.co.in/wp-content/uploads/2019/03/524004-quadrotor-board-electric-circuit-wiki-commons-1140x641.jpg',)
     bg = random.choices(bg_images)
     proj = Project.objects.get(id=project_id)
 
@@ -211,8 +212,6 @@ def main_form(request, emp_id):
     form = inlineformset_factory(User, Employee, fields=(
         'id_no',
         'designation',
-        'researcher',
-        'coordinator',
         'department',
         'short_description',
         'Chamber_Consultation_Hours',
@@ -301,20 +300,16 @@ def change_password(request):
     return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator,'employee_logggedin': emp})
 
 def add_delete_projects(request):
-    form = modelformset_factory(Project, fields=('name',),extra=0,can_delete=True)
+    form = modelformset_factory(Project, fields=('name',), extra=0, can_delete=True)
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
     if request.method == 'POST':
-        formset = form(request.POST or None, request.FILES or None)
+        formset = form(request.POST)
         if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.proj_id = project.id
-                instance.save()
-                formset.save_m2m()
-                return redirect('/'  ) 
+            formset.save()
+            return redirect('/'  ) 
     formset = form()
     return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':True,'employee_logggedin': emp})
 
@@ -398,3 +393,20 @@ def news_add(request):
     else:     
         formset = News_add()
         return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator ,'employee_logggedin': emp})
+
+def news_detail_edit(request, news_id):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    form = modelformset_factory(News, exclude=(), can_delete=True, extra=0 )
+    if request.method == 'POST':
+        formset = form(request.POST or None, request.FILES or None, queryset=News.objects.filter(id=news_id))
+        if formset.is_valid():
+            formset.save()
+            return redirect('/news')
+    else:     
+        formset = form(queryset=News.objects.filter(id=news_id))
+    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True,'employee_logggedin': emp})
+
+ 

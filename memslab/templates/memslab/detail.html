@@ -8,117 +8,147 @@ Employee Details
 
 
 <div class="container-fluid  ">
-<div class="row  ">
-  <div class="container text-dark z-depth-1 p-4 mt-5 col-11 border rounded_m_top purple lighten-4"><h2>Faculty Coordinator</h2></div>
-  <div class="container-fluid border border-top-0  grey lighten-5 col-11 rounded_m_bottom  faculty_container ">  
-    <div class="row animated bounceInLeft ">  
-  {%for employee in employees%}
-     {%if employee.coordinator %}
-   
-     <div class="card border   rounded_mn hoverable  shadow-sm faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
-         <div class="container  ">
-         <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
-           
-           
-   
-           <div class="text-center">
-         
-               {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
-               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-               {% endthumbnail %}
-   
-           <hr class="featurette-divider">
-     </div>
-   
-     
-   
-      
-     <div class="card-body rounded_m">
-         <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
-   
-         <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
-       </div>
-   
-     </a>
-   </div>
-   </div>
+  <div class="row  ">
+    <div class="container text-dark z-depth-1 p-4 mt-5 col-11 border rounded_m_top purple lighten-4">
+      <h2>Faculty Coordinator</h2>
+    </div>
+    <div class="container-fluid border border-top-0 brown lighten-5 col-11 rounded_m_bottom  faculty_container ">
+      <div class="row animated bounceInLeft ">
+        {%for employee in employees%}
+        {%if employee.coordinator %}
 
-     {%endif%}
-     {%endfor%}
-    </div></div>
+        <div
+          class="card border   rounded_mn hoverable  shadow-sm faculty_card  deep-blue-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 ">
+          <div class="container  ">
+            <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
 
 
-    <div class="container  text-dark z-depth-1  green p-4 mt-5 col-11 border rounded_m_top lighten-4 "><h2>Faculty</h2></div>
-    <div class="container-fluid border border-top-0 mx-1 col-11   mx-auto grey lighten-5 faculty_container ">  <div class="row  animated bounceInLeft">  
-  {%for employee in employees%}
-  {%if not employee.researcher and not employee.coordinator %}
-   
-     <div class="card border rounded_mn hoverable shadow-sm faculty_card  tempting-azure-gradient  color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
-         <div class="container ">
-         <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
-           
-           
-   
-           <div class="text-center">
-         
-               {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
-               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-               {% endthumbnail %}
-   
-           <hr class="featurette-divider">
-     </div>
-   
-     
-   
-      
-     <div class="card-body rounded_m">
-         <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
-   
-         <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
-       </div>
-   
-     </a>
-   </div>
-   </div>
 
-     {%endif%}
-     {%endfor%}
-    </div></div> 
-    <div class="container text-dark z-depth-1  p-4 mt-5 col-11 border rounded_m_top blue lighten-4"  ><h2>Students</h2></div>  <div class="faculty_container container-fluid border border-top-0 mx-1 col-11  mx-auto grey lighten-5">  <div class="row animated bounceInLeft ">  
-    {%for employee in employees%}
-    {%if  employee.researcher%}
-     
-       <div class="card border rounded_mn hoverable shadow-sm faculty_card  winter-neva-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 " >
-           <div class="container  ">
-           <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
-             
-             
-     
-             <div class="text-center">
-           
-                 {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
-                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-                 {% endthumbnail %}
-     
-             <hr class="featurette-divider">
-       </div>
-     
-       
-     
-        
-       <div class="card-body rounded_m">
-           <p class="col m-0 card-title"><div class="card-title text-left text-capitalize" style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}} {{employee.user.last_name}}</div></p>
-     
-           <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">{{employee.designation}}</p>
-         </div>
-     
-       </a>
-     </div>
-     </div>
-  
-       {%endif%}
-       {%endfor%}
-      </div></div> 
-</div>
+              <div class="text-center">
+
+                {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                {% endthumbnail %}
+
+                <hr class="featurette-divider">
+              </div>
+
+
+
+
+              <div class="card-body rounded_m">
+                <p class="col m-0 card-title">
+                  <div class="card-title text-left text-capitalize"
+                    style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                    {{employee.user.last_name}}</div>
+                </p>
+
+                <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">
+                  {{employee.designation}}</p>
+              </div>
+
+            </a>
+          </div>
+        </div>
+
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+
+
+    <div class="container  text-dark z-depth-1   p-4 mt-5 col-11 border rounded_m_top green lighten-4 ">
+      <h2>Faculty</h2>
+    </div>
+    <div class="container-fluid border border-top-0 mx-1 col-11   mx-auto brown lighten-5 faculty_container ">
+      <div class="row  animated bounceInLeft">
+        {%for employee in employees%}
+        {%if not employee.researcher and not employee.coordinator %}
+
+        <div
+          class="card border rounded_mn hoverable shadow-sm faculty_card  tempting-azure-gradient  color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 ">
+          <div class="container ">
+            <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
+
+
+
+              <div class="text-center">
+
+                {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                {% endthumbnail %}
+
+                <hr class="featurette-divider">
+              </div>
+
+
+
+
+              <div class="card-body rounded_m">
+                <p class="col m-0 card-title">
+                  <div class="card-title text-left text-capitalize"
+                    style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                    {{employee.user.last_name}}</div>
+                </p>
+
+                <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">
+                  {{employee.designation}}</p>
+              </div>
+
+            </a>
+          </div>
+        </div>
+
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+    <div class="container text-dark z-depth-1  p-4 mt-5 col-11 border rounded_m_top blue lighten-4">
+      <h2>Students</h2>
+    </div>
+    <div class="faculty_container container-fluid border border-top-0 mx-1 col-11  mx-auto brown lighten-5">
+      <div class="row animated bounceInLeft ">
+        {%for employee in employees%}
+        {%if  employee.researcher%}
+
+        <div
+          class="card border rounded_mn hoverable shadow-sm faculty_card  winter-neva-gradient color-block  mask waves-effect col-xl-2 col-lg-4 col-md-5 col-sm-6 ">
+          <div class="container  ">
+            <a href="{%url 'memslab:show_profile'  employee.user.username %}" data-toggle="tooltip" title="extra info">
+
+
+
+              <div class="text-center">
+
+                {% thumbnail employee.emp_pic "160x160" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+                {% endthumbnail %}
+
+                <hr class="featurette-divider">
+              </div>
+
+
+
+
+              <div class="card-body rounded_m">
+                <p class="col m-0 card-title">
+                  <div class="card-title text-left text-capitalize"
+                    style="font-size:25px; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                    {{employee.user.last_name}}</div>
+                </p>
+
+                <p class="card-text text-center" style="font-size:16px; display: inline-block; word-break: break-word;">
+                  {{employee.designation}}</p>
+              </div>
+
+            </a>
+          </div>
+        </div>
+
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

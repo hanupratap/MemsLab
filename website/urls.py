@@ -18,13 +18,20 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from django.urls import reverse_lazy
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls , name='admin'),
     url(r'^ckeditor/',include('ckeditor_uploader.urls')),
- 
+    url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
     url(r'^', include('memslab.urls')),
+    url(r'^password-reset/$', auth_views.PasswordResetView.as_view(template_name='memslab/password_reset.html'), name='password_reset'),
+    url(r'^password-reset/done/$', auth_views.PasswordResetDoneView.as_view(template_name='memslab/password_reset_done.html'), name='password_reset_done'),
+    url(r'^reset-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.PasswordResetConfirmView.as_view(template_name='memslab/password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    url(r'^password-reset/complete/$', auth_views.PasswordResetCompleteView.as_view(),  name='password_reset_complete'),
+    url(r'^login/$',  auth_views.LoginView.as_view(template_name='memslab/login.html'), name="login"),
+    url(r'^logout/$', auth_views.LogoutView.as_view(template_name='memslab/logout.html' ), name="logout"),
+    
 ]
 
 if settings.DEBUG:

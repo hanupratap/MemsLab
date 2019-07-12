@@ -1,193 +1,221 @@
-
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>{% block title %}{%endblock%}</title>
+  <title>{% block title %}{%endblock%}</title>
+  {% load thumbnail %}
+  {% load staticfiles %}
+  {% load crispy_forms_tags %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Chrome">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <meta name="MicroElectro-Mechanical System Lab" content="Bits Pilani Hyderabad Campus MEMS Lab projects" />
+  <meta name="keywords"
+    content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel" />
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=Chrome">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<meta name="MicroElectro-Mechanical System Lab" content="Bits Pilani Hyderabad Campus MEMS Lab projects"/>
-<meta name="keywords" content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel"/>
- 
-{% load thumbnail %}
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<!-- Bootstrap core CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet">
-<!-- FONTS -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet">
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
 
 
-{% load staticfiles %}
-{% load crispy_forms_tags %}
 
-<!--CSS-->
-<link rel="stylesheet" type="text/css" href="{% static 'memslab/style.css' %}" />
-<!-- Mobile Css-->
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/normalize.css' %}" />
+  <!--CSS-->
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/style.css' %}" />
+  <!-- Mobile Css-->
 
-<link rel="stylesheet" type="text/css" href="{% static 'memslab/gallerly.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.carousel.min.css' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.theme.default.min.css' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/gallerly.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.theme.default.min.css' %}" />
 
 
 
 </head>
 
-<body class="grey lighten-3">
-  <div class="header ">     
- 
-      
-     <nav class="unselectable  shadow-0   navbar navbar-light bg-white   bg-transparent  navbar-expand-lg  z-depth-0  pt-3  pb-1  shadow-sm "  style="font-size: 120%;">
-        {%if employee_logggedin is none%}
-        <a class="nav-link avatar  p-3" href="{% url 'memslab:index' %}">
-          <img src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png" alt="Bits-logo" style="width: 70px;">
-        </a>
- 
-      {% else %}
-          <a class="nav-link dropdown-toggle avatar  p-3" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-       {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-              {% endthumbnail %}
-
-              <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
-            </a>            
-            
-            <div class=" dropdown-menu  ml-3 "   aria-labelledby="navbarDropdownMenuLink-55">
-          
-                <a class="dropdown-item  p-3   " href="{%url 'memslab:profile'%}"> Profile  </a><hr>
-              <a class="dropdown-item   p-3    " href="{% url 'memslab:logout'%}">Logout</a> 
-              
-             </div>
-       
-
-      
-  
-             {%endif%}
-        <a href="{%url 'memslab:index'%}"><div class=" navbar-brand-inline animated Fade navbar-name   text-primary-dark ml-auto " >
-          MEMS 
-        </div></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span><i class="fas fa-bars"></i></span>
-          </button>
-    
-      <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav font-weight-bold  ml-auto  p-4 mr-3  navigation" >
-          <li class="nav-item  mx-auto mr-lg-5 ">
-          
-            <a class="  rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/'%}  blue-text {%else%}  black-text{%endif%}  "   href="{% url 'memslab:index' %}" > <i class="fa fa-home" aria-hidden="true" >	&nbsp;</i>Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item  mx-auto mr-lg-5">
-            <a class=" rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/detail/'%} blue-text {%else%} black-text {%endif%}"   href="{%url 'memslab:detail' %}" > <i class="fa fa-users" aria-hidden="true">	&nbsp;</i>People</a>
-          </li>
-          <li class="nav-item  mx-auto mr-lg-5">
-              <a class=" rounded    p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/about/'%}  blue-text {%else%} black-text {%endif%}  "   href="{%url 'memslab:about' %}" > <i class="far fa-id-badge"> &nbsp;</i>Contact</a>
-            </li>
-            <li class="nav-item  mx-auto mr-lg-5">
-                <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 nav-text {%if request.path == '/news/'%}  blue-text {%else%}  black-text  {%endif%}"   href="{%url 'memslab:news' %}" > <i class="far fa-newspaper"> &nbsp;</i>News</a>
-              </li>
-          {% if user.is_authenticated%}
-          <li class="nav-item mx-auto mr-lg-5" id="navlink">
-            <a class=" rounded p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/profile/'%}  blue-text {%else%} black-text {%endif%}  "   href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>Profile</a>
-          </li>
-            {%else%}
-            <li class=" nav-item  mx-auto mr-lg-5"  data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
-              
-              <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/login/'%}   blue-text{%else%}  black-text  {%endif%}" href="{%url 'memslab:login'%}" ><i class="fa fa-sign-in-alt" aria-hidden="true">	&nbsp;</i>Login*<span class="sr-only">(current)</span></a>
-            </li>
-              {%endif%}
-          
-        </ul>
-
- 
-
-
-  
-    </nav></div>
-  
-
- 
-
-       
-{% if messages %}
-  {% for message in messages%}
-    <div class="alert alert-{{message.tags}} col-10 mx-auto rounded border ">
-      {{message}}
-    </div>
-  {%endfor%}
-{%endif%}
+<body class="grey lighten-4">
 
 
 
+  <nav class="unselectable   navbar navbar-light bg-white  bg-transparent  navbar-expand-lg  z-depth-0  "
+    style="font-size: 120%;">
 
-         {% block body %}
-          {% endblock %}
-
-                        
-<!-- Footer -->
-
-<footer class="footer-distributed elegant-color-dark" style="margin-bottom: -5rem;">
-
-  <div class="footer-left">
-  <div class="container ml-3"><img  src="https://universe.bits-pilani.ac.in/Uploads/Hyderabad/hyderabadtbi/Microcontent/2015-1-21--10-43-20-440_Tagline_colored.png"style=" filter:brightness(0.85); opacity: .9; width:100px;">
- </div> 
-  <h3 class="ml-3 col-10 " >BITS&nbsp PILANI<span> Hyderabad Campus</span><hr><p style="font-size: 60%;">Micro-Electromechanical System and MicroFluids Laboratory</p></h3>
-  
-    <br>
-    <p class="footer-links">
-      <a href="#">Home</a>
-      ·
-      <a href="{%url 'memslab:detail'%}" >People</a>
-      ·
-      <a href="{%url 'memslab:about'%}">Contact</a>
-      ·
-      <a href="{%url 'memslab:news'%}">News</a>
-      <br><br>
-      <a href="https://www.bits-pilani.ac.in/Hyderabad/" target="_blank">Old Site <i class="fas fa-external-link-alt"></i> </a>
-    </p>
-  </div>
-
-  <div class="footer-center font-weight-bold">
-
-    <div>
-      <a href="{%url 'memslab:about'%}">
-        <i class="fa fa-map-marker"></i>
-      <p><span>Shameerpet, Hyderabad</span> Telangana, India</p>
+    {%if employee_logggedin is none%}
+    <a class="nav-link  align-top " href="{% url 'memslab:index' %}">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png"
+        alt="Bits-logo" style="width: 70px;">
     </a>
 
-      
+    {% else %}
+    <a class="nav-link dropdown-toggle avatar " id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+      {% endthumbnail %}
+
+      <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
+    </a>
+
+    <div class=" dropdown-menu mdb-color  ml-3 font-weight-bold " aria-labelledby="navbarDropdownMenuLink-55">
+
+      <a class="dropdown-item grey-text p-3   font-weight-bold " href="{%url 'memslab:profile'%}"> Profile </a>
+      <hr>
+      <a class="dropdown-item  text-danger p-3   font-weight-bold  " href="{% url 'logout'%}">Logout</a>
+
     </div>
 
-    <div>
-        <a href="{%url 'memslab:about'%}">
-      <i class="fa fa-phone"></i>
-     
-       <p>{{coordinator.phone}}</p>
-   </a>
-     
-    </div>
 
-    <div >
-      <i class="fa fa-envelope"></i>
 
-      <p><a  href="mailto:{{superuser_emails}}">{{coordinator.user.email}}</a></p>
- 
-    </div>
 
+    {%endif%}
+    <a href="{%url 'memslab:index'%}">
+      <div class=" navbar-brand-inline animated fadeIn text-primary-dark " data-toggle="tooltip"
+        title="Microelectromechanical systems">
+        MEMS
+      </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+    </button>
+
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <ul class="navbar-nav font-weight-bold  ml-auto  p-4 mr-3 pt-5 navigation">
+        <li class="nav-item  mx-auto mr-lg-5 ">
+
+          <a class="  rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/'%}  blue-text {%else%}  black-text{%endif%}  "
+            href="{% url 'memslab:index' %}"> <i class="fa fa-home" aria-hidden="true"> &nbsp;</i>Home <span
+              class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item  mx-auto mr-lg-5">
+          <a class=" rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/detail/'%} blue-text {%else%} black-text {%endif%}"
+            href="{%url 'memslab:detail' %}"> <i class="fa fa-users" aria-hidden="true"> &nbsp;</i>People</a>
+        </li>
+        <li class="nav-item  mx-auto mr-lg-5">
+          <a class=" rounded    p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/about/'%}  blue-text {%else%} black-text {%endif%}  "
+            href="{%url 'memslab:about' %}"> <i class="far fa-id-badge"> &nbsp;</i>Contact Us</a>
+        </li>
+        <li class="nav-item  mx-auto mr-lg-5">
+          <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 nav-text {%if request.path == '/news/'%}  blue-text {%else%}  black-text  {%endif%}"
+            href="{%url 'memslab:news' %}"> <i class="far fa-newspaper"> &nbsp;</i>News</a>
+        </li>
+        {% if user.is_authenticated%}
+        <li class="nav-item mx-auto mr-lg-5" id="navlink">
+          <a class=" rounded p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/profile/'%}  blue-text {%else%} black-text {%endif%}  "
+            href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>Profile</a>
+        </li>
+        {%else%}
+        <li class=" nav-item  mx-auto mr-lg-5" data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
+
+          <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/login/'%}   blue-text{%else%}  black-text  {%endif%}"
+            href="{%url 'login'%}"><i class="fa fa-sign-in-alt" aria-hidden="true"> &nbsp;</i>Login*<span
+              class="sr-only">(current)</span></a>
+        </li>
+        {%endif%}
+
+      </ul>
+
+
+
+
+
+  </nav>
+
+
+
+
+
+  {% if messages %}
+  {% for message in messages%}
+  <div class="alert alert-{{message.tags}} col-10 mx-auto rounded border ">
+    {{message}}
   </div>
+  {%endfor%}
+  {%endif%}
 
-  <div class="footer-right">
 
-    <p class="footer-company-about">
-      <span>About this Site</span>
-      This website is for  MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad.
-    </p>
-<!--  <div class="footer-icons">
+
+
+  {% block body %}
+  {% endblock %}
+
+
+  <!-- Footer -->
+
+  <footer class="footer-distributed elegant-color-dark" style="margin-bottom: -5rem;">
+
+    <div class="footer-left">
+      <div class="container ml-3"><img
+          src="https://universe.bits-pilani.ac.in/Uploads/Hyderabad/hyderabadtbi/Microcontent/2015-1-21--10-43-20-440_Tagline_colored.png"
+          style=" filter:brightness(0.85); opacity: .9; width:100px;">
+      </div>
+      <h3 class="ml-3 col-10 ">BITS&nbsp PILANI<span> Hyderabad Campus</span>
+        <hr>
+        <p style="font-size: 60%;">Micro-Electromechanical System and MicroFluids Laboratory</p>
+      </h3>
+
+      <br>
+      <p class="footer-links">
+        <a href="#">Home</a>
+        ·
+        <a href="{%url 'memslab:detail'%}">People</a>
+        ·
+        <a href="{%url 'memslab:about'%}">Contact</a>
+        ·
+        <a href="{%url 'memslab:news'%}">News</a>
+        <br><br>
+        <a href="https://www.bits-pilani.ac.in/Hyderabad/" target="_blank">Old Site <i
+            class="fas fa-external-link-alt"></i> </a>
+      </p>
+    </div>
+
+    <div class="footer-center font-weight-bold">
+
+      <div>
+        <a href="{%url 'memslab:about'%}">
+          <i class="fa fa-map-marker"></i>
+          <p><span>Shameerpet, Hyderabad</span> Telangana, India</p>
+        </a>
+
+
+      </div>
+     
+      <div>
+        <a href="{%url 'memslab:about'%}">
+          <i class="fa fa-phone"></i>
+          {%if coordinator.phone%}
+          <p>{{coordinator.phone}}</p>
+          {%else%}
+          <p>9010202832</p>
+          {%endif%}
+        </a>
+
+      </div>
+
+      <div>
+        <i class="fa fa-envelope"></i>
+
+        <p><a href="mailto:{{superuser_emails}}">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%} sgoel@hyderabad.bits-pilani.ac.in{%endif%}</a></p>
+        
+
+      </div>
+
+    </div>
+
+    <div class="footer-right">
+
+      <p class="footer-company-about">
+        <span>About this Site</span>
+        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad.
+      </p>
+      <!--  <div class="footer-icons">
 
       <a href="#"><i class="fa fa-facebook"></i></a>
       <a href="#"><i class="fa fa-twitter"></i></a>
@@ -195,106 +223,57 @@
       <a href="#"><i class="fa fa-github"></i></a>
 
     </div>-->
-  
-
-
- 
-</footer>
-   
-             
-                <section style="height:80px;" class="text-bottom"> <div class=" text-right mr-1  "><a target='_blank'href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/"><small class="text-muted me">Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a></div></section>
-               
-</div>
-<!--JavaScript at end of body for optimized loading-->
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-<!-- Include js plugin -->
-<script src="{% static 'memslab/owl.carousel.min.js' %}"></script> 
-<script src="{% static 'memslab/gallerly.js' %}"></script>
-<script src="{% static 'memslab/main.js' %}"></script>
-<script>
-AutoHeight.Defaults = {
-    autoHeight: false,
-    autoHeightClass: 'owl-height'
-};
-</script>
-
-<!-- COnnnecting DOts-->
 
 
 
-<script>
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.getElementsByClassName("header").height = "30px";
-  } else {
-    document.getElementsByClassName("header").style.fontSize = "90px";
-  }
-  </script>
 
-<script>
+  </footer>
 
 
-$(window).on('load', function () {
- 
-   $("#owl-demo").owlCarousel({
-      navigation : true, // Show next and prev buttons
-      //decomment for text buttions     //navText:["<h3>Prev</h3>","<h3>Next</h3>"], 
-      
-      // decommecnt for arrow buttons   //  //decomment fro stock buttons     //
- 
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      autoHeight:true,
-      loop:true,
-      items:1,
-      dots:true,
-      lazyLoad: true,
-      autoplay:true,
-      lazyload:true,
-      autoplayTimeout:4000,
-      autoplayHoverPause:true,
-      center:true,
-      responsiveClass:true,
- 
-      responsive:{
-        0:{
-            margin:10,
-            nav:false,
-          
-        },
-        600:{
-            margin:20,
-            nav:false,
-            
-        },
-        1400:{
-          margin:30,
-            nav:true,
-            navText : ["<button class='btn btn-default ' > <i class='fas fa-angle-left fa-3x' ></i></button>","<button class='btn btn-default  bg-transparent  '> <i class='fas fa-angle-right fa-3x'></i></button>"],
-        }
-    }
-     
+  <section style="height:80px;" class="text-bottom">
+    <div class=" text-right mr-1  "><a target='_blank'
+        href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/"><small class="text-muted me">Designed and
+          Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a></div>
+  </section>
 
-  });
-});
+  </div>
+  <!--JavaScript at end of body for optimized loading-->
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
+  <!-- Include js plugin -->
 
-  
-  
-    </script>
-<script>function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }</script>
-<script>
+
+  <!--Image Slider Javascript-->
+  <script src="{% static 'memslab/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'memslab/carousel_settings.js' %}"></script>
+  <!--Project Gallery Javascript-->
+  <script src="{% static 'memslab/gallerly.js' %}"></script>
+  <script src="{% static 'memslab/main.js' %}"></script>
+
+  <!--Mobile Specific Toggle js-->
+  <script src="{% static 'memslab/toggle_panel.js' %}"></script>
+
+
+  <script>function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }</script>
+
+
+
+
+  <script>
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
@@ -302,32 +281,16 @@ $(window).on('load', function () {
       });
     }
   </script>
-<script>
 
-new WOW().init();
-</script>
-<script>
-function togglePanel (){
-   var w = $(window).width();
-   if (w <= 768) {
-      $('#collapseExample').removeClass('show');
-      $('#collapseExample1').removeClass('show');
-   } else {
-      $('#collapseExample').addClass('show ');
-      $('#collapseExample1').addClass('show');
-   }
-}
 
-$(window).resize(function(){
-     togglePanel();
-});
 
-togglePanel();
-</script>
- 
+  <script>
+    new WOW().init();
+  </script>
+
+
+
+
 </body>
 
 </html>
-
-
-

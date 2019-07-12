@@ -7,63 +7,74 @@ Lab
 {%endblock%}
 {% block body %}
 
-  {% if user.is_authenticated and employee.user.id == user.id   %}
-  
-  <div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg "> 
-    <h3>Functions</h3>
-  
- <a href="{% url 'memslab:news_edit' %}" ><button  class="btn  btn-md  btn-outline-primary waves-effect "  >Edit<i class="fas fa-edit"></i>
- 
-   
-   
+{% if user.is_authenticated and employee.user.id == user.id   %}
+
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
+  <h3>Functions</h3>
+
+  <a href="{% url 'memslab:news_edit' %}"><button class="btn  btn-md  btn-outline-primary waves-effect ">Edit<i
+        class="fas fa-edit"></i></button></a>
+
+
+
   {%if request.user.is_superuser%}
-   
-   <a  href="{%url 'admin:index' %}" ><button class="btn btn-md   btn-warning text-primary ">admin <i class="fas fa-external-link-alt"></i></button></a> 
 
-  
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md   btn-warning text-primary ">admin <i
+        class="fas fa-external-link-alt"></i></button></a>
+
+
   {%endif%}
   {%endif%}
 
- 
-       </div>
+
+</div>
 <div class="container col-10  mx-auto p-5 mdb-color display-4 text-info mt-5 mb-5">NEWS</div>
 <div class="container-fluid ">
   {%if objs%}
-    <div class="row animated fadeIn">         
-         {%for obj in objs%}
-         <a href="{% url 'memslab:news_detail' obj.id %}" > 
-           <div class=" mx-auto card  col-10 border  grey lighten-5 border shadow-sm">
-            <div class="card-title col-12 "> 
+  <div class="row animated fadeIn">
+    {%for obj in objs%}
+
+    <div class=" mx-auto card  col-10 border  grey lighten-5 border shadow-sm ">
+      <div class="card-title col-12 ">
         <h2 class=" border-bottom text-primary p-2">{{obj.topic}}</h2>
-      {%if obj.pic%}  
-      <div class="row  mt-1">  
-        <div class="col-xl-2 col-lg-3 col-sm-12  ">
-          {% thumbnail obj.pic '200x200' as im %}
-      <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m"   />
-  {% endthumbnail %}
+
+        {%if obj.pic%}
+        <div class="row  m-3 ">
+          <div class="col-xl-2 col-lg-3 col-sm-12  ">
+            {% thumbnail obj.pic '200x200' as im %}
+            <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m card-img-left" />
+            {% endthumbnail %}
+          </div>
+
+          <div class="card-body col-xl-9 col-lg-9 col-sm-12 ml-5   text-dark rounded">
+            <div class="col-12 mb-1" style="font-size: 120%; max-height: 120px; overflow: hidden;">{{obj.summary}}</div>
+            <a href="{% url 'memslab:news_detail' obj.id %}">...read more </a>
+          </div>
+
+
+
         </div>
-     
-        <div class="card-body col-xl-10 col-lg-9 col-sm-12 m-0 mt-lg-1  text-dark rounded" style="font-size: 110%;"  >    {{obj.summary}}</div></div>
-    
-        {%else%}
-        
-        <div class="card-body col-12 grey lighten-4"  >    {{obj.summary}}</div>
+
+
+
+
         {%endif%}
-      
-     
- {%if obj.user%}
-   <div class="footer mt-2   text-right  rounded">  <a href="{%url 'memslab:show_profile' obj.user.user.username %}" class=" mb-1"> Published By {{obj.user}} </a> <br> 
-    
-    {{obj.created_at|naturaltime}}</div>
- {%endif%}
-      </div> 
+
+
+        {%if obj.user%}
+        <div class="footer mt-2   text-right  rounded"> <a href="{%url 'memslab:show_profile' obj.user.user.username %}"
+            class=" mb-1"> Published By {{obj.user}} </a> <br>
+
+          {{obj.created_at|naturaltime}}</div>
+        {%endif%}
+      </div>
     </div>
-  </a>
+
     {%endfor%}
     {%else%}
     <h1> No NEWS Update available</h1>
     {%endif%}
-</div>
+  </div>
 
 
 </div>

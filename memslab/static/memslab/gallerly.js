@@ -3,7 +3,7 @@ var Gallerly = function($app) {
   this.thumbnail_height = 158;
   this.preview_height = 300;
   this.totalRows = 0;
-  console.log("loading...");
+  console.log("Loading Project Gallery");
   this.load();
 };
 
@@ -15,7 +15,7 @@ Gallerly.fn.load = function() {
 };
 
 Gallerly.fn.calculateRowNumbers = function() {
-  var thumbnails = this.$app.querySelectorAll(".image-viewer .thumbnail");
+  var thumbnails = this.$app.querySelectorAll('.image-viewer .thumbnail');
   var prevOffsetTop = 0;
   var rowNum = 0;
 
