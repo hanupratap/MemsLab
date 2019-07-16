@@ -13,41 +13,38 @@
   <meta name="keywords"
     content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel" />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Design Bootstrap -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet">
-  <!-- FONTS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
+  <link rel="icon" href=" https://www.sensorsexpo.com/sites/sensorsexpo/files/5cl_image/s17_icons_tracks_mems_17_0.png">
 
 
-
-  <link rel="stylesheet" type="text/css" href="{% static 'memslab/normalize.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/css/normalize.css' %}" />
   <!--CSS-->
-  <link rel="stylesheet" type="text/css" href="{% static 'memslab/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/css/style.css' %}" />
   <!-- Mobile Css-->
 
-  <link rel="stylesheet" type="text/css" href="{% static 'memslab/gallerly.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.carousel.min.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'memslab/owl.theme.default.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/css/gallerly.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/css/owl.carousel.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'memslab/css/owl.theme.default.min.css' %}" />
 
 
 
 </head>
 
-<body class="grey lighten-4">
+<body class="grey lighten-3">
 
-
-
-  <nav class="unselectable   navbar navbar-light bg-white  bg-transparent  navbar-expand-lg  z-depth-0  "
+ 
+  <nav class="unselectable   navbar navbar-light bg-white bg-transparent  navbar-expand-lg  z-depth-0  "
     style="font-size: 120%;">
 
     {%if employee_logggedin is none%}
-    <a class="nav-link  align-top " href="{% url 'memslab:index' %}">
+    <a class="nav-link  align-top " href="{% url 'memslab:home' %}">
       <img
         src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png"
         alt="Bits-logo" style="width: 70px;">
@@ -63,11 +60,12 @@
       <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
     </a>
 
-    <div class=" dropdown-menu mdb-color  ml-3 font-weight-bold " aria-labelledby="navbarDropdownMenuLink-55">
+    <div class=" dropdown-menu  ml-3 font-weight-bold " style="background-color: #485461;
+    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);" aria-labelledby="navbarDropdownMenuLink-55">
 
-      <a class="dropdown-item grey-text p-3   font-weight-bold " href="{%url 'memslab:profile'%}"> Profile </a>
+      <a class="dropdown-item grey-text p-2   font-weight-bold " href="{%url 'memslab:profile'%}"> Profile </a>
       <hr>
-      <a class="dropdown-item  text-danger p-3   font-weight-bold  " href="{% url 'logout'%}">Logout</a>
+      <a class="dropdown-item  grey-text p-2   font-weight-bold  " href="{% url 'logout'%}">Logout</a>
 
     </div>
 
@@ -75,11 +73,11 @@
 
 
     {%endif%}
-    <a href="{%url 'memslab:index'%}">
-      <div class=" navbar-brand-inline animated fadeIn text-primary-dark " data-toggle="tooltip"
+    <a href="{%url 'memslab:home'%}">
+      <div class="  animated fadeIn text-primary-dark " data-toggle="tooltip"
         title="Microelectromechanical systems">
-        MEMS
-      </div>
+        <h2>MEMS Lab</h2> 
+      </div>  
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,35 +85,42 @@
     </button>
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
-      <ul class="navbar-nav font-weight-bold  ml-auto  p-4 mr-3 pt-5 navigation">
+      <ul class="navbar-nav    ml-auto  p-4 mr-3 pt-5 navigation">
         <li class="nav-item  mx-auto mr-lg-5 ">
 
-          <a class="  rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/'%}  blue-text {%else%}  black-text{%endif%}  "
-            href="{% url 'memslab:index' %}"> <i class="fa fa-home" aria-hidden="true"> &nbsp;</i>Home <span
+          <a class="  rounded    {%if request.path == '/'%}  indigo-text {%else%} text-muted{%endif%}  "
+            href="{% url 'memslab:home' %}">Home <span
+              class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item  mx-auto mr-lg-5 ">
+
+          <a class="  rounded    {%if request.path == '/projects'%}  indigo-text {%else%} text-muted{%endif%}  "
+            href="{% url 'memslab:index' %}">Projects <span
               class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item  mx-auto mr-lg-5">
-          <a class=" rounded  p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/detail/'%} blue-text {%else%} black-text {%endif%}"
-            href="{%url 'memslab:detail' %}"> <i class="fa fa-users" aria-hidden="true"> &nbsp;</i>People</a>
-        </li>
+          <a class=" rounded   {%if request.path == '/detail/'%} indigo-text {%else%} text-muted{%endif%}"
+            href="{%url 'memslab:detail' %}"> People</a>
+        </li>      
         <li class="nav-item  mx-auto mr-lg-5">
-          <a class=" rounded    p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/about/'%}  blue-text {%else%} black-text {%endif%}  "
-            href="{%url 'memslab:about' %}"> <i class="far fa-id-badge"> &nbsp;</i>Contact Us</a>
+          <a class=" rounded     nav-text {%if request.path == '/news/'%}  indigo-text {%else%} text-muted  {%endif%}"
+            href="{%url 'memslab:news' %}"> News</a>
         </li>
-        <li class="nav-item  mx-auto mr-lg-5">
-          <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 nav-text {%if request.path == '/news/'%}  blue-text {%else%}  black-text  {%endif%}"
-            href="{%url 'memslab:news' %}"> <i class="far fa-newspaper"> &nbsp;</i>News</a>
+        <li class="nav-item mx-auto mr-lg-5">
+          <a class=" rounded   text-muted    {%if request.path == '/about/'%}  indigo-text {%else%} text-muted {%endif%}  "
+            href="{%url 'memslab:about' %}"> Contact Us</a>
         </li>
+  
         {% if user.is_authenticated%}
         <li class="nav-item mx-auto mr-lg-5" id="navlink">
-          <a class=" rounded p-lg-3 p-1 pt-lg-4 pb-lg-4{%if request.path == '/profile/'%}  blue-text {%else%} black-text {%endif%}  "
-            href="{%url 'memslab:profile'%}"><i class="fas fa-id-card">&nbsp;</i>Profile</a>
+          <a class=" rounded {%if request.path == '/profile/'%}  indigo-text {%else%} text-muted {%endif%}  "
+            href="{%url 'memslab:profile'%}"> Profile</a>
         </li>
         {%else%}
         <li class=" nav-item  mx-auto mr-lg-5" data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
 
-          <a class=" rounded   p-lg-3 p-1 pt-lg-4 pb-lg-4 {%if request.path == '/login/'%}   blue-text{%else%}  black-text  {%endif%}"
-            href="{%url 'login'%}"><i class="fa fa-sign-in-alt" aria-hidden="true"> &nbsp;</i>Login*<span
+          <a class=" rounded    {%if request.path == '/login/'%}   indigo-text{%else%} text-muted  {%endif%}"
+            href="{%url 'login'%}"> Login*<span
               class="sr-only">(current)</span></a>
         </li>
         {%endif%}
@@ -127,6 +132,7 @@
 
 
   </nav>
+ 
 
 
 
@@ -237,56 +243,25 @@
   </section>
 
   </div>
-  <!--JavaScript at end of body for optimized loading-->
-  <!-- JQuery -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/js/mdb.min.js"></script>
-  <!-- Include js plugin -->
-
-
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/js/mdb.min.js"></script>
   <!--Image Slider Javascript-->
-  <script src="{% static 'memslab/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'memslab/carousel_settings.js' %}"></script>
+  <script src="{% static 'memslab/javascript/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'memslab/javascript/carousel_settings.js' %}"></script>
   <!--Project Gallery Javascript-->
-  <script src="{% static 'memslab/gallerly.js' %}"></script>
-  <script src="{% static 'memslab/main.js' %}"></script>
+  <script src="{% static 'memslab/javascript/gallerly.js' %}"></script>
+  <script src="{% static 'memslab/javascript/main.js' %}"></script>
 
   <!--Mobile Specific Toggle js-->
-  <script src="{% static 'memslab/toggle_panel.js' %}"></script>
+  <script src="{% static 'memslab/javascript/toggle_panel.js' %}"></script>
+  <script src="{% static 'memslab/javascript/wow.js' %}"></script>
 
-
-  <script>function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }</script>
-
-
-
-
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-  </script>
-
-
-
-  <script>
-    new WOW().init();
-  </script>
 
 
 

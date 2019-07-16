@@ -9,35 +9,36 @@ Lab
 
 <!--Modal: Contact form-->
 {%if not user.is_authenticated%}
-<div class="modal-dialog cascading-modal" role="document">
+<div class="modal-dialog cascading-modal   " role="document">
 
     <!--Content-->
-    <div class="modal-content">
+    <div class="modal-content p-1">
 
         <!--Header-->
-        <div class="modal-header primary-color white-text">
+        <div class="modal-header indigo white-text ">
             <h4 class="title">
                 <i class="fa fa-pencil-alt"></i> Login Form</h4>
 
 
-        </div>
         <!--Body-->
-        <div class="modal-body">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="container" style="font-size:28px;">{{ form|crispy }}</div>
+        </div>      
+            <form method="POST" >
+         <h4 >  {% csrf_token %}
+        {{ form|crispy }}  </h4>
 
 
-        </div>
+ 
+ 
 
-        <div class="text-center mt-4 mb-2">
+        <div class="text-center ">
             <br>
-            <button type="submit" class="btn btn-primary btn-lg animated bounce">LOGIN <i
+            <button type="submit" class="btn btn-indigo btn-lg animated bounce">LOGIN <i
                     class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
 
-        </div>
-        <span class="ml-auto p-3 font-weight-bold"><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
+        </div></form>
+ <span class="ml-auto  p-3  font-weight-bold  "><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
     </div>
+   
 </div>
 {%else%}
 <div class=" col-8  mx-auto  " style="font-size: 20px;">

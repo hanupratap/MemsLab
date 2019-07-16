@@ -12,16 +12,16 @@ Lab
 
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
-<div class="container col-10 mb-5 border p-4 rounded_m bg-white  shadow-lg ">
+<div class="container col-10 mb-5 border p-4   bg-white  shadow-lg mt-3 ">
   <div class="text-left container  col-12  "><a href="{%url 'memslab:add_delete_projects'%} "><button
         class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>
 </div>
 {%endif%}
 {%endif%}
 
-
+<div class="display-4 text-left p-5">Projects</div>
 <div id="owl-demo"
-  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  align-items-center p-xl-4 animated fadeIn   ">
+  class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  align-items-center p-xl-4 animated fadeIn mt-3  ">
 
   {%for project in projects%}
   {%if project.project_pic%}
@@ -50,96 +50,91 @@ Lab
 </div>
 <hr class="col-10 ">
 <div
-  class=" container-fluid border   col-xl-10 col-11 p-4    mb-5 mt-5 mx-auto  text-white project_list_title shadow-sm default-color-dark">
-  <h3>Projects List</h3>
+  class=" container-fluid border   col-xl-10 col-11 p-4  mb-5 mt-5    indigo-text grey lighten-4 border    ">
+  <h3 class="font-weight-bold">Projects List</h3> </h3>
 </div>
 
+ 
+<div class="shadow-sm container-fluid   mt-5 col-xl-10 col-11 p-0 border  grey lighten-4  rounded"   >
 
-<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border  rgba-blue-slight">
-
-  <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse"
+  <div class=" container-fluid rounded_m_top  " type="toggle" data-toggle="collapse"
     data-target="#collapseExample" aria-expanded="true" style="cursor: pointer;">
-    <h3 class="  pt-4 pb-0 pl-3  ">Ongoing <i
+    <h3 class="  pt-4   pl-3  " style="font-weight: 400;">Ongoing <i
         class="far fa-caret-square-right special-color ongoing p-3 rounded-circle"></i></h3>
     <div class="text-right"><i class="fas fa-caret-down"></i> </div>
   </div>
-  <div class="container-fluid collapse project_container " id="collapseExample">
-    <div class="row unselectable col-12    pb-5 pt-5 ">
+  <div class="collapse " id="collapseExample">
+    <div class="card-columns   p-5   mb-5 ">
       {%for project in projects%}
       {% if project.status == 0 %}
 
-      <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
-
-        <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft ">
-          <div
-            class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white shadow-sm">
-
-
-            <div style=" display: inline-block; overflow: hidden; ">
-              {% thumbnail project.project_pic "300x200" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;"
-                class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image">
-              {% endthumbnail %}
-            </div> <br>
-            <span class=" overflow-auto  text-center">
-              <h4>{{project.name}}</h4>
-            </span>
-            <p class="blockquote bq-primary">{{project.short_description}}</p>
-            <blockquote>
-              <footer class="footer">
-                <div class="text-muted project_faculty_name ">
-                  <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
-                </div>
+ 
+      <a  href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;" > 
+          <div class=" animated bounceInLeft " >
+        <div class="card border waves-effect waves-dark p-0 m-0">
+          <div style=" display: inline-block; overflow: hidden; ">
+            {% thumbnail project.project_pic "300x200" crop="center" as im %}
+            <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
+              class="   card-img-top " alt="Generic placeholder image">
+            {% endthumbnail %}
           </div>
-          </footer>
-          </blockquote>
+          <div class="card-body">
+            <h5 class="card-title">{{project.name}}</h5>
+             
+          </div>
+     
+          <p class="p-2 bq-primary" >{{project.short_description}}</p>   
+          <blockquote class="blockquote ">
+            <footer class="footer">
+              <div class="text-muted project_faculty_name ">
+                <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+              </div> </footer>
+        </blockquote>
         </div>
-      </a>
-      {%endif%}
+        </div>
+       </a>
+       {%endif%}
       {%endfor%}
-    </div>
+    </div> 
   </div>
 
 </div>
 
-<div class=" container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 border rgba-green-slight   ">
-  <div class=" container-fluid rounded_m_top  border-bottom" type="toggle" data-toggle="collapse"
+<div class=" shadow-sm container-fluid mx-auto mt-5 col-xl-10 col-11 p-0 grey lighten-4  border   rounded"    >
+  <div class=" container-fluid rounded_m_top  " type="toggle" data-toggle="collapse"
     data-target="#collapseExample1" aria-expanded="false" style="cursor: pointer;">
-    <h3 class="  text-left pt-4 pb-0 pl-3 ">Completed <i
+    <h3 class="  text-left pt-4 pb-0 pl-3 "style="font-weight: 400;">Completed <i
         class="fas fa-check Completed   special-color p-3 rounded-circle"></i></h3>
     <div class="text-right"><i class="fas fa-caret-down"></i> </div>
   </div>
-  <div class="container-fluid collapse project_container " id="collapseExample1">
-    <div class="row unselectable col-12    pb-5 pt-5 ">
+  <div class="collapse " id="collapseExample1">
+      <div class="card-columns   p-5   mb-5 ">
       {%for project in projects%}
       {% if project.status == 1 %}
-      <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none;">
-
-        <div class="mask  view overlay zoom view overlay zoom animated bounceInLeft ">
-          <div
-            class="card border waves-effect waves-light  project_cards overflow-hidden z-depth-0   bg-white shadow-sm">
-
-
-            <div style=" display: inline-block; overflow: hidden; ">
-              {% thumbnail project.project_pic "300x200" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover;"
-                class=" mx-auto  card-img-top border-bottom" alt="Generic placeholder image">
-              {% endthumbnail %}
-            </div> <br>
-            <span class=" overflow-auto  text-center">
-              <h4>{{project.name}}</h4>
-            </span>
-            <p class="blockquote bq-success">{{project.short_description}}</p>
-            <blockquote>
-              <footer class="footer">
-                <div class="text-muted project_faculty_name ">
-                  <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
-                </div>
+      <a  href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;" > 
+          <div class=" animated bounceInLeft " >
+        <div class="card border waves-effect waves-dark p-0 m-0">
+          <div style=" display: inline-block; overflow: hidden; ">
+            {% thumbnail project.project_pic "300x200" crop="center" as im %}
+            <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
+              class="   card-img-top " alt="Generic placeholder image">
+            {% endthumbnail %}
           </div>
-          </footer>
-          </blockquote>
+          <div class="card-body">
+            <h5 class="card-title">{{project.name}}</h5>
+             
+          </div>
+     
+          <p class=" p-2 bq-success"  >{{project.short_description}}</p>   
+          <blockquote class="blockquote ">
+            <footer class="footer">
+              <div class="text-muted project_faculty_name ">
+                <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+              </div> </footer>
+        </blockquote>
         </div>
-      </a>
+        </div>
+       </a>
       {%endif%}
       {%endfor%}
     </div>

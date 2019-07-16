@@ -1,0 +1,25 @@
+<!-- Loads th path to your static files -->
+{% extends 'memslab/Base.html'%}
+
+
+{% block title%}
+Lab
+{%endblock%}
+{% block body %}  <h1 class="text-right p-5"> Welcome to our Site</h1>
+ <div class="container-fluid animated fadeIn"  style="  min-height:400px; color: white; 
+
+ background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(https://www.bits-pilani.ac.in/Uploads/Hyderabad/adminforbitshyderabad/sections/2018-9-24--17-54-6-477_IMG_1033.JPG); 
+ 
+ background-attachment: fixed;
+ background-position: bottom;
+ background-repeat: no-repeat;
+ background-size: cover;">
+     <div class="display-4"><br> Micro-Electro Mechanical System Laboratory </div><div class=" text-center"><h2> BITS Pilani Hyderbad Campus</h2></div>
+   
+    
+
+ </div>
+ <div class=" pt-5 text-left">
+     <a href="{%url 'memslab:index'%}"><button class="btn z-depth-0 btn-indigo ">Explore Projects</button></a>
+ </div>
+{% endblock %}

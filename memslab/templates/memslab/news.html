@@ -7,19 +7,19 @@ Lab
 {%endblock%}
 {% block body %}
 
-{% if user.is_authenticated and employee.user.id == user.id   %}
+{% if user.is_authenticated and employee.id == obj.user.id %}
 
 <div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
   <h3>Functions</h3>
 
-  <a href="{% url 'memslab:news_edit' %}"><button class="btn  btn-md  btn-outline-primary waves-effect ">Edit<i
+  <a href="{% url 'memslab:news_edit' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
         class="fas fa-edit"></i></button></a>
 
 
 
   {%if request.user.is_superuser%}
 
-  <a href="{%url 'admin:index' %}"><button class="btn btn-md   btn-warning text-primary ">admin <i
+  <a href="{%url 'admin:index' %}"><button class="btn  btn-md text-dark btn-warning rounded_mn waves-effect ">admin <i
         class="fas fa-external-link-alt"></i></button></a>
 
 
@@ -28,27 +28,29 @@ Lab
 
 
 </div>
-<div class="container col-10  mx-auto p-5 mdb-color display-4 text-info mt-5 mb-5">NEWS</div>
-<div class="container-fluid ">
+ 
+<div class="container-fluid pt-5">
+ 
   {%if objs%}
   <div class="row animated fadeIn">
     {%for obj in objs%}
 
-    <div class=" mx-auto card  col-10 border  grey lighten-5 border shadow-sm ">
+    <div class=" mx-auto card  col-10 border  grey lighten-4 border shadow-sm rounded_m">
       <div class="card-title col-12 ">
-        <h2 class=" border-bottom text-primary p-2">{{obj.topic}}</h2>
+        <h2 class="  black-text p-4">{{obj.topic}}</h2>
 
         {%if obj.pic%}
-        <div class="row  m-3 ">
-          <div class="col-xl-2 col-lg-3 col-sm-12  ">
+        <div class="row">
+          <div class="col-xl-2 col-lg-3 col-xs-12  mx-auto mt-3">
             {% thumbnail obj.pic '200x200' as im %}
-            <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m card-img-left" />
+            <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m card-img-left" style="width: 100%; height:auto;"/>
             {% endthumbnail %}
           </div>
 
-          <div class="card-body col-xl-9 col-lg-9 col-sm-12 ml-5   text-dark rounded">
-            <div class="col-12 mb-1" style="font-size: 120%; max-height: 120px; overflow: hidden;">{{obj.summary}}</div>
-            <a href="{% url 'memslab:news_detail' obj.id %}">...read more </a>
+          <div class="card-body col-xl-9 col-lg-9 col-sm-12 ml-5  mt-3 mx-auto text-dark rounded_m border grey lighten-5">
+            <div class="col-12 mb-1  " style="  max-height: 100px; overflow: hidden; ">{{obj.entry|safe}}</div>
+            <br>
+            <a href="{% url 'memslab:news_detail' obj.id %}" class="indigo-text " style="font-size: 120%;">...read more </a>
           </div>
 
 

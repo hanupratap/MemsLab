@@ -27,8 +27,7 @@ Lab
 {%endif%}
 
 
-<div class="container col-xl-10">
-
+ 
 
     {%if news%}
     <a href="{%url 'memslab:news_add'%}"><button class="btn btn-primary"><i class="fas fa-plus"></i> Add
@@ -57,30 +56,28 @@ Lab
         <hr>
     </div>
     {%endif%}
-    <div class="container col-12 pt-5">
-
-        <form method="post" style="font-size: 150%;" enctype=multipart/form-data>{% csrf_token %} <div
-            class="container bg-light rounded p-5 mb-5">
-            <h1> Information</h1>
-            <hr>
+    <div class="container-fluid">
+         <form method="post"   enctype=multipart/form-data>
+            {% csrf_token %} 
+           
+  
             {%if form_main%}
             {{form_main|crispy}}
             {%endif%}
-
             {{form.media}}
             {{form|crispy }}
 
 
-    </div>
+    
     <hr> {%if form1%}
-    <div class="container bg-light rounded p-5 mt-5 ">
+   
         <h1>Add Topics </h1>
         <hr>
 
-        <div class="text-muted mt-5  mx-auto">
+        
             {{form1|crispy}}
-            {%endif%}</div>
-    </div>
+            {%endif%} 
+    
     <div class="text-right m-5">
         <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
     </div>
@@ -90,6 +87,6 @@ Lab
     {%endif%}
 
 </div>
-</div>
+
 <canvas style="min-height: 500px;"></canvas>
 {% endblock %}

@@ -11,77 +11,54 @@ Lab
 </div>
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
 
 
 
-  <a href="{%url 'memslab:register' %}"> <button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Add User <i
-        class="fas fa-edit"></i>
-    </button></a>
+
   <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
-      Profile<i class="fas fa-edit"></i>
+      Profile <i class="fas fa-edit"></i>
     </button></a>
-
+    {%if not employee.researcher%}
+    <a href="{%url 'memslab:register' %}"> <button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Add User <i
+      class="fas fa-plus"></i>
+    </button></a>
+    {%endif%}
 
   {%if request.user.is_superuser%}
 
-  <a href="{%url 'admin:index' %}"><button class="btn btn-md rounded_mn   btn-warning text-primary ">Admin<i
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md rounded_mn   btn-warning text-dark ">Admin <i
         class="fas fa-external-link-alt"></i></button></a>
 
-
-  {%endif%}
-  {%endif%}
 </div>
-<div class="container   col-12 col-xl-11  shadow-lg mx-auto rounded_m profile-container  border  ">
+  {%endif%}
+  {%endif%}
 
-  <div class="row ">
+<div class="container   col-12 col-xl-11  shadow-lg mx-auto rounded_m {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
+
+  <div class="row animated fadeIn">
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto ">
-      <div class="row animated fadeIn">
-        <div class=" container col-12 "> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-          <img src="{{ im.url }}" class="rounded-circle border-0   col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+      <div class="row ">
+        {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
+          <img src="{{ im.url }}" class=" col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
           {% endthumbnail %}
 
-
-        </div>
-        {%if request.user == employee.user%}
-        <div class="container col-12">
-          <button type="button " class=" btn btn-md btn-default  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  "
-            data-toggle="modal" data-target="#changePic">
+{%if request.user == employee.user%}
+       
+          <a type="button " class=" btn btn-md btn-indigo ml-md-1 ml-xl-3 ml-lg-3 rounded-0 col-xl-9  col-lg-9 col-md-12 col-xs-12 col-sm-8   "
+            data-toggle="modal" data-target="#changePic"style="font-size:80%;">
             Change Pic <i class="fas fa-edit"></i>
-          </button></div>
+      </a> 
         {%endif%}
+     
+        
 
 
-        {% if user.is_authenticated and employee.user.id == user.id%}
-        <div class="modal fade text-muted p-0 " id="changePic" tabindex="0" role="dialog" aria-labelledby="label"
-          aria-hidden="true">
-          <div class="modal-dialog modal-top modal-md" role="document">
-            <div class="modal-content p-2">
-              <div class="modal-header">
-                <h5 class="modal-title " id="label">Change profile Pic</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <br>
-                {{change_pic|crispy}}
-                <div class="modal-body col-xl-12">
-                  High quality images are always favourable
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-outline-primary waves-effect btn-md" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary btn-md">Save changes</button>
-                </div>
-              </form>
-              <hr>
-            </div>
-          </div>
-        </div>
+ 
 
-        {%endif%}
-        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 animated fadeIn ">
+
+ 
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5     ">
           <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
           <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
@@ -97,7 +74,7 @@ Lab
     </div>
     <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3  ">
       <div class="row">
-        <div class="container col-11 rounded_m border mt-5 p-5 bg-white animated fadeIn">
+        <div class="container col-11 rounded_m border mt-5 p-5 bg-white    ">
           <p>
             <h1 style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
               {{employee.user.last_name}}</h1>
@@ -184,7 +161,7 @@ Lab
 
           </div>
           {%if employee.short_description%}
-          <div class="container-fluid mb-5 bg-white rounded_m animated fadeIn">
+          <div class="container-fluid mb-5 bg-white rounded_m ">
             <div class="row mt-5 border p-5 rounded_m">
               <div class=" text-muted col-12">
                 <h2>Description- </h2>
@@ -204,5 +181,31 @@ Lab
         class="btn btn-danger btn-lg ">Logout</button></a></div>
 
   {%endif%}</div>
-
+  <div class="modal fade" id="changePic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content p-5" style="font-size:120%;">
+        <div class="modal-header">
+           
+          <h5 class="modal-title" id="exampleModalLabel">Change profile Pic</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <br>
+          {{change_pic|crispy}}
+          <div class="modal-body col-xl-12">
+            High quality images are always favourable
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-outline-primary waves-effect btn-md" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-md">Save changes</button>
+          </div>
+        </form>
+        <hr>
+      </div>
+    </div>
+  </div> 
 {% endblock %}

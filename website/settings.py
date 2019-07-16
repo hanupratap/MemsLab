@@ -24,7 +24,7 @@ SECRET_KEY = 'fxv%)3#4e1rz#@svmo1(q=+!10g@7=v*3ndt%4kq$^22oevs6$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = False
 
 
 ALLOWED_HOSTS = ['localhost','192.168.1.3','127.0.0.1']
@@ -169,10 +169,10 @@ STATICFILES_DIRS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = '/'
+ 
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'memslab:index'
+LOGIN_REDIRECT_URL = 'memslab:home'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -181,9 +181,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='675104815315-mnjink33pfp8jqnmv6fquvpkkb3igjkq.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WpM6k0k2mNTOEAqm0LwWr2iR' #Paste Secret Key
-
+ 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

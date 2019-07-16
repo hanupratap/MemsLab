@@ -118,7 +118,6 @@ class News(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     pic = models.ImageField(upload_to='news_images', blank=True, default='news_images/default-image.jpg')
-    summary = models.TextField(blank=True)
     class Meta:
         verbose_name_plural = "News"
     def __str__(self):

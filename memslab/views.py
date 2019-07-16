@@ -17,10 +17,15 @@ from memslab.models import (Employee, Employee_details_topic, \
 def get_coordinator():
     return Employee.objects.filter(coordinator=True)[0]
 
+def home(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    return render(request, 'memslab/home.html', {'employee_logggedin': emp, 'coordinator': get_coordinator})
+
 
 def IndexView(request):
-    superuser = User.objects.filter(is_superuser=True)
-    super_employee = Employee.objects.filter(user=superuser)
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
@@ -217,7 +222,8 @@ def main_form(request, emp_id):
         'Chamber_Consultation_Hours',
         'experience_in_years',
         'phone',
-        'education_short',))
+        'education_short',
+        'emp_pic',))
 
     form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=1, can_delete=False)
     if request.method == 'POST':
@@ -350,7 +356,7 @@ def news(request):
     else:
         emp = None
     objs = News.objects.all()
-    return render(request, "memslab/news.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator,'objs':objs })
+    return render(request, "memslab/news.html", { 'employee_logggedin': emp, 'coordinator': get_coordinator,'objs':objs })
 
 def news_detail(request, news_id):
     if request.user.is_authenticated:

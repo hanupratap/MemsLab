@@ -7,19 +7,19 @@ Lab
 {%endblock%}
 {% block body %}
 
-{% if user.is_authenticated and employee.user.id == user.id   %}
+{% if user.is_authenticated and employee.id == obj.user.id  %}
 
 <div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
   <h3>Functions</h3>
 
   <a href="{% url 'memslab:news_detail_edit' obj.id %}"><button
-      class="btn  btn-md  btn-outline-primary waves-effect ">Edit<i class="fas fa-edit"></i></button></a>
+      class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit<i class="fas fa-edit"></i></button></a>
 
 
 
   {%if request.user.is_superuser%}
 
-  <a href="{%url 'admin:index' %}"><button class="btn btn-md   btn-warning text-primary ">admin <i
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md  rounded_mn btn-warning text-dark ">admin <i
         class="fas fa-external-link-alt"></i></button></a>
 
 
@@ -28,42 +28,21 @@ Lab
 </div>
 
 
-<div class="container col-12 col-lg-10">
-  <div class="container-fluid   mx-auto p-4 elegant-color display-4 text-default   rounded">{{obj.topic}}</div>
-  <div class="container-fluid">
-
-
-
-
-    <div class=" mx-auto card   border   special-color-dark  shadow-sm  ">
-      <div class="card-title  ">
-
-        <div class="card-body  table-responsive  rounded_m  ">
-          <h3 class="text-light">Summary</h3>
-          <div class="jumbotron grey lighten-5 p-5 mt-2   rounded">
-
-            {{obj.summary}}
-          </div>
-          <br>
-          <h3 class="text-light">Description</h3>
-          <div class="jumbotron p-5 lighten-5   mt-2 rounded table-responsive">
-            {{obj.entry|safe}}
-          </div>
-
-
-
-        </div>
-
-        <div class="footer mt-2  p-1 text-white  text-right  rounded "> <a
+<div class="container col-12 col-lg-10">  <div class="footer mt-2  p-1  text-right  rounded font-weight-bold "> <a
             href="{%url 'memslab:show_profile' obj.user.user.username %}" class=" p-1 mb-1"> Published By {{obj.user}}
           </a> <br>
 
           {{obj.created_at|naturaltime}}</div>
+  <div class=" mx-auto p-4 display-4 text-default   rounded">{{obj.topic}}</div>
+  <div class="container-fluid">
 
-      </div>
-    </div>
 
-
+<hr>
+<div class="jumbotron">
+  {{obj.entry|safe}}
+</div>
+ 
+      
 
 
   </div>

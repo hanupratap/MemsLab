@@ -11,7 +11,7 @@ Lab
 </div>
 
 {% if user.is_authenticated and employee.user.id == user.id%}
-<div class="container mb-5 border p-4 bg-white rounded_m  shadow-lg">
+<div class="container mb-5 border p-4 bg-white rounded_m  shadow-sm">
   <h3>Functions</h3>
   <a href="{%url 'memslab:register' %}"> <button class="btn  btn-md  btn-outline-primary waves-effect ">Add User <i
         class="fas fa-edit"></i>
@@ -26,22 +26,20 @@ Lab
         class="fas fa-external-link-alt"></i></button></a>
 
 </div>
-{%endif%}
-<div class="container shadow-lg col-12 col-lg-11  mx-auto rounded border profile-container   animated fadeIn    ">
+{%endif%}<a name="top"></a>
+<div class="container shadow-lg col-12 col-lg-11  mx-auto rounded border profile-container {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}   animated fadeIn    ">
 
   <div class="row ">
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-xs-10  mx-auto  mb-5 p-5">
       <div class=" row ">
-        <div class="container col-12"> {% thumbnail employee.emp_pic "250x250" crop="top" as im %}
-          <img src="{{ im.url }}" width="100%" height="100%"
-            class="rounded-circle border-0 prof_pic  col-xl-10  col-lg-10 col-md-12 col-xs-8 col-sm-8  ">
-          {% endthumbnail %}</div>
+          {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
+          <img src="{{ im.url }}" class="  border-0  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+          {% endthumbnail %}
         {%if request.user == employee.user%}
-        <div class="container col-12">
-          <button type="button" class=" btn btn-md btn-default col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  "
-            data-toggle="modal" data-target="#changePic">
-            Change Pic <i class="fas fa-edit"></i>
-          </button></div>
+        <a type="button " class=" btn btn-md btn-indigo ml-md-1 ml-xl-3 ml-lg-3 rounded-0 col-xl-9  col-lg-9 col-md-12 col-xs-12 col-sm-8   "
+        data-toggle="modal" data-target="#changePic"style="font-size:80%;">
+        Change Pic <i class="fas fa-edit"></i>
+  </a> 
         {%endif%}
         {% if user.is_authenticated and employee.user.id == user.id%}
         <div class=" col-xl-12  col-lg-12 col-md-12 col-xs-12 col-sm-8 p-0">
@@ -100,7 +98,7 @@ Lab
         <div class="bg-white border col-11 mb-5 mx-auto container  rounded_m ">
 
           {% autoescape on %}
-          <div class=" category_desc p-4">
+          <div class="table-responsive p-4">
 
             {% for point in topic.get_entry %}
             <p>
@@ -121,7 +119,7 @@ Lab
 
 
 
-
+  <a href="#top" class="p-5 font-weight-bold">Back to Top</a>
 
 
   </div>
