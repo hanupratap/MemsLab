@@ -9,9 +9,8 @@ Lab
 
 {% if user.is_authenticated and employee.id == obj.user.id %}
 
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
-  <h3>Functions</h3>
-
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow ">
+ 
   <a href="{% url 'memslab:news_edit' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
         class="fas fa-edit"></i></button></a>
 
@@ -29,56 +28,48 @@ Lab
 
 </div>
  
-<div class="container-fluid pt-5">
- 
+<div class="container-fluid pt-5 ">
+  <div class="  col-lg-10  mx-auto  ">
+ <div class="card-columns">
   {%if objs%}
-  <div class="row animated fadeIn">
     {%for obj in objs%}
+ 
 
-    <div class=" mx-auto card  col-10 border  grey lighten-4 border shadow-sm rounded_m">
-      <div class="card-title col-12 ">
-        <h2 class="  black-text p-4">{{obj.topic}}</h2>
+        <div class=" animated fadeIn  " >
+      <div class="card rounded-0  p-0 m-0 mt-3  border  proj_cards">
+        {%if  obj.pic%}
 
-        {%if obj.pic%}
-        <div class="row">
-          <div class="col-xl-2 col-lg-3 col-xs-12  mx-auto mt-3">
-            {% thumbnail obj.pic '200x200' as im %}
-            <img src="{{im.url }}" alt="{{project.id}}" class="rounded_m card-img-left" style="width: 100%; height:auto;"/>
-            {% endthumbnail %}
-          </div>
-
-          <div class="card-body col-xl-9 col-lg-9 col-sm-12 ml-5  mt-3 mx-auto text-dark rounded_m border grey lighten-5">
-            <div class="col-12 mb-1  " style="  max-height: 100px; overflow: hidden; ">{{obj.entry|safe}}</div>
-            <br>
-            <a href="{% url 'memslab:news_detail' obj.id %}" class="indigo-text " style="font-size: 120%;">...read more </a>
-          </div>
-
-
-
+        <div style=" display: inline-block; overflow: hidden; ">
+          {% thumbnail obj.pic "470" crop="center" as im %}
+          <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
+            class="  rounded-0 card-img-top " alt="Generic placeholder image">
+          {% endthumbnail %}
+        </div>          {%endif%}
+        <div class="card-body">
+          <h4 class="card-title">{{obj.topic}}</h4>
+           
         </div>
-
-
-
-
-        {%endif%}
-
-
-        {%if obj.user%}
-        <div class="footer mt-2   text-right  rounded"> <a href="{%url 'memslab:show_profile' obj.user.user.username %}"
-            class=" mb-1"> Published By {{obj.user}} </a> <br>
-
-          {{obj.created_at|naturaltime}}</div>
-        {%endif%}
+   <div class="container-fluid   text-dark" style="max-height: 200px; max-width: 400px; overflow:hidden;  cursor:default; " > <p >{{obj.entry|safe}}</p></div>
+<hr>
+        <blockquote class="blockquote bq-secondary  ">
+            <a  href="{%url 'memslab:news_detail' obj.id %} " ><button class="btn btn-primary btn-sm rounded_mn  ">Read More</button> </a> 
+          <footer class="blockquote-footer mt-1">
+ 
+              <a href="{%url 'memslab:show_profile' obj.user.user.username%}" style="color: #0000009f; font-size: 120%;"><cite title="Source Title "> Published By <strong>{{obj.user}}</strong>  <br> </cite></a> {{obj.created_at|naturaltime}}
+              
+  
+          </footer>
+      </blockquote>
       </div>
-    </div>
-
+      </div>
+  
     {%endfor%}
     {%else%}
     <h1> No NEWS Update available</h1>
     {%endif%}
   </div>
-
-
 </div>
+
+</div></div>
 
 {% endblock %}

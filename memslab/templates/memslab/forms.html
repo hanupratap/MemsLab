@@ -21,9 +21,17 @@ Lab
 
 {%endif%}
 
+
+
+{%if main_form %}
+<a href="{% url 'memslab:detail_form' employee.id %}"><button
+    class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit Info <i class="fas fa-edit"></i>
+  </button></a>
+{% endif %}
+
 {% if user.is_authenticated and employee.user.id == user.id%}
 <div class="sticky-top text-right container-fluid"><a class="btn btn-sm btn-warning text-primary"
-        href="{%url 'admin:index' %}">Go to admin page <i class="fas fa-external-link-alt"></i></a></div>
+        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a></div>
 {%endif%}
 
 
@@ -46,8 +54,8 @@ Lab
     {%endif%}
 
     {%if manage_project_images%}
-    <a href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn btn-primary"><i
-                class="fas fa-plus"></i> Manage_project_images</button></a>
+    <a   href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn btn-primary rounded_mn  btn-lg"><i
+                class="fas fa-plus"></i> Manage Project Images</button></a>
     {%endif%}
     {%if form%}
     {%if not projects%}
@@ -56,6 +64,9 @@ Lab
         <hr>
     </div>
     {%endif%}
+
+
+
     <div class="container-fluid">
          <form method="post"   enctype=multipart/form-data>
             {% csrf_token %} 

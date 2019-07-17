@@ -13,11 +13,11 @@
   <meta name="keywords"
     content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -39,8 +39,8 @@
 
 <body class="grey lighten-3">
 
- 
-  <nav class="unselectable   navbar navbar-light bg-white bg-transparent  navbar-expand-lg  z-depth-0  "
+
+  <header class="unselectable   navbar navbar-light bg-white bg-transparent  navbar-expand-lg  z-depth-0  "
     style="font-size: 120%;">
 
     {%if employee_logggedin is none%}
@@ -53,8 +53,8 @@
     {% else %}
     <a class="nav-link dropdown-toggle avatar " id="navbarDropdownMenuLink-55" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
-      {% thumbnail employee_logggedin.emp_pic "70x70" crop="center" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+      {% thumbnail employee_logggedin.emp_pic "70x70" crop="top" as im %}
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle" />
       {% endthumbnail %}
 
       <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
@@ -68,16 +68,11 @@
       <a class="dropdown-item  grey-text p-2   font-weight-bold  " href="{% url 'logout'%}">Logout</a>
 
     </div>
-
-
-
-
     {%endif%}
     <a href="{%url 'memslab:home'%}">
-      <div class="  animated fadeIn text-primary-dark " data-toggle="tooltip"
-        title="Microelectromechanical systems">
-        <h2>MEMS Lab</h2> 
-      </div>  
+      <div class="  animated fadeIn text-primary-dark " data-toggle="tooltip" title="Microelectromechanical systems">
+        <h2>MEMS Lab</h2>
+      </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,19 +84,17 @@
         <li class="nav-item  mx-auto mr-lg-5 ">
 
           <a class="  rounded    {%if request.path == '/'%}  indigo-text {%else%} text-muted{%endif%}  "
-            href="{% url 'memslab:home' %}">Home <span
-              class="sr-only">(current)</span></a>
+            href="{% url 'memslab:home' %}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item  mx-auto mr-lg-5 ">
 
           <a class="  rounded    {%if request.path == '/projects'%}  indigo-text {%else%} text-muted{%endif%}  "
-            href="{% url 'memslab:index' %}">Projects <span
-              class="sr-only">(current)</span></a>
+            href="{% url 'memslab:index' %}">Projects <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item  mx-auto mr-lg-5">
           <a class=" rounded   {%if request.path == '/detail/'%} indigo-text {%else%} text-muted{%endif%}"
             href="{%url 'memslab:detail' %}"> People</a>
-        </li>      
+        </li>
         <li class="nav-item  mx-auto mr-lg-5">
           <a class=" rounded     nav-text {%if request.path == '/news/'%}  indigo-text {%else%} text-muted  {%endif%}"
             href="{%url 'memslab:news' %}"> News</a>
@@ -110,7 +103,7 @@
           <a class=" rounded   text-muted    {%if request.path == '/about/'%}  indigo-text {%else%} text-muted {%endif%}  "
             href="{%url 'memslab:about' %}"> Contact Us</a>
         </li>
-  
+
         {% if user.is_authenticated%}
         <li class="nav-item mx-auto mr-lg-5" id="navlink">
           <a class=" rounded {%if request.path == '/profile/'%}  indigo-text {%else%} text-muted {%endif%}  "
@@ -120,19 +113,13 @@
         <li class=" nav-item  mx-auto mr-lg-5" data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
 
           <a class=" rounded    {%if request.path == '/login/'%}   indigo-text{%else%} text-muted  {%endif%}"
-            href="{%url 'login'%}"> Login*<span
-              class="sr-only">(current)</span></a>
+            href="{%url 'login'%}"> Login*<span class="sr-only">(current)</span></a>
         </li>
         {%endif%}
 
       </ul>
+  </header>
 
-
-
-
-
-  </nav>
- 
 
 
 
@@ -158,11 +145,9 @@
   <footer class="footer-distributed elegant-color-dark" style="margin-bottom: -5rem;">
 
     <div class="footer-left">
-      <div class="container ml-3"><img
-          src="https://universe.bits-pilani.ac.in/Uploads/Hyderabad/hyderabadtbi/Microcontent/2015-1-21--10-43-20-440_Tagline_colored.png"
-          style=" filter:brightness(0.85); opacity: .9; width:100px;">
-      </div>
-      <h3 class="ml-3 col-10 ">BITS&nbsp PILANI<span> Hyderabad Campus</span>
+
+      <h3 class="ml-3 col-12 ">BITS&nbsp; PILANI<span> Hyderabad Campus</span><br>
+        <small class="text-muted">Department Of Electrical Sciences </small>
         <hr>
         <p style="font-size: 60%;">Micro-Electromechanical System and MicroFluids Laboratory</p>
       </h3>
@@ -184,7 +169,7 @@
 
     <div class="footer-center font-weight-bold">
 
-      <div>
+      <div class="col-12">
         <a href="{%url 'memslab:about'%}">
           <i class="fa fa-map-marker"></i>
           <p><span>Shameerpet, Hyderabad</span> Telangana, India</p>
@@ -192,8 +177,8 @@
 
 
       </div>
-     
-      <div>
+
+      <div class="col-12">
         <a href="{%url 'memslab:about'%}">
           <i class="fa fa-phone"></i>
           {%if coordinator.phone%}
@@ -205,11 +190,12 @@
 
       </div>
 
-      <div>
+      <div class="col-12">
         <i class="fa fa-envelope"></i>
 
-        <p><a href="mailto:{{superuser_emails}}">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%} sgoel@hyderabad.bits-pilani.ac.in{%endif%}</a></p>
-        
+        <p><a href="mailto:{{superuser_emails}}">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%}
+            sgoel@hyderabad.bits-pilani.ac.in{%endif%}</a></p>
+
 
       </div>
 
@@ -217,9 +203,11 @@
 
     <div class="footer-right">
 
-      <p class="footer-company-about">
+      <p class="footer-company-about   ">
         <span>About this Site</span>
-        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad.
+        {%if coordinator%}
+        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad and Managed By <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a> 
+     {%endif%}
       </p>
       <!--  <div class="footer-icons">
 
@@ -230,37 +218,32 @@
 
     </div>-->
 
-
+    </div>
 
 
   </footer>
 
 
-  <section style="height:80px;" class="text-bottom">
+ 
     <div class=" text-right mr-1  "><a target='_blank'
         href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/"><small class="text-muted me">Designed and
-          Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a></div>
-  </section>
+          Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a>
+    </div>
+ 
 
   </div>
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/js/mdb.min.js"></script>
-  <!--Image Slider Javascript-->
-  <script src="{% static 'memslab/javascript/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'memslab/javascript/carousel_settings.js' %}"></script>
-  <!--Project Gallery Javascript-->
-  <script src="{% static 'memslab/javascript/gallerly.js' %}"></script>
-  <script src="{% static 'memslab/javascript/main.js' %}"></script>
-
-  <!--Mobile Specific Toggle js-->
-  <script src="{% static 'memslab/javascript/toggle_panel.js' %}"></script>
-  <script src="{% static 'memslab/javascript/wow.js' %}"></script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/js/mdb.min.js"></script>
+  {% block javascript %}
+  {% endblock %}
 
 
 

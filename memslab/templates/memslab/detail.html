@@ -10,7 +10,7 @@ Employee Details
     <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded  grey lighten-2">
       <h2>Faculty Coordinator</h2>
     </div>
-    <div class="container-fluid border border-top-0 grey lighten-4 col-lg-10 col-12 rounded  faculty_container ">
+    <div class="container-fluid border border-top-0 grey lighten-4 col-lg-11 col-12 rounded  faculty_container ">
       <div class="card-deck animated bounceInLeft ">
         {%for employee in employees%}
         {%if employee.coordinator %}
@@ -57,7 +57,7 @@ Employee Details
     <div class="container  text-dark  shadow p-4 col-lg-11 col-12 mt-5 border rounded grey lighten-2 ">
       <h2>Faculty</h2>
     </div>
-    <div class="container-fluid border border-top-0 col-lg-10 col-12  mx-auto grey lighten-4 faculty_container ">
+    <div class="container-fluid border border-top-0 col-lg-11 col-12  mx-auto grey lighten-4 faculty_container ">
       <div class="card-deck  animated bounceInLeft">
         {%for employee in employees%}
         {%if not employee.researcher and not employee.coordinator %}
@@ -103,7 +103,7 @@ Employee Details
     <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded  grey lighten-2">
       <h2>Students</h2>
     </div>
-    <div class="container-fluid border border-top-0 col-lg-10 col-12  mx-auto grey lighten-4 faculty_container">
+    <div class="container-fluid border border-top-0 col-lg-11 col-12  mx-auto grey lighten-4 faculty_container">
       <div class="row animated bounceInLeft ">
         {%for employee in employees%}
         {%if  employee.researcher%}

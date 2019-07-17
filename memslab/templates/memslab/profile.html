@@ -12,10 +12,6 @@ Lab
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
 <div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
-
-
-
-
   <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
       Profile <i class="fas fa-edit"></i>
     </button></a>
@@ -24,15 +20,12 @@ Lab
       class="fas fa-plus"></i>
     </button></a>
     {%endif%}
-
   {%if request.user.is_superuser%}
-
   <a href="{%url 'admin:index' %}"><button class="btn btn-md rounded_mn   btn-warning text-dark ">Admin <i
         class="fas fa-external-link-alt"></i></button></a>
-
+  {%endif%}
 </div>
-  {%endif%}
-  {%endif%}
+{%endif%}
 
 <div class="container   col-12 col-xl-11  shadow-lg mx-auto rounded_m {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
 

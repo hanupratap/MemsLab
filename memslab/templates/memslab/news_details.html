@@ -9,7 +9,7 @@ Lab
 
 {% if user.is_authenticated and employee.id == obj.user.id  %}
 
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-lg ">
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow  ">
   <h3>Functions</h3>
 
   <a href="{% url 'memslab:news_detail_edit' obj.id %}"><button
@@ -33,7 +33,7 @@ Lab
           </a> <br>
 
           {{obj.created_at|naturaltime}}</div>
-  <div class=" mx-auto p-4 display-4 text-default   rounded">{{obj.topic}}</div>
+  <div class=" mx-auto p-4 display-4 text-muted   rounded">{{obj.topic}}</div>
   <div class="container-fluid">
 
 

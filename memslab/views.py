@@ -187,7 +187,7 @@ def prof_cat(request, username, top):
         if form.is_valid():
             emp.emp_pic = request.FILES['emp_pic']
             emp.save()
-            return render(request, 'memslab/profile.html', {'employee_logggedin': emp,'employee': emp,'coordinator': get_coordinator})
+            return render(request, 'memslab/profile.html', {'employee_logggedin': emp, 'employee': emp, 'coordinator': get_coordinator})
     else:
         form = ProfilePic()
     categ = []
@@ -243,7 +243,7 @@ def main_form(request, emp_id):
         form_user = EditUserForm(instance=request.user)
         formset = form(instance=emp.user)
         formset1 = form1()
-        return render(request, "memslab/forms.html", {'form': formset, 'form1': formset1, 'form_main':form_user, 'employee': emp, 'coordinator': get_coordinator})
+        return render(request, "memslab/forms.html", {'form': formset, 'form1': formset1, 'form_main':form_user, 'employee': emp, 'coordinator': get_coordinator, 'main_form':True})
 
 
 @login_required
@@ -284,7 +284,7 @@ def manage_project(request, proj_id):
     else:     
         formset = form(queryset=Project.objects.filter(id=proj_id))
         
-        return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator,'project':project,'manage_project_images':True})
+        return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator, 'project':project, 'manage_project_images':True})
 
 def change_password(request):
     if request.user.is_authenticated:
@@ -303,7 +303,7 @@ def change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator,'employee_logggedin': emp})
+    return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator, 'employee_logggedin': emp})
 
 def add_delete_projects(request):
     form = modelformset_factory(Project, fields=('name',), extra=0, can_delete=True)
@@ -317,7 +317,7 @@ def add_delete_projects(request):
             formset.save()
             return redirect('/'  ) 
     formset = form()
-    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':True,'employee_logggedin': emp})
+    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':True, 'employee_logggedin': emp})
 
 def add_projects(request):
     if request.user.is_authenticated:
@@ -332,7 +332,7 @@ def add_projects(request):
     
     else:
         formset = Project_add()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator,'projects':False,'employee_logggedin': emp})
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
 
 def manage_project_images(request, proj_id):
     if request.user.is_authenticated:
@@ -349,14 +349,14 @@ def manage_project_images(request, proj_id):
             return redirect('/')
     else:
         formset1 = form1(instance=project)
-        return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator,'add_project_images':True,'employee_logggedin': emp})
+        return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator, 'add_project_images':True, 'employee_logggedin': emp})
 def news(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
     objs = News.objects.all()
-    return render(request, "memslab/news.html", { 'employee_logggedin': emp, 'coordinator': get_coordinator,'objs':objs })
+    return render(request, "memslab/news.html", { 'employee_logggedin': emp, 'coordinator': get_coordinator, 'objs':objs })
 
 def news_detail(request, news_id):
     if request.user.is_authenticated:
@@ -364,7 +364,7 @@ def news_detail(request, news_id):
     else:
         emp = None
     obj = News.objects.get(id=news_id)
-    return render(request, "memslab/news_details.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator,'obj':obj })
+    return render(request, "memslab/news_details.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator, 'obj':obj })
 
 def news_edit(request):
     if request.user.is_authenticated:
@@ -380,7 +380,7 @@ def news_edit(request):
        
     else:     
         formset = form( queryset=News.objects.filter(user=emp))
-    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True,'employee_logggedin': emp})
+    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True, 'employee_logggedin': emp})
 
 def news_add(request):
     if request.user.is_authenticated:
@@ -398,14 +398,14 @@ def news_add(request):
        
     else:     
         formset = News_add()
-        return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator ,'employee_logggedin': emp})
+        return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator , 'employee_logggedin': emp})
 
 def news_detail_edit(request, news_id):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(News, exclude=(), can_delete=True, extra=0 )
+    form = modelformset_factory(News, exclude=('user',), can_delete=True, extra=0 )
     if request.method == 'POST':
         formset = form(request.POST or None, request.FILES or None, queryset=News.objects.filter(id=news_id))
         if formset.is_valid():
@@ -413,6 +413,6 @@ def news_detail_edit(request, news_id):
             return redirect('/news')
     else:     
         formset = form(queryset=News.objects.filter(id=news_id))
-    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True,'employee_logggedin': emp})
+    return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator, 'news':True, 'employee_logggedin': emp})
 
  
