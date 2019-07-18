@@ -12,73 +12,66 @@
 {%if not employee.researcher%}
 <div class="container col-10 mb-5 border p-4 rounded_m bg-white  shadow-lg ">
   <div class="text-left mt-3 container col-12  "><a href="{%url 'memslab:manage_projects' project.id%} "><button
-        class="btn btn-primary rounded_mn"><i class="fas fa-tasks"></i> Edit Project</button></a></div>
+        class="btn btn-primary btn-md rounded_mn"><i class="fas fa-tasks"></i> Edit Project</button></a></div>
 </div>
 {%endif%}
 {%endif%}
 
-<div class=" mx-auto rounded_m col-xl-8 col-lg-8 col-md-10 col-xs-12 pt-5 mt-5 pb-5   grey  lighten-4 border">
-  <a type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true"   >  
-  <div class=" rounded_m_top  p-2  " >
-    <h1>Gallery <i class="fas fa-caret-down"></i></h1>
-  </div>
-</a>
-
-      
-    <div class="collapse show" id="collapseExample" >   
-
-      <div id="gallerly">
-
-      <div class="image-viewer mx-auto ">
-
-        {% thumbnail project.project_pic "300x300" crop="center" as im %}
-        <a class="thumbnail"><img src="{{im.url}}" data-title="{{project.name}}"
-            data-description="{{project.short_description}}" class="rounded   z-depth-1" /></a>
-        {% endthumbnail %}
+ {%if images%}
+<div class="container col-10 grey lighten-4 p-4 unselectable">
+  <span data-toggle="collapse" data-target="#demo" style="cursor: pointer;"><h1>Gallery</h1><div class="text-right"><i class="fas fa-caret-down"></i> </div></span>
+  <div class="card-columns collapse" id="demo" >  
         {%for image in images%}
-        {% thumbnail image.pic "300x300" crop="center" as im %}
-        <a class="thumbnail"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}"
-            class="rounded   z-depth-1" /></a>
-        {% endthumbnail %}
-        {%endfor%}
-
-        <div class="preview hide rounded col-12 ">
-
-          <div class="wrapper ">
-
-            <span class="arrow"></span>
-
-            <a class="prev unselectable"><i class="fas fa-chevron-left"></i> Prev</a>
-
-            <div class="preview-content ">
-
-              <img src="" />
-
-              <div class="content">
-
-                <h3 class="title"></h3>
-
-                <span class="description "></span>
-
-              </div>
-
-            </div>
-
-            <a class="next unselectable">Next <i class="fas fa-chevron-right"></i></a>
-
-            <a class="close-preview">Close</a>
-
+       
+         <div class="card rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 mt-5  border  proj_cards "   >
+ 
+        <div style=" display: inline-block; overflow: hidden; ">
+            {% thumbnail image.pic "300" crop="center" as im %}
+            <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
+              class="  rounded-0 card-img-top " alt="Generic placeholder image">
+            {% endthumbnail %}
           </div>
+          {%if image.title%}  
+ 
+     
+          {%endif%}
+          <button class="btn m-3 btn-sm rounded_mn btn-outline-primary" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">learn more</button>
+ 
 
-        </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-xl">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header"><h1 class="modal-title p-3 font-weight-bold">{{image.title}}</h1>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
       </div>
-    </div></div>
- 
- 
+      <div class="modal-body text-center">
+        <a href="{{image.pic.url}}" target="_blank"><img src="{{image.pic.url}}" class="rounded" style="object-fit: cover;  width: 70%; height: auto;"/></a>
+        
+      </div><p class="  bg-light m-xl-3 p-2" style="font-size: 110%">{{image.description}}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+   </div> 
 
  
+
+
+ 
+  {%endfor%}
+
 </div>
+
+</div>
+{%endif%}
+
 <div class="jumbotron mt-5  bg-transparent project_jumbotron " style="  min-height:500px; color: white; 
 
 background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}}); 
@@ -108,76 +101,30 @@ background-size: cover;word-wrap: break-word;">
 </div>
 <div class="container mt-5 ">
   <h2 class="text-muted"> ->People working on this project</h2>
-
+</div>
  
 
-  <div class="text-default  mt-4">
+  
+  <div class="container col-lg-10 col-12 mx-auto  ">
+    <div class="text-default  mt-4">
     <h2>Faculty</h2>
   </div>
-  <div class="row     border  grey lighten-4 rounded_m  ">
+  <div class="row pb-4  border  grey lighten-4  shadow   ">
     {%for employee in project.people.all%}
     {%if not employee.researcher%}
  
-      {%if employee%}
 
-      <div
-        class="card  shadow-sm     faculty_card rounded   color-block  mask waves-effect " style="background-color: #ffffff;
-        background-image: linear-gradient(315deg, #81bde07a 0%, #a1c0f5 74%); width: 18rem;">
-        <div class="container p-0">
+      <div class="card   hoverable faculty_card  
+          mask waves-effect p-0" style="background-color: #ffffff;
+         background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 15rem; ">
+        
           <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-
-            <div class="text-center">
-
+             
               {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
               {% endthumbnail %}
-
-              <hr class="featurette-divider">
-            </div>
-
-
-
-
-            <div class="card-body  ">
-              <p class=" card-title">
-                <div class="card-title text-left text-capitalize"
-                  style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
-                  {{employee.user.last_name}}</div>
-              </p>
-
-              <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">
-                {{employee.designation}}</p>
-            </div>
-
-          </a>
-        </div>
-      </div>
- 
-    {%else%}
-    <h4>NONE</h4>
-    {%endif%}
-
-    {%endif%}
-    {%endfor%}
-  </div>
-
-  <div class="text-default mt-4">
-    <h2>Students</h2>
-  </div>
-  <div class="row   border  grey lighten-4 rounded_m p-1">
-    {%for employee in project.people.all%}
-    {%if employee.researcher%}
-      <div class="card shadow-sm    hoverable faculty_card rounded
-         color-block  mask waves-effect " style="background-color: #ffffff;
-         background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 18rem;">
-        <div class="container p-0">
-          <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-            <div class="text-center">
-              {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle">
-              {% endthumbnail %}
-              <hr class="featurette-divider">
-            </div>
+       
+       
               <div class="card-body  ">
               <p class="col m-0 card-title">
                 <div class="card-title text-left text-capitalize"
@@ -189,30 +136,65 @@ background-size: cover;word-wrap: break-word;">
                 {{employee.designation}}</p>
             </div>
           </a>
-      </div>
+     
     </div>
+ 
+ 
+
+    {%endif%}
+    {%endfor%}
+  </div> 
+</div>
+
+  
+  <div class="container col-lg-10 col-12 mx-auto  "><div class="text-default mt-4">
+    <h2>Students</h2>
+  </div>
+  <div class="row pb-4 border  grey lighten-4  shadow ">
+ 
+    {%for employee in project.people.all%}
+    {%if employee.researcher%}
+     
+    <div class="card p-0  hoverable faculty_card  
+    mask waves-effect " style="background-color: #ffffff;
+   background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 15rem; ">
+  
+    <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+       
+        {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
+        {% endthumbnail %}
+ 
+ 
+        <div class="card-body  ">
+        <p class="col m-0 card-title">
+          <div class="card-title text-left text-capitalize"
+            style="font-size:27px; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+            {{employee.user.last_name}}</div>
+        </p>
+
+        <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">
+          {{employee.designation}}</p>
+      </div>
+    </a>
+
+</div>
+ 
     {%endif%}
     {%endfor%}
   </div>
-</div>
+  </div>
+
 {%if project.proj_file%}
-<div class=" container col-8-lg col-6-md col-4-sm mt-5">
-  <div class="jumbotron shadow-lg">
-    Additional information about Project:
+<div class=" container col-10-lg col-6-md col-4-sm mt-5">
+  <div class="jumbotron shadow" style="font-size: 120%;">
+   Additional information about Project: 
     
-    <h4> <a class="btn btn-primary btn-lg col-12-sm" href="{{project.proj_file.url}}" target="_blank"
-        role="button">{{project.filename}}</a></h4>
+   <a class="btn btn-outline-primary " href="{{project.proj_file.url}}" target="_blank"
+        role="button">{{project.filename}}</a> 
   
 
   </div>
 </div>
   {%endif%}
 {%endblock%}
-
-{% block javascript %}
-  <!--Project Gallery Javascript-->
-  <script src="{% static 'memslab/javascript/gallerly.js' %}"></script>
-  <script src="{% static 'memslab/javascript/main.js' %}"></script>
-    <!--Mobile Specific Toggle js-->
-    <script src="{% static 'memslab/javascript/toggle_panel.js' %}"></script>
-{% endblock %}

@@ -51,7 +51,7 @@
     </a>
 
     {% else %}
-    <a class="nav-link dropdown-toggle avatar " id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+    <a class="nav-link dropdown-toggle   " id="navbarDropdownMenuLink-55" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false">
       {% thumbnail employee_logggedin.emp_pic "70x70" crop="top" as im %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle" />
@@ -70,8 +70,8 @@
     </div>
     {%endif%}
     <a href="{%url 'memslab:home'%}">
-      <div class="  animated fadeIn text-primary-dark " data-toggle="tooltip" title="Microelectromechanical systems">
-        <h2>MEMS Lab</h2>
+      <div class="   indigo-text  " data-toggle="tooltip" title="Microelectromechanical systems">
+        <h2 style="font-weight: 400;">MEMS Lab</h2>
       </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -118,6 +118,7 @@
         {%endif%}
 
       </ul>
+    </div>
   </header>
 
 
@@ -203,20 +204,14 @@
 
     <div class="footer-right">
 
-      <p class="footer-company-about   ">
+      <p class="footer-company-about">
         <span>About this Site</span>
-        {%if coordinator%}
-        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad and Managed By <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a> 
-     {%endif%}
+        
+        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad{%if coordinator%} and Managed By
+        <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}}
+          {{coordinator.user.last_name}}</a>
+        {%endif%}
       </p>
-      <!--  <div class="footer-icons">
-
-      <a href="#"><i class="fa fa-facebook"></i></a>
-      <a href="#"><i class="fa fa-twitter"></i></a>
-      <a href="#"><i class="fa fa-linkedin"></i></a>
-      <a href="#"><i class="fa fa-github"></i></a>
-
-    </div>-->
 
     </div>
 
@@ -224,14 +219,19 @@
   </footer>
 
 
- 
-    <div class=" text-right mr-1  "><a target='_blank'
-        href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/"><small class="text-muted me">Designed and
-          Developed by Hanupratap Singh Chauhan:2017A3PS0427H</small></a>
-    </div>
- 
 
+
+  <div class="text-right mr-3"><a target='_blank'
+      href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/">
+      <small class="text-muted me">
+        Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H
+      </small>
+    </a>
   </div>
+
+
+
+
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- Bootstrap tooltips -->
@@ -242,6 +242,43 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/js/mdb.min.js"></script>
+  <script>var coll = document.getElementsByClassName("collapsible");
+      var i;
+      
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }</script>
+
+ <script>
+ 
+ jQuery(document).ready(function($) {
+  var alterClass = function() {
+    var ww = document.body.clientWidth;
+    if (ww < 500) {
+      $('.table-responsive ').addClass('text-nowrap');
+ 
+    } else if (ww >= 401) {
+      $('.table-responsive ').removeClass('text-nowrap');
+  
+    };
+  };
+  $(window).resize(function(){
+    alterClass();
+  });
+  //Fire it when the page first loads:
+  alterClass();
+});
+ </script>
+
+ 
   {% block javascript %}
   {% endblock %}
 

@@ -33,7 +33,7 @@ Lab
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto ">
       <div class="row ">
         {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
-          <img src="{{ im.url }}" class=" col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8  ">
+          <img src="{{ im.url }}" class=" col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8 mx-auto ">
           {% endthumbnail %}
 
 {%if request.user == employee.user%}
@@ -67,7 +67,7 @@ Lab
     </div>
     <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3  ">
       <div class="row">
-        <div class="container col-11 rounded_m border mt-5 p-5 bg-white    ">
+        <div class="container col-11 rounded_m border mt-5 p-5 bg-white">
           <p>
             <h1 style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
               {{employee.user.last_name}}</h1>
@@ -92,7 +92,7 @@ Lab
           </nav>
           <div class="tab-content border border-top-0 rounded_m_bottom bg-white animated  fadeIn" id="nav-tabContent">
             <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab">
-              <table class="table  table-responsive-lg ">
+              <table class="table  table-responsive  ">
                 <tbody>
                   {% if user.is_authenticated and employee.user.id == user.id%}
                   <tr>

@@ -27,7 +27,7 @@ DEBUG = True
 THUMBNAIL_DEBUG = False
 
 
-ALLOWED_HOSTS = ['localhost','192.168.1.3','127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '192.168.1.4', '127.0.0.1']
 
 
 # Application definition
@@ -47,36 +47,20 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'phone_field',
-    'password_reset',
+    'django_template_check',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIGS = {
-    'default' : {
-        'height':300,
-        'width':700,
-        
-    }
-}
- 
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google_oauth2': {
-        'SCOPE': [
-            'r_emailaddress',
-            'r_basicprofile',
-        ],
-    }
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 1000,
+    },
 }
 
-AUTHENTICATION_BACKENDS = (
- 'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
- 'social_core.backends.google.GoogleOpenId',  # for Google authentication
- 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
- 'django.contrib.auth.backends.ModelBackend'
-)
- 
+
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -102,10 +86,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
-                'social_django.context_processors.login_redirect', # <- Here
-                'social_django.context_processors.backends',  # <- Here
-
-  
             ],
         },
     },
@@ -162,14 +142,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
- 
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'memslab:home'
@@ -178,10 +155,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
 
- 
+THUMBNAIL_ALTERNATIVE_RESOLUTIONS = [1.5, 2]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -189,13 +164,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'bitshydmemslab@gmail.com'
 EMAIL_HOST_PASSWORD = 'bitshyderabad@17'
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True

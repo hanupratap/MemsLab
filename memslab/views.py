@@ -347,6 +347,8 @@ def manage_project_images(request, proj_id):
         if formset1.is_valid():
             formset1.save()
             return redirect('/')
+        else:
+            return HttpResponse('ERROR')
     else:
         formset1 = form1(instance=project)
         return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator, 'add_project_images':True, 'employee_logggedin': emp})

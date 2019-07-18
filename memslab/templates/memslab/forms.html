@@ -11,7 +11,7 @@ Lab
 
 
 {%if register_user%}
-<div class="container col-10 bg-light text-center mt-5">
+<div class="container col-10 rounded_m bg-white text-center mt-5">
     <a href="{%url 'memslab:register_faculty'%}"><button class="btn btn-primary btn-lg m-5 rounded_mn"><i
                 class="fas fa-plus"></i> Add Faculty</button></a><br>
     <a href="{%url 'memslab:register_student'%}"><button class="btn btn-primary btn-lg m-5 rounded_mn"><i
@@ -24,48 +24,55 @@ Lab
 
 
 {%if main_form %}
-<a href="{% url 'memslab:detail_form' employee.id %}"><button
-    class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit Info <i class="fas fa-edit"></i>
+ <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+<a href="{% url 'memslab:detail_form' employee.id %}"><button class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit Info <i class="fas fa-edit"></i>
   </button></a>
+  {% if user.is_authenticated and employee.user.id == user.id%}
+ 
+ <a class="btn btn-md rounded_mn btn-warning text-primary"
+        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a> 
+ 
+{%endif%}
+</div>
 {% endif %}
 
-{% if user.is_authenticated and employee.user.id == user.id%}
-<div class="sticky-top text-right container-fluid"><a class="btn btn-sm btn-warning text-primary"
-        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a></div>
-{%endif%}
 
 
  
+ 
 
     {%if news%}
-    <a href="{%url 'memslab:news_add'%}"><button class="btn btn-primary"><i class="fas fa-plus"></i> Add
-            News</button></a>
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+     <a href="{%url 'memslab:news_add'%}"><button class="btn rounded_mn btn-md btn-primary"><i class="fas fa-plus"></i> Add News</button></a>
+    </div>
+
     {%endif%}
     {%if projects%}
-    <div class="col-12 mb-5  ">
-        <h1>Manage Projects</h1>
-        <hr>
-    </div>
-    <a href="{%url 'memslab:add_projects'%}"><button class="btn btn-primary"><i class="fas fa-plus"></i> Add
-            projects</button></a>
-    {%else%}
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
 
+    <a href="{%url 'memslab:add_projects'%}"><button class="btn rounded_mn btn-md btn-primary"><i class="fas fa-plus"></i> Add projects</button></a>
+    </div>
 
     {%endif%}
 
     {%if manage_project_images%}
-    <a   href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn btn-primary rounded_mn  btn-lg"><i
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+
+    <a   href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn  btn-primary rounded_mn  btn-md"><i
                 class="fas fa-plus"></i> Manage Project Images</button></a>
+    </div>
+ 
     {%endif%}
     {%if form%}
     {%if not projects%}
-    <div class="col-12 mb-5  ">
-        <h1>Edit Page</h1>
-        <hr>
-    </div>
+       
+
     {%endif%}
 
-
+   <div class="col-12 mb-5  ">
+            <h1>Edit Page</h1>
+            <hr>
+        </div>
 
     <div class="container-fluid">
          <form method="post"   enctype=multipart/form-data>

@@ -6,52 +6,38 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid col-12 text-left mt-5 animated fadeIn">
-  <h1 class="ml-3">Contact Us</h1>
-
-
-  <div class="row  ">
-    <div class="card mx-auto col-12 col-xl-10 bg-dark text-light mb-4">
+<div class="container  col-12 text-lef  animated fadeIn">
+  <h1 class="indigo-text ml-5">Contact Us</h1> 
+  <div class="container col-10"> 
+  <div class="row  " >
+    <div class="card mt-2 m-0 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
       <div class="card-body ">
-        <h5 class="card-title">Coordinator</h5>
+        <h3 class="card-title">Coordinator</h3>
         <p class="card-text ">
-          <h3>{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h3>
+          <h4 class=" text-muted">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h4>
         </p>
         <a class="card-link text-primary" href="{%url 'memslab:show_profile' coordinator.user.username%}">Go to
           Profile</a>
 
       </div>
     </div>
-    <div class="card mx-auto   col-12 col-xl-10 bg-dark text-light mb-4">
+
+
+
+    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
       <div class="card-body ">
-        <h5 class="card-title">Address</h5>
+        <h3  class="card-title">Email</h3 >
         <p class="card-text ">
-          <div class="mx-auto map-responsive " style="min-height:500px;"><iframe title="Map" class="p-0 m-0 border "
-              width="100%" height="500px" frameborder="10" style="border:0"
-              src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70"
-              allowfullscreen></iframe>
-          </div>
-        </p>
-
-
-      </div>
-    </div>
-
-
-    <div class="card mx-auto  col-12 col-xl-10  bg-dark text-light mb-4">
-      <div class="card-body ">
-        <h5 class="card-title">Email</h5>
-        <p class="card-text ">
-          <h2>{{coordinator.email}}</h2>
+          <h4>{{coordinator.email}}</h4>
         </p>
         <a class="card-link text-primary" href="mailto:{{superuser_emails}}">
           <h5>{{coordinator.user.email}}</h5>
         </a>
       </div>
     </div>
-    <div class="card mx-auto  col-12 col-xl-10  bg-dark text-light mb-4">
+    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
       <div class="card-body ">
-        <h5 class="card-title">Contact No.</h5>
+        <h3 class="card-title">Contact No.</h3>
         <p class="card-text ">
           <h4>{{coordinator.phone}}</h4>
         </p>
@@ -60,9 +46,9 @@ Lab
     </div>
 
     {%if coordinator.skype_link%}
-    <div class="card mx-auto  col-12 col-xl-10 bg-dark text-light mb-4">
+    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
       <div class="card-body ">
-        <h5 class="card-title">Skype</h5>
+        <h3 class="card-title">Skype</h3 >
         <p class="card-text "></p>
         <a class="card-link text-primary" href="{{coordinator.skype_link}}">
           <h5>{{coordinator.skype_link}}</h5>
@@ -73,9 +59,9 @@ Lab
     {%endif%}
 
     {%if coordinator.website_link%}
-    <div class="card mx-auto col-12 col-xl-10 bg-dark text-light mb-4">
+    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
       <div class="card-body ">
-        <h5 class="card-title">Web</h5>
+        <h3 class="card-title">Web</h3>
         <p class="card-text "></p>
         <a class="card-link text-primary" href="{{coordinator.website_link}}">
           <h5>{{coordinator.website_link}}</h5>
@@ -85,6 +71,16 @@ Lab
     </div>
     {%endif%}
 
-  </div>
+
+ 
+  </div> 
+</div>
+    <div class="container"> <h1 class="mt-5 indigo-text  ">Address</h1>
+        <div id="map-container-google-2" class=" border-dark border map-container  mx-auto" style="height: 500px">
+            <iframe src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70" frameborder="0"
+              style="border:0" allowfullscreen></iframe>
+          </div></div>
+       
+    
 </div>
 {% endblock %}
