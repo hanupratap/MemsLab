@@ -17,7 +17,7 @@ Lab
 {% block body %}
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
-<div class="container col-10 mb-5 border p-4   bg-white  shadow mt-3 rounded_m ">
+<div class="container col-10 mb-5 border p-4   bg-white  shadow-sm mt-3 rounded_m ">
   <div class="text-left container  col-12  "><a href="{%url 'memslab:add_delete_projects'%} "><button
         class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>
 </div>
@@ -25,14 +25,14 @@ Lab
 {%endif%}
 
 <div class="crousel-wrapper">
-  <div id="owl-demo" class=" owl-carousel owl-theme mx-auto col-xl-8 col-lg-10  col-12  align-items-center p-xl-4  animated fadeIn mt-3  ">
+  <div id="owl-demo" class=" owl-carousel owl-theme mx-auto  col-lg-9 col-12  align-items-center    animated fadeIn   ">
 
   {%for project in projects%}
   {%if project.project_pic%}
   {% thumbnail project.project_pic '400x400' as im %}
-  <div class="item pr-5 hidden  ">
+  <div class="item pl-lg-5  hidden  ">
     <a href="{%url 'memslab:show_projects' project.id %}" data-toggle="tooltip" title="{{project.specializaiton}}">
-      <div><img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}" class=" ml-xl-5 ml-4 ml-0 pl-0   " /></div>
+      <div><img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}" class=" px-lg-3   " /></div>
       <figcaption class=" top-left ">
         <h2 class="bottom-left"
           style="word-wrap: break-word;-webkit-font-smoothing: auto;-moz-osx-font-smoothing: auto;">{{project.name}}
@@ -53,9 +53,17 @@ Lab
   </div>
   <br>
 </div>
+
+
+ 
+
+
+
+
+
 <hr class="col-10 ">
-<div class=" container-fluid border   col-xl-10 col-11 p-4  mb-5 mt-5  shadow  indigo-text grey lighten-5 border    ">
-  <h3 class="font-weight-bold">Projects List</h3>
+<div class=" container-fluid border   col-xl-10 col-11 p-4  mb-5 mt-5  shadow  indigo-text grey lighten-5 border rounded_m    ">
+  <h2 class="font-weight-bold">Projects</h2>
 </div>
 
 
@@ -68,8 +76,8 @@ Lab
     </div>
   </a>
 
-  <div class="collapse    border" id="collapseExample">
-    <div class="card-columns   p-lg-5 p-3 m-4  mb-5 ">
+  <div class="collapse container-fluid  grey lighten-4  border" id="collapseExample">
+    <div class="card-columns   p-lg-5  m-3  mb-5  ">
       {%for project in projects%}
       {% if project.status == 0 %}
 
@@ -77,13 +85,13 @@ Lab
       <a href="{%url 'memslab:show_projects' project.id %} "
         style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
         <div class=" animated fadeIn shadow-0 ">
-          <div class="card shadow-sm rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-3 border proj_cards">
+          <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards">
             {%if  project.project_pic%}
 
             <div style=" display: inline-block; overflow: hidden; ">
-              {% thumbnail project.project_pic "300" crop="center" as im %}
+              {% thumbnail project.project_pic "310" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                style="object-fit: cover; width: 100%; height: auto;" class="  rounded-0 card-img-top border-bottom "
+                style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
                 alt="Generic placeholder image">
               {% endthumbnail %}
             </div> {%endif%}
@@ -120,18 +128,18 @@ Lab
   </a>
 
 
-  <div class="collapse   border " id="collapseExample1">
-    <div class="card-columns   p-lg-5 p-3 m-4  mb-5 ">
+  <div class="collapse grey container-fluid lighten-4 border " id="collapseExample1">
+    <div class="card-columns   p-lg-5  m-3  mb-5  ">
       {%for project in projects%}
       {% if project.status == 1 %}
       <a href="{%url 'memslab:show_projects' project.id %} "
         style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
         <div class=" animated fadeIn ">
-          <div class="card shadow-sm rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-3 border proj_cards ">
+          <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards ">
             <div style=" display: inline-block; overflow: hidden; ">
-              {% thumbnail project.project_pic "300" crop="center" as im %}
+              {% thumbnail project.project_pic "310" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                style="object-fit: cover; width: 100%; height: auto;" class="card-img-top border-bottom "
+                style="object-fit: cover; width: 100%; height: auto;" class=" rounded_m_top  card-img-top border-bottom "
                 alt="Generic placeholder image">
               {% endthumbnail %}
             </div>

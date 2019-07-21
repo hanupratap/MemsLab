@@ -7,7 +7,8 @@ Employee Details
 {% block body %}
 
  
-    <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded indigo lighten-4 ">
+    <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded " style="background-color: #9e8fb2;
+    background-image: linear-gradient(315deg, #9e8fb2 0%, #a7acd9 74%);">
       <h2 style="font-weight: 400;">Faculty Coordinator</h2>
     </div>
     <div class="container-fluid border border-top-0 grey lighten-4 col-lg-11 col-12 rounded  ">
@@ -15,7 +16,7 @@ Employee Details
         {%for employee in employees%}
         {%if employee.coordinator %}
 
-        <div class="card border p-0  faculty_card heavy-rain-gradient  waves-effect   " style="max-width: 15rem;">
+        <div class="card border p-0  faculty_card   waves-effect   " style="max-width: 14rem;">
       
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
                
@@ -45,7 +46,8 @@ Employee Details
     </div>
 
 
-    <div class="container  text-dark  shadow p-4 col-lg-11 col-12 mt-5 border rounded  indigo lighten-4 ">
+    <div class="container  text-dark  shadow p-4 col-lg-11 col-12 mt-5 border rounded   " style="background-color: #9e8fb2;
+    background-image: linear-gradient(315deg, #9e8fb2 0%, #a7acd9 74%);">
       <h2 style="font-weight: 400;">Faculty</h2>
     </div>
     <div class="container-fluid border border-top-0 col-lg-11 col-12  mx-auto grey lighten-4   ">
@@ -53,7 +55,7 @@ Employee Details
         {%for employee in employees%}
         {%if not employee.researcher and not employee.coordinator %}
 
-        <div class="card  border p-0  faculty_card heavy-rain-gradient  waves-effect   " style="max-width: 15rem;">
+        <div class="card  border p-0  faculty_card    waves-effect   " style="max-width: 14rem;">
       
         <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
            
@@ -81,7 +83,8 @@ Employee Details
         {%endfor%}
       </div>
     </div>
-    <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded indigo lighten-4">
+    <div class="container text-dark shadow p-4 mt-5 col-lg-11 col-12 border rounded " style="background-color: #9e8fb2;
+    background-image: linear-gradient(315deg, #9e8fb2 0%, #a7acd9 74%);">
       <h2 style="font-weight: 400;">Students</h2>
     </div>
     <div class="container-fluid border border-top-0 col-lg-11 col-12  mx-auto grey lighten-4  ">
@@ -89,7 +92,7 @@ Employee Details
         {%for employee in employees%}
         {%if  employee.researcher%}
 
-        <div class="card border p-0  faculty_card heavy-rain-gradient  waves-effect   " style="max-width: 15rem;">
+        <div class="card border p-0  faculty_card    waves-effect   " style="max-width: 14rem;">
       
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
                

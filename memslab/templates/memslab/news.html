@@ -35,8 +35,8 @@ Lab
     {%for obj in objs%}
  
 
-        <div class=" animated fadeIn  " >
-      <div class="card rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 mt-5  border  proj_cards">
+        <div class=" animated fadeIn  shadow-sm mb-4 " >
+      <div class="card rounded-0  p-0 m-0  border  proj_cards">
         {%if  obj.pic%}
 
         <div style=" display: inline-block; overflow: hidden; ">
@@ -52,7 +52,7 @@ Lab
    <div class="container-fluid   text-dark" style="max-height: 200px; max-width: 400px; overflow:hidden;  cursor:default; " > <p >{{obj.entry|safe}}</p></div>
 <hr>
         <blockquote class="blockquote bq-secondary  ">
-            <a  href="{%url 'memslab:news_detail' obj.id %} " ><button class="btn btn-primary btn-sm rounded_mn  ">Read More</button> </a> 
+            <a  href="{%url 'memslab:news_detail' obj.id %} " ><button class="btn btn-info btn-sm rounded_mn  ">Read More</button> </a> 
           <footer class="blockquote-footer mt-1">
  
               <a href="{%url 'memslab:show_profile' obj.user.user.username%}" style="color: #0000009f; font-size: 120%;"><cite title="Source Title "> Published By <strong>{{obj.user}}</strong>  <br> </cite></a> {{obj.created_at|naturaltime}}

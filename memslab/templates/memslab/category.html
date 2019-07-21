@@ -37,7 +37,7 @@ Lab
           <img src="{{ im.url }}" class="  border-0  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8 mx-auto ">
           {% endthumbnail %}
         {%if request.user == employee.user%}
-        <a type="button " class=" btn btn-md btn-indigo ml-md-1 ml-xl-3 ml-lg-3 rounded-0 col-xl-9  col-lg-9 col-md-12 col-xs-12 col-sm-8   "
+        <a type="button " class=" btn btn-md btn-indigo border-0  col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8 mx-auto    "
         data-toggle="modal" data-target="#changePic"style="font-size:80%;">
         Change Pic <i class="fas fa-edit"></i>
   </a> 
@@ -47,32 +47,7 @@ Lab
 
 
 
-          <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label"
-            aria-hidden="true">
-            <div class="modal-dialog modal-full-height modal-top" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title " id="label">Change profile Pic</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <br>
-                  {{change_pic|crispy}}
-                  <div class="modal-body">
 
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                  </div>
-                </form>
-                <hr>
-              </div>
-            </div>
-          </div>
         </div>
         {%endif%}
         <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5 ">
@@ -130,5 +105,30 @@ Lab
         class="btn btn-danger btn-lg ">Logout</button></a></div>
 
   {%endif%}</div>
+  <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document" style="font-size: 120%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="label">Change profile Pic</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'memslab:profile' %}" method="post" enctype="multipart/form-data" class="p-xl-3">
+        {% csrf_token %}
+        <br>
+        {{change_pic|crispy}}
+        <div class="modal-body">
 
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+      <hr>
+    </div>
+  </div>
+</div>
 {% endblock %}

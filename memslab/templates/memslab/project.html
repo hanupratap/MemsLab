@@ -18,7 +18,7 @@
 {%endif%}
 
  {%if images%}
-<div class="container col-10 grey lighten-4 p-4 unselectable">
+<div class="container col-10 grey lighten-4 p-4 unselectable ">
   <span data-toggle="collapse" data-target="#demo" style="cursor: pointer;"><h1>Gallery</h1><div class="text-right"><i class="fas fa-caret-down"></i> </div></span>
   <div class="card-columns collapse" id="demo" >  
         {%for image in images%}
@@ -26,7 +26,7 @@
          <div class="card rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 mt-5  border  proj_cards "   >
  
         <div style=" display: inline-block; overflow: hidden; ">
-            {% thumbnail image.pic "300" crop="center" as im %}
+            {% thumbnail image.pic "350" crop="center" as im %}
             <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
               class="  rounded-0 card-img-top " alt="Generic placeholder image">
             {% endthumbnail %}
@@ -40,7 +40,7 @@
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl p-1">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -49,8 +49,9 @@
         
       </div>
       <div class="modal-body text-center">
-        <a href="{{image.pic.url}}" target="_blank"><img src="{{image.pic.url}}" class="rounded" style="object-fit: cover;  width: 70%; height: auto;"/></a>
-        
+          {% thumbnail image.pic "500" crop="center" as im %}
+        <a href="{{im.url}}" target="_blank"><img src="{{image.pic.url}}" class="rounded" style="object-fit: cover;  width: 70%; height: auto;"/></a>
+        {% endthumbnail %}
       </div><p class="  bg-light m-xl-3 p-2" style="font-size: 110%">{{image.description}}</p>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -77,9 +78,10 @@
 background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url({{background}}); 
 
 background-attachment: fixed;
-background-position: center;
+ 
 background-repeat: no-repeat;
-background-size: cover;word-wrap: break-word;">
+background-size: cover;
+word-wrap: break-word;">
 
   <h1>{{project.name}}</h1>
 
