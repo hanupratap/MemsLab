@@ -4,7 +4,7 @@
 {% block title%}
 {{project.name}}
 {%endblock%}
-
+ 
 
 
 {% block body %}
@@ -93,21 +93,32 @@ word-wrap: break-word;">
   <h4 style="color: rgba(255, 255, 255, 0.664);"><i class="fas fa-wallet"></i> Total Funds : <i
       class="fas fa-rupee-sign"></i> {{project.budget}}</h4>
   <br>
-
+ <div class="text-right" >    <h3>Project Timeline</h3>
+      <ul style="font-size: 120%;list-style-type: none;">
+        <li>Started at - {{project.created_at|date}}</li>
+        {%if project.status  %}
+        <li>Completed at - {{project.completed_at|date}}</li>
+        {%endif%}
+      </ul></div>
+  
+ 
 </div>
+
+
 <div class="container-fluid mt-5 col-10 text-left mx-auto">
   <h1 style="font-weight: 400; color: rgb(59, 59, 51);">Description</h1>
 </div>
 <div class="container shadow-sm  col-xl-10 col-11 mt-5   rounded_m p-5 bg-white table-responsive">
   {{project.description|safe}}
 </div>
-<div class="container mt-5 ">
-  <h2 class="text-muted"> ->People working on this project</h2>
-</div>
+
  
 
   
   <div class="container col-lg-10 col-12 mx-auto  ">
+    
+      <h2 class="text-muted mt-5"> ->People working on this project</h2>
+ 
     <div class="text-default  mt-4">
     <h2>Faculty</h2>
   </div>
@@ -149,7 +160,7 @@ word-wrap: break-word;">
 </div>
 
   
-  <div class="container col-lg-10 col-12 mx-auto  "><div class="text-default mt-4">
+  <div class="container col-lg-10 col-12 mx-auto  "><div class="text-default mt-5">
     <h2>Students</h2>
   </div>
   <div class="row pb-4 border  grey lighten-4  shadow ">

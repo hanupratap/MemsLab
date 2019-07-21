@@ -9,10 +9,10 @@ from django.forms import inlineformset_factory, modelformset_factory
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-
+import datetime
 from memslab.forms import LoginForm, ProfilePic, Project_add, UserRegisterForm, EditUserForm, News_add
 from memslab.models import (Employee, Employee_details_topic, \
-    Employeedetails, Project, Project_type, project_image,News)
+    Employeedetails, Project, Project_type, project_image, News, Area_of_research, Publications)
 
 def get_coordinator():
     return Employee.objects.filter(coordinator=True)[0]
@@ -373,7 +373,7 @@ def news_edit(request):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(News, fields=('topic',), can_delete=True )
+    form = modelformset_factory(News, fields=('topic',), can_delete=True)
     if request.method == 'POST':
         formset = form(request.POST or None, request.FILES or None, queryset=News.objects.filter(user=emp))
         if formset.is_valid():
@@ -417,4 +417,96 @@ def news_detail_edit(request, news_id):
         formset = form(queryset=News.objects.filter(id=news_id))
     return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator, 'news':True, 'employee_logggedin': emp})
 
+def project_specs(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    form = modelformset_factory(Project_type, fields=('name',), can_delete=True)
  
+    if request.method == 'POST':
+        formset = form(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+    
+    else:
+        formset = form()
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+
+def area_of_research(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    return render(request, "memslab/areas_of_research.html", { 'employee': emp, 'coordinator': get_coordinator, 'Area_of_research':Area_of_research.objects.all() , 'employee_logggedin': emp})
+
+ 
+
+def publications(request):
+    if request.user.is_authenticated:
+            emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    years = []
+    for obj in Publications.objects.all():
+        if obj.year in years:
+            pass
+        else:
+            years.append(obj.year)
+    years.sort(reverse=True)
+    today1 = datetime.date.today()
+    today = today1.year
+    latest = Publications.objects.filter(year=today)
+    return render(request, "memslab/publications.html", {'employee': emp, 'coordinator': get_coordinator, 'publications':Publications.objects.all() , 'employee_logggedin': emp, 'latest':latest,'years':years,'today':today})
+
+
+def publications_yrws(request, year):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    years = []
+    for obj in Publications.objects.all():
+        if obj.year in years:
+            pass
+        else:
+            years.append(obj.year)
+    years.sort(reverse=True)
+    today = year
+    latest = Publications.objects.filter(year=today)
+    return render(request, "memslab/publications.html", {'employee': emp, 'coordinator': get_coordinator, 'publications':Publications.objects.all() , 'employee_logggedin': emp, 'latest':latest,'years':years,'today':today})
+
+def edit_pubs(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    form = modelformset_factory(Publications, fields=('entry','year',), can_delete=True, extra=5)
+ 
+    if request.method == 'POST':
+        formset = form(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+    
+    else:
+        formset = form()
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+
+def area_of_research_edit(request):
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    form = modelformset_factory(Area_of_research, fields=('entry',), can_delete=False, extra=0)
+ 
+    if request.method == 'POST':
+        formset = form(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/')
+    
+    else:
+        formset = form()
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})

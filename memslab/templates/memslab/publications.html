@@ -1,0 +1,66 @@
+<!-- Loads th path to your static files -->
+{% extends 'memslab/Base.html'%}
+
+{%load staticfiles%}
+
+{%load thumbnail%}
+{% block title%}
+Lab
+{%endblock%}
+
+ 
+
+{% block body %}    
+
+{% if user.is_authenticated %}
+
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow ">
+ 
+  <a href="{% url 'memslab:edit_pubs' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
+        class="fas fa-edit"></i></button></a>
+
+
+
+  {%if request.user.is_superuser%}
+
+  <a href="{%url 'admin:index' %}"><button class="btn  btn-md text-dark btn-warning rounded_mn waves-effect ">admin <i
+        class="fas fa-external-link-alt"></i></button></a>
+  {%endif%}
+  {%endif%}
+
+
+</div>
+<h1 class="text-right pr-3">Publications</h1>
+<h1 class=" col-12">{{today}}</h1> 
+ 
+        <div class="row col-11 mx-auto p-0 m-0">
+        <div class="col-12 col-md-3 col-lg-2   mb-3 " >
+                <div class="bg-white p-3  shadow-lg border" >
+                  <h4 class="card-text ">Yearwise</h4>
+                  <ul style="font-size:110%;"> 
+                      {%for year in years%}
+                      <a href="{%url 'memslab:publications_yrws' year%}"><li>{{year}}</li></a>
+                      {%endfor%}
+                  </ul> 
+            </div>
+          </div>
+     
+          <div class="col-12 col-md-9 col-lg-10 p-0 m-0"  >
+                <ul class="list-group "> 
+                        {%for obj in latest%}
+                                       <li class="list-group-item mb-2  shadow-sm table-responsive   " >{{obj.entry|safe}}</li>
+                                 {%endfor%}   </ul>
+                             
+          </div>
+ </div>
+ 
+ 
+          
+          
+  
+ 
+
+
+      <canvas style="height: 300px; width: 1px;"> </canvas> 
+       
+{% endblock %}

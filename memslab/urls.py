@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^profile/edit/(?P<emp_id>[\d\-]+)/$', views.main_form, name="form"),
     url(r'^profile/edit/detail/(?P<emp_id>[\d\-]+)/$', views.category_form, name="detail_form"),
     url(r'^projects/edit/(?P<proj_id>[\d\-]+)/$', views.manage_project, name="manage_projects"),
+    url(r'^projects/edit/specs/$', views.project_specs, name="project_specs"),
     url(r'^profile/category/(?P<username>[\w\-]+)/(?P<top>[\w\-]+)/$', views.prof_cat, name="category"),
     url(r'^profile/edit/password/$', views.change_password, name="password"),
     url(r'^about/$', views.About, name="about"),
@@ -30,6 +31,11 @@ urlpatterns = [
     url(r'^news/add$', views.news_add, name="news_add"),
     url(r'^news/(?P<news_id>[\d\-]+)/$', views.news_detail, name="news_detail"),
     url(r'^news/edit/(?P<news_id>[\d\-]+)/$', views.news_detail_edit, name="news_detail_edit"),  
+    url(r'^area_of_research/$', views.area_of_research, name="area_of_research"),
+    url(r'^area_of_research/edit$', views.area_of_research_edit, name="area_of_research_edit"),  
+    url(r'^publications/$', views.publications, name="publications"),
+    url(r'^publications/(?P<year>[\d\-]+)/$', views.publications_yrws, name="publications_yrws"),
+    url(r'^publications/edit/$', views.edit_pubs, name="edit_pubs"), 
     url(r'^watchman/', include('watchman.urls')),
 
 ]   

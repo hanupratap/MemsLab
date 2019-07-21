@@ -18,9 +18,13 @@ Lab
 {% if user.is_authenticated%}
 {%if not employee.researcher%}
 <div class="container col-10 mb-5 border p-4   bg-white  shadow-sm mt-3 rounded_m ">
-  <div class="text-left container  col-12  "><a href="{%url 'memslab:add_delete_projects'%} "><button
-        class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a></div>
+   <a href="{%url 'memslab:add_delete_projects'%} "><button
+        class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a> 
+         <a href="{%url 'memslab:project_specs'%} "><button
+  class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Project Specializtion</button></a> 
 </div>
+
+ 
 {%endif%}
 {%endif%}
 
@@ -56,22 +60,17 @@ Lab
 
 
  
-
-
-
-
+ 
 
 <hr class="col-10 ">
-<div class=" container-fluid border   col-xl-10 col-11 p-4  mb-5 mt-5  shadow  indigo-text grey lighten-5 border rounded_m    ">
-  <h2 class="font-weight-bold">Projects</h2>
-</div>
+ 
 
 
 <div class="shadow-sm container-fluid   mt-5 col-xl-10 col-11 p-0 border   ">
   <a type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true">
     <div class=" container-fluid    border-bottom  grey lighten-5 ">
-      <h3 class="  pt-4 mb-0  pl-3  " style="font-weight: 400;">Ongoing <i
-          class="far fa-caret-square-right special-color ongoing p-3 rounded-circle"></i></h3>
+      <h4 class="  pt-4 mb-0  pl-3  " style="font-weight: 400;">Ongoing <i
+          class="far fa-caret-square-right special-color ongoing p-3 rounded-circle"></i></h4>
       <div class="text-right"><i class="fas fa-caret-down"></i> </div>
     </div>
   </a>
@@ -101,13 +100,9 @@ Lab
             </div>
 
             <p class="p-2 bq-primary" >{{project.short_description}} </p>
-            <blockquote>
-              <footer class="footer">
-                <div class="text-muted project_faculty_name ">
-                  <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
-                </div>
-              </footer>
-            </blockquote>
+            <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
+                <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+             </div>
           </div>
         </div>
       </a>
@@ -121,8 +116,8 @@ Lab
 <div class=" shadow-sm container-fluid mx-auto mt-5 col-xl-10 col-11 p-0   border">
   <a type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
     <div class=" container-fluid   border-bottom grey lighten-5 ">
-      <h3 class="  text-left pt-4 mb-0 pb-0 pl-3 " style="font-weight: 400;">Completed <i
-          class="fas fa-check Completed   special-color p-3 rounded-circle"></i></h3>
+      <h4 class="  text-left pt-4 mb-0 pb-0 pl-3 " style="font-weight: 400;">Completed <i
+          class="fas fa-check Completed   special-color p-3 rounded-circle"></i></h4>
       <div class="text-right"><i class="fas fa-caret-down"></i></div>
     </div>
   </a>
@@ -149,13 +144,10 @@ Lab
             </div>
 
             <p class=" p-2 bq-success">{{project.short_description}}</p>
-            <blockquote class="blockquote ">
-              <footer class="footer">
-                <div class="text-muted project_faculty_name ">
-                  <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
-                </div>
-              </footer>
-            </blockquote>
+    
+            <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
+                <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+             </div>
           </div>
         </div>
       </a>

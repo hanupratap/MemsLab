@@ -55,19 +55,22 @@ class Project(models.Model):
     name = models.CharField(max_length=500, default='')
     specializaiton = models.ForeignKey(Project_type, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=False,  null=True)
+    completed_at = models.DateTimeField(auto_now_add=False,  null=True)
     description = RichTextUploadingField(default='', blank=True)
     short_description = models.TextField(default='')
     project_pic = models.ImageField(upload_to='project_image' , blank=True)
     STATUS = ((0, 'Ongoing'), (1, 'Completed'))
     status = models.PositiveSmallIntegerField(choices=STATUS, default=0)
     budget = models.CharField(max_length=200, default=None, blank=True)
-    def __str__(self):
-        return self.name
+
     people = models.ManyToManyField(Employee)
     sponsoring_agency = models.CharField(max_length=200, default='')
     proj_file = models.FileField(upload_to='project_files', null=True, blank=True) 
     def filename(self):
         return os.path.basename(self.proj_file.name)
+    def __str__(self):
+        return self.name
 
 def create_profile(sender, **kwargs):
     user = kwargs["instance"]
@@ -123,3 +126,9 @@ class News(models.Model):
     def __str__(self):
         return self.topic
 
+class Area_of_research(models.Model):
+    entry = RichTextUploadingField(default='', blank=True)
+
+class Publications(models.Model):
+    entry = RichTextUploadingField(default='', blank=True)
+    year = models.PositiveSmallIntegerField(null=True)

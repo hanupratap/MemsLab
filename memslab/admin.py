@@ -1,5 +1,5 @@
 from django.contrib import admin
-from memslab.models import Employee,Project,Employeedetails,Employee_details_topic,Departments,project_image,Project_type, News
+from memslab.models import *
 from django.contrib.auth.models import Group
 from django import forms
 # Register your models here.
@@ -25,5 +25,5 @@ admin.site.register(Departments)
 admin.site.register(project_image)
 admin.site.register(Project_type)
 admin.site.register(News)
-
-
+admin.site.register(Publications)
+admin.site.register(Area_of_research)
