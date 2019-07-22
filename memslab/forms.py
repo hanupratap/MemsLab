@@ -2,8 +2,13 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm)
 from memslab.models import Employee, Project, News
+from django.utils.safestring import mark_safe
 
+ 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
+ 
 class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(
         max_length=30, required=False, help_text='Optional.')
@@ -53,9 +58,15 @@ class Project_add(forms.ModelForm):
     class Meta:
         model = Project
         exclude = []
+        widgets = {
+        'created_at': DateInput,
+        'completed_at': DateInput,
+        }
 
+        
 
 class News_add(forms.ModelForm):
     class Meta:
         model = News
         exclude = ['user']
+

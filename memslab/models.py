@@ -13,7 +13,7 @@ class Departments(models.Model):
         return '%s' % (self.dep)
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     id_no = models.CharField(max_length=50, blank=True)
     emp_pic = models.ImageField(upload_to='profile_image', \
         blank=True, default='profile_image/default_img.png')
@@ -55,8 +55,8 @@ class Project(models.Model):
     name = models.CharField(max_length=500, default='')
     specializaiton = models.ForeignKey(Project_type, \
         on_delete=models.DO_NOTHING, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=False,  null=True)
-    completed_at = models.DateTimeField(auto_now_add=False,  null=True)
+    created_at = models.DateField(auto_now_add=False,  null=True)
+    completed_at = models.DateField(auto_now_add=False,  null=True)
     description = RichTextUploadingField(default='', blank=True)
     short_description = models.TextField(default='')
     project_pic = models.ImageField(upload_to='project_image' , blank=True)

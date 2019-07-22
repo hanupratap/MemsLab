@@ -218,8 +218,10 @@
         <span>About this Site</span>
         
         This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad{%if coordinator%} and Managed By
-        <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}}
-          {{coordinator.user.last_name}}</a>
+        {%if coordinator.user%}
+        <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a>
+          {%endif%}
+         
         {%endif%}
       </p>
 

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory, modelformset_factory
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
-from django.http import HttpResponse
+
 from django.shortcuts import redirect, render
 import datetime
 from memslab.forms import LoginForm, ProfilePic, Project_add, UserRegisterForm, EditUserForm, News_add
@@ -223,9 +223,9 @@ def main_form(request, emp_id):
         'experience_in_years',
         'phone',
         'education_short',
-        'emp_pic',))
+        'emp_pic',),extra=0)
 
-    form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=1, can_delete=False)
+    form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=3, can_delete=False)
     if request.method == 'POST':
         form_user = EditUserForm(request.POST or None, request.FILES or None, instance=request.user)
         formset = form(request.POST, instance=emp.user)
@@ -237,7 +237,6 @@ def main_form(request, emp_id):
         if form_user.is_valid():
             form_user.save()
  
-          
         return redirect('/profile' ,emp_id=emp_id)
     else:
         form_user = EditUserForm(instance=request.user)
@@ -268,21 +267,16 @@ def manage_project(request, proj_id):
     else:
         emp = None
     project = Project.objects.get(id=proj_id)
-    form = modelformset_factory(Project, fields=('specializaiton', 'name', 'description', 'short_description', 'project_pic',
-                                                 'status', 'people', 'specializaiton', 'specializaiton', 'budget', 'sponsoring_agency', 'proj_file',), extra=0)
+    form = modelformset_factory(Project, exclude=[], extra=0)
     
     if request.method == 'POST':
-        formset = form(request.POST or None, request.FILES or None, queryset=Project.objects.filter(id=proj_id))
+        formset = Project_add(request.POST or None, request.FILES or None, instance=project)
         if formset.is_valid():
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.proj_id = project.id
-                instance.save()
-                formset.save_m2m()
-                return redirect('/')
-       
-    else:     
-        formset = form(queryset=Project.objects.filter(id=proj_id))
+            formset.save()
+            return redirect('/')
+    
+    else:
+        formset = Project_add(instance=project)
         
         return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator, 'project':project, 'manage_project_images':True})
 
@@ -293,7 +287,7 @@ def change_password(request):
         emp = None
 
     if request.method == 'POST':
-        form = PasswordChangeForm( request.user,request.POST)
+        form = PasswordChangeForm(request.user,request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
@@ -332,7 +326,7 @@ def add_projects(request):
     
     else:
         formset = Project_add()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
 
 def manage_project_images(request, proj_id):
     if request.user.is_authenticated:
@@ -422,7 +416,7 @@ def project_specs(request):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(Project_type, fields=('name',), can_delete=True)
+    form = modelformset_factory(Project_type, fields=('name',), can_delete=True,extra=3)
  
     if request.method == 'POST':
         formset = form(request.POST)

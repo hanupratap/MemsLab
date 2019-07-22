@@ -56,8 +56,6 @@ Lab
           <footer class="blockquote-footer mt-1">
  
               <a href="{%url 'memslab:show_profile' obj.user.user.username%}" style="color: #0000009f; font-size: 120%;"><cite title="Source Title "> Published By <strong>{{obj.user}}</strong>  <br> </cite></a> {{obj.created_at|naturaltime}}
-              
-  
           </footer>
       </blockquote>
       </div>
@@ -65,7 +63,8 @@ Lab
   
     {%endfor%}
     {%else%}
-    <h1> No NEWS Update available</h1>
+    <h1>No Update available</h1>
+    <canvas height="300px;" width="1px;"></canvas>
     {%endif%}
   </div>
 </div>

@@ -23,7 +23,7 @@
   <div class="card-columns collapse" id="demo" >  
         {%for image in images%}
        
-         <div class="card rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 mt-5  border  proj_cards "   >
+         <div class="card rounded-0  p-0 m-0 mr-lg-3 m-0 mt-lg-3 mt-4  border  proj_cards "   >
  
         <div style=" display: inline-block; overflow: hidden; ">
             {% thumbnail image.pic "350" crop="center" as im %}
@@ -115,7 +115,7 @@ word-wrap: break-word;">
  
 
   
-  <div class="container col-lg-10 col-12 mx-auto  ">
+  <div class="container col-lg-10 col-11 mx-auto   ">
     
       <h2 class="text-muted mt-5"> ->People working on this project</h2>
  
@@ -127,7 +127,7 @@ word-wrap: break-word;">
     {%if not employee.researcher%}
  
 
-      <div class="card   hoverable faculty_card  
+      <div class="card hoverable faculty_card  
           mask waves-effect p-0" style="background-color: #ffffff;
          background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 15rem; ">
         
@@ -160,10 +160,10 @@ word-wrap: break-word;">
 </div>
 
   
-  <div class="container col-lg-10 col-12 mx-auto  "><div class="text-default mt-5">
+  <div class="container col-lg-10 col-11 mx-auto  "><div class="text-default mt-5">
     <h2>Students</h2>
   </div>
-  <div class="row pb-4 border  grey lighten-4  shadow ">
+  <div class="row pb-4 border grey lighten-4  shadow ">
  
     {%for employee in project.people.all%}
     {%if employee.researcher%}
