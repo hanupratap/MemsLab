@@ -45,7 +45,8 @@ Lab
             Change Pic <i class="fas fa-edit"></i>
       </a> 
         {%endif%}
-        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5      ">
+ 
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5">
           <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
           <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
@@ -53,8 +54,8 @@ Lab
             <a class="cool-link  ml-3 mt-2" style="font-size: 16px;"
               href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br />
             {%endfor%}</div>
-
-        </div>
+          </div>
+ 
 
 
       </div>

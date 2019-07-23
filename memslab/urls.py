@@ -36,6 +36,5 @@ urlpatterns = [
     url(r'^publications/$', views.publications, name="publications"),
     url(r'^publications/(?P<year>[\d\-]+)/$', views.publications_yrws, name="publications_yrws"),
     url(r'^publications/edit/$', views.edit_pubs, name="edit_pubs"), 
-    url(r'^watchman/', include('watchman.urls')),
 
 ]   

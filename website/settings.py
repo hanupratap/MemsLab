@@ -33,21 +33,21 @@ ALLOWED_HOSTS = ['localhost', '192.168.1.4', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'watchman',
+ 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'memslab.apps.MemslabConfig',
     'django.contrib.humanize',
+    'memslab.apps.MemslabConfig',
+    'crispy_forms',
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
     'phone_field',
-    'django_template_check',
+    
 ]
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
@@ -140,12 +140,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
-
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'

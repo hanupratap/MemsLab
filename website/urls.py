@@ -22,7 +22,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls , name='admin'),
     url(r'^ckeditor/',include('ckeditor_uploader.urls')),
-    url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
     url(r'^', include('memslab.urls')),
     url(r'^password-reset/$', auth_views.PasswordResetView.as_view(template_name='memslab/password_reset.html'), name='password_reset'),
     url(r'^password-reset/done/$', auth_views.PasswordResetDoneView.as_view(template_name='memslab/password_reset_done.html'), name='password_reset_done'),
