@@ -66,28 +66,28 @@ Lab
  
 
 
-<div class="shadow-sm container-fluid   mt-5 col-xl-10 col-11 p-0 border   ">
+<div class=" container  mt-5 col-xl-10 col-11 p-0 border    ">
   <a type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true">
-    <div class=" container-fluid    border-bottom  grey lighten-5 ">
-      <h4 class="  pt-4 mb-0  pl-3  " style="font-weight: 400;">Ongoing <i
+    <div class=" container-fluid     border-bottom  grey lighten-5 ">
+      <h4 class="  pt-4 m-0  pl-3  " style="font-weight: 400;">Ongoing <i
           class="far fa-caret-square-right special-color ongoing p-3 rounded-circle"></i></h4>
       <div class="text-right"><i class="fas fa-caret-down"></i> </div>
     </div>
   </a>
-
-  <div class="collapse container-fluid  grey lighten-4  border" id="collapseExample">
-    <div class="card-columns   p-lg-5  m-3  mb-5  ">
+<div class="collapse  " id="collapseExample"> 
+  <div class="   container-fluid  bg-light border " >
+    <div class="card-columns  p-2  m-3  mb-5  ">
       {%for project in projects%}
       {% if project.status == 0 %}
 
 
       <a href="{%url 'memslab:show_projects' project.id %} "
         style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
-        <div class=" animated fadeIn shadow-0 ">
+        <div class=" animated fadeIn shadow-0 " >
           <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards">
             {%if  project.project_pic%}
 
-            <div style=" display: inline-block; overflow: hidden; ">
+            <div style="   overflow: hidden; ">
               {% thumbnail project.project_pic "310" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
                 style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
@@ -99,7 +99,7 @@ Lab
 
             </div>
 
-            <p class="p-2 bq-primary" >{{project.short_description}} </p>
+            <p class="p-2 bq-primary" style="max-height: 200px; overflow:hidden;" >{{project.short_description}} </p>
             <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
                 <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
              </div>
@@ -109,11 +109,11 @@ Lab
       {%endif%}
       {%endfor%}
     </div>
-  </div>
+  </div></div>
 
 </div>
 
-<div class=" shadow-sm container-fluid mx-auto mt-5 col-xl-10 col-11 p-0   border">
+<div class="  container mx-auto mt-5 col-xl-10 col-11 p-0   border">
   <a type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
     <div class=" container-fluid   border-bottom grey lighten-5 ">
       <h4 class="  text-left pt-4 mb-0 pb-0 pl-3 " style="font-weight: 400;">Completed <i
@@ -123,38 +123,42 @@ Lab
   </a>
 
 
-  <div class="collapse grey container-fluid lighten-4 border " id="collapseExample1">
-    <div class="card-columns   p-lg-5  m-3  mb-5  ">
-      {%for project in projects%}
-      {% if project.status == 1 %}
-      <a href="{%url 'memslab:show_projects' project.id %} "
-        style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
-        <div class=" animated fadeIn ">
-          <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards ">
-            <div style=" display: inline-block; overflow: hidden; ">
-              {% thumbnail project.project_pic "310" crop="center" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                style="object-fit: cover; width: 100%; height: auto;" class=" rounded_m_top  card-img-top border-bottom "
-                alt="Generic placeholder image">
-              {% endthumbnail %}
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">{{project.name}}</h3>
-
-            </div>
-
-            <p class=" p-2 bq-success">{{project.short_description}}</p>
+  <div class="collapse  " id="collapseExample1"> 
+      <div class="   container-fluid  bg-light border " >
+        <div class="card-columns  p-2  m-3  mb-5  ">
+          {%for project in projects%}
+          {% if project.status == 1 %}
     
-            <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
-                <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
-             </div>
-          </div>
+    
+          <a href="{%url 'memslab:show_projects' project.id %} "
+            style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
+            <div class=" animated fadeIn shadow-0 " >
+              <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards">
+                {%if  project.project_pic%}
+    
+                <div style="   overflow: hidden; ">
+                  {% thumbnail project.project_pic "310" crop="center" as im %}
+                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                    style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
+                    alt="Generic placeholder image">
+                  {% endthumbnail %}
+                </div> {%endif%}
+                <div class="card-body">
+                  <h4 class="card-title">{{project.name}}</h4>
+    
+                </div>
+    
+                <p class="p-2 bq-success" style="max-height: 200px; overflow:hidden;" >{{project.short_description}} </p>
+                <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
+                    <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+                 </div>
+              </div>
+            </div>
+          </a>
+          {%endif%}
+          {%endfor%}
         </div>
-      </a>
-      {%endif%}
-      {%endfor%}
-    </div>
-  </div>
+      </div></div>
 
 </div>
 

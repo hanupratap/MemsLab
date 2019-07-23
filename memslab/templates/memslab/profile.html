@@ -27,23 +27,25 @@ Lab
 </div>
 {%endif%}
 
-<div class="container   col-12 col-xl-11  shadow-lg mx-auto rounded_m {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
+<div class="container col-12 col-xl-11  shadow-lg mx-auto rounded_m {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
 
-  <div class="row animated fadeIn">
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5  mx-auto ">
+  <div class="row animated fadeIn ">
+    
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 p-5  mx-auto ">
+        <div class="sticky-top container pt-3">
       <div class="row ">
         {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
-          <img src="{{ im.url }}" class=" col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8 mx-auto ">
+          <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto ">
           {% endthumbnail %}
 
 {%if request.user == employee.user%}
        
-          <a type="button " class=" btn btn-md btn-indigo col-xl-10  col-lg-10 col-md-12 col-xs-12 col-sm-8 mx-auto  "
+          <a type="button " class=" btn btn-sm btn-indigo col-xl-8  col-lg-8 col-md-10 col-xs-10 col-sm-6 mx-auto  "
             data-toggle="modal" data-target="#changePic"style="font-size:80%;">
             Change Pic <i class="fas fa-edit"></i>
       </a> 
         {%endif%}
-        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5     ">
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5      ">
           <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
           <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
@@ -56,8 +58,8 @@ Lab
 
 
       </div>
-    </div>
-    <div class="container col-xl-9 col-lg-8 col-md-6 col-sm-12 border-left p-3  ">
+    </div> </div>
+    <div class="container col-xl-9 col-lg-8 col-md-8 col-sm-12 border-left p-3  ">
       <div class="row">
         <div class="container col-11 rounded_m border mt-5 p-5 bg-white">
           <p>
@@ -67,7 +69,7 @@ Lab
             </h2>
         </div>
 
-        <div class="container col-11 mt-5 ">
+        <div class="container col-11 mt-5" style="font-size:14px;">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom "
@@ -147,11 +149,11 @@ Lab
           </div>
           {%if employee.short_description%}
           <div class="container-fluid mb-5 bg-white rounded_m ">
-            <div class="row mt-5 border p-5 rounded_m">
+            <div class="row mt-5 border p-lg-5 p-2 rounded_m">
               <div class=" text-muted col-12">
                 <h2>Description- </h2>
               </div>
-              <div class="col-12" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
+              <div class="col-12 table-responsive" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
             </div>
           </div>
           {%endif%}

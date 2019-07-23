@@ -493,7 +493,7 @@ def area_of_research_edit(request):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(Area_of_research, fields=('entry',), can_delete=False, extra=0)
+    form = modelformset_factory(Area_of_research, fields=('entry',), can_delete=False, extra=1)
  
     if request.method == 'POST':
         formset = form(request.POST)
