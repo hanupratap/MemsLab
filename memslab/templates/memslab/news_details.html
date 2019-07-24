@@ -28,14 +28,14 @@ Lab
 </div>
 
 
-<div class="container col-12 col-lg-10">  <div class="footer mt-2  p-1  text-right  rounded font-weight-bold "> <a
+<div class="container col-12 col-lg-10 mx-auto  p-0">  <div class="footer mt-2  p-1  text-right  rounded font-weight-bold "> <a
             href="{%url 'memslab:show_profile' obj.user.user.username %}" class=" p-1 mb-1"> Published By {{obj.user}}
           </a> <br>
 
           {{obj.created_at|naturaltime}}</div>
       
           {% thumbnail obj.pic "300x300" crop="center" as im %}
-          <a class="thumbnail ml-5" href="{{obj.pic.url}}" target="_blank"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}"
+          <a class="thumbnail ml-md-4 ml-2" href="{{obj.pic.url}}" target="_blank"><img src="{{im.url}}" data-title="{{image.title}}" data-description="{{image.description}}"
               class="rounded   z-depth-1" /></a>
           {% endthumbnail %} 
   <div class=" mx-auto p-4 display-4 text-muted     rounded">{{obj.topic}}       </div>

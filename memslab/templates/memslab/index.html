@@ -36,7 +36,7 @@ Lab
   {% thumbnail project.project_pic '400x400' as im %}
   <div class="item pl-lg-5  hidden  ">
     <a href="{%url 'memslab:show_projects' project.id %}" data-toggle="tooltip" title="{{project.specializaiton}}">
-      <div><img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}" class=" px-lg-3   " /></div>
+      <div><img src="{{im.url|resolution:'1.5x'}}" alt="{{project.id}}" class=" px-lg-3   " /></div>
       <figcaption class=" top-left ">
         <h2 class="bottom-left"
           style="word-wrap: break-word;-webkit-font-smoothing: auto;-moz-osx-font-smoothing: auto;">{{project.name}}
@@ -76,7 +76,7 @@ Lab
   </a>
 <div class="collapse  " id="collapseExample"> 
   <div class="   container-fluid  bg-light border " >
-    <div class="card-columns  p-2  m-3  mb-5  ">
+    <div class="card-columns  p-0 mx-auto mt-2 mb-5  ">
       {%for project in projects%}
       {% if project.status == 0 %}
 
@@ -88,7 +88,7 @@ Lab
             {%if  project.project_pic%}
 
             <div style="   overflow: hidden; ">
-              {% thumbnail project.project_pic "310" crop="center" as im %}
+              {% thumbnail project.project_pic "x110" crop="center" as im %}
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
                 style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
                 alt="Generic placeholder image">
@@ -125,7 +125,7 @@ Lab
 
   <div class="collapse  " id="collapseExample1"> 
       <div class="   container-fluid  bg-light border " >
-        <div class="card-columns  p-2  m-3  mb-5  ">
+        <div class="card-columns   p-0 mx-auto mt-2 mb-5 " >
           {%for project in projects%}
           {% if project.status == 1 %}
     
@@ -133,11 +133,11 @@ Lab
           <a href="{%url 'memslab:show_projects' project.id %} "
             style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
             <div class=" animated fadeIn shadow-0 " >
-              <div class="card shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards">
+              <div class="card p-0 m-0 shadow-sm rounded_m  p-0 m-0 mr-lg-3 m-0 mt-lg-3 m-1 mt-4 border proj_cards">
                 {%if  project.project_pic%}
     
                 <div style="   overflow: hidden; ">
-                  {% thumbnail project.project_pic "310" crop="center" as im %}
+                  {% thumbnail project.project_pic "x110" crop="center" as im %}
                   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
                     style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
                     alt="Generic placeholder image">

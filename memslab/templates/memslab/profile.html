@@ -11,7 +11,7 @@ Lab
 </div>
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
+<div class="container mb-5 border p-4 rounded_m  bg-white  shadow-sm ">
   <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
       Profile <i class="fas fa-edit"></i>
     </button></a>
@@ -27,7 +27,7 @@ Lab
 </div>
 {%endif%}
 
-<div class="container col-12 col-xl-11  shadow-lg mx-auto rounded_m {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
+<div class="container col-12 col-xl-11  shadow-lg mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
 
   <div class="row animated fadeIn ">
     
@@ -46,7 +46,7 @@ Lab
       </a> 
         {%endif%}
  
-        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5">
+        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5    grey lighten-5">
           <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
           <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
@@ -62,7 +62,7 @@ Lab
     </div> </div>
     <div class="container col-xl-9 col-lg-8 col-md-8 col-sm-12 border-left p-3  ">
       <div class="row">
-        <div class="container col-11 rounded_m border mt-5 p-5 bg-white">
+        <div class="container col-11   border mt-5 p-5 bg-white">
           <p>
             <h1 style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
               {{employee.user.last_name}}</h1>
@@ -118,7 +118,7 @@ Lab
 
             <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <table class="table table-transparent rounded table-responsive-lg">
-                <tbody class="second-table rounded_m ">
+                <tbody class="second-table   ">
 
                   <tr>
                     <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
@@ -149,8 +149,8 @@ Lab
 
           </div>
           {%if employee.short_description%}
-          <div class="container-fluid mb-5 bg-white rounded_m ">
-            <div class="row mt-5 border p-lg-5 p-2 rounded_m">
+          <div class="container-fluid mb-5 bg-white   ">
+            <div class="row mt-5 border p-lg-5 p-2  ">
               <div class=" text-muted col-12">
                 <h2>Description- </h2>
               </div>

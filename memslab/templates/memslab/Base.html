@@ -13,9 +13,7 @@
   <meta name="keywords"
     content="MEMS, MicroElectro-Mechanical, Microelectronics, mechnical system, Laboratory, Lab, HOD, sanket Goel" />
 
-
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100i,400i,500i&display=swap" rel="stylesheet">
 
 
 
@@ -52,12 +50,12 @@
     <a class="nav-link  align-top " href="{% url 'memslab:home' %}">
       <img
         src="https://upload.wikimedia.org/wikipedia/ml/thumb/d/d3/BITS_Pilani-Logo.svg/1024px-BITS_Pilani-Logo.svg.png"
-        alt="Bits-logo" style="width: 70px;">
+        alt="Bits-logo" style="width: 70px; height: auto;">
     </a>
 
     {% else %}
     <div class="dropdown">
-    <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  
+    <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% thumbnail employee_logggedin.emp_pic "70x70" crop="top" as im %}
       <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle" />
       {% endthumbnail %}
@@ -82,45 +80,45 @@
 
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <ul class="navbar-nav    ml-auto  p-4 mr-3 pt-5 navigation">
-        <li class="nav-item  mx-auto mr-lg-5 ">
+        <li class="nav-item btn-link text-center  mr-lg-5 ">
 
           <a class="  rounded    {%if request.path == '/'%}  indigo-text {%else%} text-muted{%endif%}  "
             href="{% url 'memslab:home' %}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item  mx-auto mr-lg-5 ">
-            <div class="dropdown">
-          <a class="  rounded    {%if request.path == '/projects'%}  indigo-text {%else%} text-muted{%endif%}  "
-            href="{% url 'memslab:index' %}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research <span class="sr-only">(current)</span></a>
-            
-       
-         
+        </li> <div class="dropdown">
+        <li class="nav-item btn-link text-center  mr-lg-5 ">
+
+          <a class="  rounded    {%if request.path == '/projects' or request.path == '/area_of_research/' or request.path == '/publications/'%}  indigo-text {%else %} text-muted{%endif%}  "
+            href="{% url 'memslab:index' %}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research<span class="caret"></span></a>
+
+
+
                 <div class="dropdown-menu bg-light" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{%url 'memslab:index'%}">Projects</a>
                   <a class="dropdown-item" href="{%url 'memslab:area_of_research'%}">Areas of Research</a>
                   <a class="dropdown-item" href="{%url 'memslab:publications'%}">Publications</a>
                 </div>
-              </div>
-        </li>
-        <li class="nav-item  mx-auto mr-lg-5">
-          <a class=" rounded   {%if request.path == '/detail/'%} indigo-text {%else%} text-muted{%endif%}"
+
+        </li> </div>
+        <li class="nav-item btn-link text-center  mr-lg-5">
+          <a class=" rounded {%if request.path == '/detail/'%} indigo-text {%else%} text-muted{%endif%}"
             href="{%url 'memslab:detail' %}"> People</a>
         </li>
-        <li class="nav-item  mx-auto mr-lg-5">
+        <li class="nav-item btn-link text-center  mr-lg-5">
           <a class=" rounded     nav-text {%if request.path == '/news/'%}  indigo-text {%else%} text-muted  {%endif%}"
             href="{%url 'memslab:news' %}"> News</a>
         </li>
-        <li class="nav-item mx-auto mr-lg-5">
+        <li class="nav-item btn-link text-center  mr-lg-5">
           <a class=" rounded   text-muted    {%if request.path == '/about/'%}  indigo-text {%else%} text-muted {%endif%}  "
             href="{%url 'memslab:about' %}"> Contact Us</a>
         </li>
 
         {% if user.is_authenticated%}
-        <li class="nav-item mx-auto mr-lg-5" id="navlink">
+        <li class="nav-item btn-link text-center  mr-lg-5" id="navlink">
           <a class=" rounded {%if request.path == '/profile/'%}  indigo-text {%else%} text-muted {%endif%}  "
             href="{%url 'memslab:profile'%}"> Profile</a>
         </li>
         {%else%}
-        <li class=" nav-item  mx-auto mr-lg-5" data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
+        <li class="nav-item btn-link text-center  mr-lg-5" data-toggle="tooltip" title="Login ONLY for MEMS faculty and Students">
 
           <a class=" rounded    {%if request.path == '/login/'%}   indigo-text{%else%} text-muted  {%endif%}"
             href="{%url 'login'%}"> Login*<span class="sr-only">(current)</span></a>
@@ -150,99 +148,119 @@
   {% block body %}
   {% endblock %}
 
+<!-- Footer -->
+<footer class="page-footer font-small elegant-color-dark pt-4 mt-5" style="font-family:Arial, Helvetica, sans-serif;">
 
+    <!-- Footer Links -->
+    <div class="container col-12 text-center text-lg-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-lg-4 mt-md-0 mt-3 p-0 pl-1 ">
+          
+        
+ 
+
+        <div class="col-lg-11 col-12 " style="font-weight: lighter; font-size:200%;" >BITS PILANI<span> Hyderabad Campus</span><br>
+          <small class="text-muted">Department Of Electrical Sciences </small>
+          <hr style="border-top: 2px solid rgb(119, 119, 119);">
+          <p style="font-size: 65%; color: rgb(197, 197, 197);">Micro-Electromechanical System and MicroFluids Laboratory</p>
+    
+</div>  
+ 
+      
+
+          <p class="footer-links mt-5 pl-3" style="font-size: 130%;">
+              <a  href="{%url 'memslab:home'%}">Home</a>
+              ·
+              <a href="{%url 'memslab:detail'%}">People</a>
+              ·
+              <a href="{%url 'memslab:about'%}">Contact</a>
+              ·
+              <a href="{%url 'memslab:news'%}">News</a>
+            </p>
+        </div>
+        <!-- Grid column -->
+  
+        <hr class="clearfix w-100 d-md-none pb-3">
+  
+        <!-- Grid column -->
+        <div class="col-lg-3 mb-md-0 mb-3 ">
+  
+ 
+  
+          <ul class="list-unstyled" style="font-size: 120%;">
+            <li class="mt-3">
+                <a href="{%url 'memslab:about'%}">
+                    <i class="fa fa-map-marker m-0  p-2 rounded-circle" style="font-size: 130%;"></i>
+                    <span  class=" ">Shameerpet, Hyderabad<span class="font-weight-bold "> Telangana, India  </span></span>
+                  </a>
+            </li>
+            <li class="mt-3">
+                <a href="{%url 'memslab:about'%}">
+                    <i class="fa fa-phone  p-2 rounded-circle" style="font-size: 130%;"></i>
+                    {%if coordinator.phone%}
+                    <span> {{coordinator.phone}}</span>
+                    {%else%}
+                    <p>9010202832</p>
+                    {%endif%}
+                  </a>
+            </li>
+            <li class="mt-3">
+             <a href="mailto:{{superuser_emails}}">   
+                <i class="fa fa-envelope p-2 rounded-circle" style="font-size: 130%;"></i>
+
+                <span class="text-primary">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%}
+                    sgoel@hyderabad.bits-pilani.ac.in{%endif%}</span>
+        </a>
+            </li>
+       
+          </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-lg-5 mb-md-0 mb-3">
+  
+          <!-- Links -->
+  
+            <h3>About this Site</h3>
+        <p style="font-size: 120%;" class="text-muted"> 
+            This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad{%if coordinator%} and Managed By
+            {%if coordinator.user%}
+            <a class="text-primary" href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a>
+              {%endif%}
+    
+            {%endif%}
+        </p>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-right py-3 pr-3 ">Designed and Developed by 
+      <a href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/" class="me">Hanupratap Singh Chauhan</a>
+    </div>
+ 
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
   <!-- Footer -->
 
-  <footer class="footer-distributed elegant-color-dark" style="margin-bottom: -5rem;">
-
-    <div class="footer-left">
-
-      <h3 class="ml-3 col-12 ">BITS&nbsp; PILANI<span> Hyderabad Campus</span><br>
-        <small class="text-muted">Department Of Electrical Sciences </small>
-        <hr>
-        <p style="font-size: 60%;">Micro-Electromechanical System and MicroFluids Laboratory</p>
-      </h3>
-
-      <br>
-      <p class="footer-links">
-        <a href="#">Home</a>
-        ·
-        <a href="{%url 'memslab:detail'%}">People</a>
-        ·
-        <a href="{%url 'memslab:about'%}">Contact</a>
-        ·
-        <a href="{%url 'memslab:news'%}">News</a>
-        <br><br>
-        <a href="https://www.bits-pilani.ac.in/Hyderabad/" target="_blank">Old Site <i
-            class="fas fa-external-link-alt"></i> </a>
-      </p>
-    </div>
-
-    <div class="footer-center font-weight-bold">
-
-      <div class="col-12">
-        <a href="{%url 'memslab:about'%}">
-          <i class="fa fa-map-marker"></i>
-          <p><span>Shameerpet, Hyderabad</span> Telangana, India</p>
-        </a>
-
-
-      </div>
-
-      <div class="col-12">
-        <a href="{%url 'memslab:about'%}">
-          <i class="fa fa-phone"></i>
-          {%if coordinator.phone%}
-          <p>{{coordinator.phone}}</p>
-          {%else%}
-          <p>9010202832</p>
-          {%endif%}
-        </a>
-
-      </div>
-
-      <div class="col-12">
-        <i class="fa fa-envelope"></i>
-
-        <p><a href="mailto:{{superuser_emails}}">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%}
-            sgoel@hyderabad.bits-pilani.ac.in{%endif%}</a></p>
-
-
-      </div>
-
-    </div>
-
-    <div class="footer-right">
-
-      <p class="footer-company-about">
-        <span>About this Site</span>
-        
-        This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad{%if coordinator%} and Managed By
-        {%if coordinator.user%}
-        <a href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a>
-          {%endif%}
-         
-        {%endif%}
-      </p>
-
-    </div>
-
-
-  </footer>
 
 
 
-
-  <div class="text-right mr-3"><a target='_blank'
-      href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/">
-      <small class="text-muted me">
-        Designed and Developed by Hanupratap Singh Chauhan:2017A3PS0427H
-      </small>
-    </a>
-  </div>
-
-
-
+ 
 
 
 
@@ -258,7 +276,7 @@
 
   <script>var coll = document.getElementsByClassName("collapsible");
       var i;
-      
+
       for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
           this.classList.toggle("active");
@@ -272,16 +290,16 @@
       }</script>
 
  <script>
- 
+
  jQuery(document).ready(function($) {
   var alterClass = function() {
     var ww = document.body.clientWidth;
     if (ww < 500) {
       $('.table-responsive ').addClass('text-nowrap');
- 
+
     } else if (ww >= 401) {
       $('.table-responsive ').removeClass('text-nowrap');
-  
+
     };
   };
   $(window).resize(function(){
@@ -291,10 +309,7 @@
   alterClass();
 });
  </script>
- 
- <script>
- 
- </script>
+
   {% block javascript %}
   {% endblock %}
 

@@ -116,7 +116,11 @@ def show_projects(request, project_id):
                  'http://netkumar1.co.in/wp-content/uploads/2019/03/524004-quadrotor-board-electric-circuit-wiki-commons-1140x641.jpg',)
     bg = random.choices(bg_images)
     proj = Project.objects.get(id=project_id)
-
+    nostu = False
+    for obj in proj.people.all():
+        if obj.researcher:
+            nostu = True
+    
     try:
         image_object = project_image.objects.filter(project=proj)
     except Exception as e:
@@ -124,10 +128,10 @@ def show_projects(request, project_id):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
         return render(request, 'memslab/project.html', {'employee_logggedin': emp,
-                                                        'project': proj, 'images': image_object, 'employees': Employee.objects.all(), 'background': bg[0], 'coordinator': get_coordinator})
+                                                        'project': proj, 'images': image_object, 'employees': Employee.objects.all(), 'background': bg[0], 'coordinator': get_coordinator,'nostu':nostu})
     else:
         return render(request, 'memslab/project.html', {'project': proj, 'employee_logggedin': None,
-                                                        'employees': Employee.objects.all(), 'background': bg[0], 'images': image_object, 'coordinator': get_coordinator})
+                                                        'employees': Employee.objects.all(), 'background': bg[0], 'images': image_object, 'coordinator': get_coordinator,'nostu':nostu})
 
 
 def About(request):
@@ -223,7 +227,7 @@ def main_form(request, emp_id):
         'experience_in_years',
         'phone',
         'education_short',
-        'emp_pic',),extra=0)
+        'emp_pic','skype_link','website_link',),extra=0)
 
     form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=3, can_delete=False)
     if request.method == 'POST':
@@ -279,7 +283,7 @@ def manage_project(request, proj_id):
         formset = Project_add(instance=project)
         
         return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator, 'project':project, 'manage_project_images':True})
-
+@login_required
 def change_password(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -298,7 +302,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator, 'employee_logggedin': emp})
-
+@login_required
 def add_delete_projects(request):
     form = modelformset_factory(Project, fields=('name',), extra=0, can_delete=True)
     if request.user.is_authenticated:
@@ -312,7 +316,7 @@ def add_delete_projects(request):
             return redirect('/'  ) 
     formset = form()
     return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':True, 'employee_logggedin': emp})
-
+@login_required
 def add_projects(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -327,7 +331,7 @@ def add_projects(request):
     else:
         formset = Project_add()
     return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
-
+@login_required
 def manage_project_images(request, proj_id):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -361,7 +365,7 @@ def news_detail(request, news_id):
         emp = None
     obj = News.objects.get(id=news_id)
     return render(request, "memslab/news_details.html", { 'employee_logggedin': emp,'employee': emp, 'coordinator': get_coordinator, 'obj':obj })
-
+@login_required
 def news_edit(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -377,7 +381,7 @@ def news_edit(request):
     else:     
         formset = form( queryset=News.objects.filter(user=emp))
     return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator,'news':True, 'employee_logggedin': emp})
-
+@login_required
 def news_add(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -395,7 +399,7 @@ def news_add(request):
     else:     
         formset = News_add()
         return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator , 'employee_logggedin': emp})
-
+@login_required
 def news_detail_edit(request, news_id):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -410,7 +414,7 @@ def news_detail_edit(request, news_id):
     else:     
         formset = form(queryset=News.objects.filter(id=news_id))
     return render(request, "memslab/forms.html", {'form': formset,'employee': emp, 'coordinator': get_coordinator, 'news':True, 'employee_logggedin': emp})
-
+@login_required
 def project_specs(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -470,7 +474,7 @@ def publications_yrws(request, year):
     today = year
     latest = Publications.objects.filter(year=today)
     return render(request, "memslab/publications.html", {'employee': emp, 'coordinator': get_coordinator, 'publications':Publications.objects.all() , 'employee_logggedin': emp, 'latest':latest,'years':years,'today':today})
-
+@login_required
 def edit_pubs(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -487,7 +491,7 @@ def edit_pubs(request):
     else:
         formset = form()
         return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
-
+@login_required
 def area_of_research_edit(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)

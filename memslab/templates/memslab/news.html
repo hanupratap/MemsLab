@@ -10,7 +10,7 @@ Lab
 {% if user.is_authenticated%}
 
 <div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
- 
+
   <a href="{% url 'memslab:news_edit' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
         class="fas fa-edit"></i></button></a>
 
@@ -27,40 +27,40 @@ Lab
 
 
 </div>
- 
+
  <h1 class="text-center display-4">News</h1>
- <div class="container col-lg-10 mx-auto mt-5"> 
+ <div class="container col-lg-10 mx-auto mt-5">
  <div class="card-columns  ">
   {%if objs%}
     {%for obj in objs%}
- 
+
 
         <div class=" animated fadeIn" >
       <div class="card rounded-0  m-0 mb-3  proj_cards">
         {%if  obj.pic%}
 
         <div style=" display: inline-block; overflow: hidden; ">
-          {% thumbnail obj.pic "470" crop="center" as im %}
-          <img   src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
+          {% thumbnail obj.pic "410" crop="center" as im %}
+          <img   src="{{ im.url }}" width="100%;" height="{{ im.height }}" style="object-fit: cover; width: 100%; height: auto;"
             class="  rounded-0 card-img-top " alt="Generic placeholder image">
           {% endthumbnail %}
         </div>          {%endif%}
         <div class="card-body">
           <h4 class="card-title">{{obj.topic}}</h4>
-           
+
         </div>
    <div class="container-fluid   text-dark" style="max-height: 200px; max-width: 400px; overflow:hidden;  cursor:default; " > <p >{{obj.entry|safe}}</p></div>
 <hr>
-        <blockquote class="blockquote bq-secondary  ">
-            <a  href="{%url 'memslab:news_detail' obj.id %} " ><button class="btn btn-info btn-sm rounded_mn  ">Read More</button> </a> 
+        <blockquote class=" container ">
+            <a  href="{%url 'memslab:news_detail' obj.id %} " ><button class="btn btn-info btn-sm rounded_mn  ">Read More</button> </a>
           <footer class="blockquote-footer mt-1">
- 
+
               <a href="{%url 'memslab:show_profile' obj.user.user.username%}" style="color: #0000009f; font-size: 120%;"><cite title="Source Title "> Published By <strong>{{obj.user}}</strong>  <br> </cite></a> {{obj.created_at|naturaltime}}
           </footer>
       </blockquote>
       </div>
       </div>
-  
+
     {%endfor%}
     {%else%}
     <h1>No Update available</h1>
@@ -69,6 +69,6 @@ Lab
   </div>
 </div>
 
- 
+
 
 {% endblock %}
