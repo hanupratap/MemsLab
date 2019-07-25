@@ -179,7 +179,7 @@ def register_student(request):
     return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
 
 
-def prof_cat(request, username, top):
+def prof_cat(request, username, top_id):
 
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -196,10 +196,10 @@ def prof_cat(request, username, top):
         form = ProfilePic()
     categ = []
     topics = []
-
+    top = Employee_details_topic.objects.filter(id=top_id)
     user = User.objects.get(username=username)
     employee = Employee.objects.get(user=user)
-    emp_det = Employeedetails.objects.filter(topic__topic=top)
+    emp_det = Employeedetails.objects.filter(user=employee.user)
     for e0 in emp_det:
         if e0.user == user:
             topics.append(e0)
@@ -212,7 +212,7 @@ def prof_cat(request, username, top):
         else:
             categ.append(e.topic)
 
-    return render(request, "memslab/category.html", {'employee_logggedin': emp, 'topics': topics, 'employee': employee, 'empdet': categ, 'change_pic': form, 'main_topic': top, 'coordinator': get_coordinator})
+    return render(request, "memslab/category.html", {'employee_logggedin': emp, 'topics': topics, 'employee': employee, 'empdet': categ, 'change_pic': form, 'main_topic': top[0].topic, 'coordinator': get_coordinator})
 
 
 @login_required

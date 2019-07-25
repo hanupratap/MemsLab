@@ -52,7 +52,7 @@ Lab
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
             {%for d in empdet%}
             <a class="cool-link  ml-3 mt-2" style="font-size: 16px;"
-              href="{%url 'memslab:category' employee.user.username d %}">{{d}}</a><br />
+              href="{%url 'memslab:category' employee.user.username d.pk %}">{{d.topic}}</a><br />
             {%endfor%}</div>
           </div>
  
