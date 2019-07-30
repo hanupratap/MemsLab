@@ -86,7 +86,7 @@ def show_profile(request, username):
         if e.topic in categ:
             pass
         else:
-            categ.append(e.topic)
+            categ.append(e)
     if request.method == "POST":
         form = ProfilePic(request.POST or None, request.FILES or None)
         if form.is_valid():
@@ -201,7 +201,7 @@ def prof_cat(request, username, top_id):
     employee = Employee.objects.get(user=user)
     emp_det = Employeedetails.objects.filter(user=employee.user)
     for e0 in emp_det:
-        if e0.user == user:
+        if e0.topic.topic == top[0].topic:
             topics.append(e0)
         else:
             pass
