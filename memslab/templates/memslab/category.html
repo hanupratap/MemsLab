@@ -27,37 +27,37 @@ Lab
 </div>
 {%endif%}
 
- 
-<div class="container shadow-lg col-12 col-lg-11  mx-auto rounded border profile-container {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}   animated fadeIn    ">
+
+<div class="container   col-12 col-lg-11  mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}">
 
   <div class="row ">
-    
+
       <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 p-5  mx-auto ">
           <div class="sticky-top container pt-3">
         <div class="row ">
           {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
             <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto ">
             {% endthumbnail %}
-  
+
   {%if request.user == employee.user%}
-         
+
             <a type="button " class=" btn btn-sm btn-indigo col-xl-8  col-lg-8 col-md-10 col-xs-10 col-sm-6 mx-auto  "
               data-toggle="modal" data-target="#changePic"style="font-size:80%;">
               Change Pic <i class="fas fa-edit"></i>
-        </a> 
+        </a>
           {%endif%}
-          <div class=" col-12 border mt-4 pb-5 pl-5 pr-5 rounded_m  grey lighten-5      ">
-            <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
-            <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
-                href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
-              {%for d in empdet%}
-              <a class="cool-link  ml-3 mt-2" style="font-size: 16px;"
-                href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br />
-              {%endfor%}</div>
-  
+
+            <div class=" col-12 border mt-4 pb-5 pl-lg-5 pr-lg-5  rounded_m    grey lighten-5">
+          <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
+          <div class=" font-weight-bold blockquote bq-primary "> <a class="cool-link   ml-lg-3" style="font-size: 16px; "
+              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
+            {%for d in empdet%}
+            <a class="cool-link  ml-lg-3 mt-2" style="font-size: 16px;word-wrap:break-word;"
+              href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br />
+            {%endfor%}</div>
           </div>
-  
-  
+
+
         </div>
       </div> </div>
 
@@ -65,14 +65,14 @@ Lab
     <div class="container col-xl-9 col-lg-7 col-md-12 border-left ">
 
       <div class="jumbotron p-3 mt-4 rounded">
-        <h1 class="  p-2" style="word-wrap: break-word;">{{main_topic}}</h1>
+        <h1 class="indigo-text  p-2" style="word-wrap: break-word; font-weight:400;">{{main_topic}}</h1>
       </div>
       <div class="container-fluid p-0 m-0">
         {%for topic in topics%}
         <div class="jumbotron table-responsive">
 
           {% autoescape on %}
- 
+
 
             {% for point in topic.get_entry %}
             <p>
@@ -84,7 +84,7 @@ Lab
 
           </div>
           {% endautoescape %}
- 
+
         {%endfor%}
       </div>
     </div>

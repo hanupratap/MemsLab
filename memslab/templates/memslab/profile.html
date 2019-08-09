@@ -27,52 +27,53 @@ Lab
 </div>
 {%endif%}
 
-<div class="container col-12 col-xl-11  shadow-lg mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}  border  ">
+<div class="container   col-12 col-lg-11  mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}">
 
   <div class="row animated fadeIn ">
-    
+
     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 p-5  mx-auto ">
         <div class="sticky-top container pt-3">
       <div class="row ">
         {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
-          <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto ">
+          <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto " >
           {% endthumbnail %}
 
 {%if request.user == employee.user%}
-       
+
           <a type="button " class=" btn btn-sm btn-indigo col-xl-8  col-lg-8 col-md-10 col-xs-10 col-sm-6 mx-auto  "
             data-toggle="modal" data-target="#changePic"style="font-size:80%;">
             Change Pic <i class="fas fa-edit"></i>
-      </a> 
+      </a>
         {%endif%}
- 
-        <div class=" col-12 border mt-4 pb-5 pl-5 pr-5    grey lighten-5">
+
+        <div class=" col-12 border mt-4 pb-5 pl-lg-5 pr-lg-5  rounded_m    grey lighten-5">
           <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
-          <div class=" font-weight-bold "> <a class="cool-link   ml-3" style="font-size: 16px; "
+          <div class=" font-weight-bold blockquote bq-primary "> <a class="cool-link   ml-lg-3" style="font-size: 16px; "
               href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
             {%for d in empdet%}
-            <a class="cool-link  ml-3 mt-2" style="font-size: 16px;"
+            <a class="cool-link  ml-lg-3 mt-2" style="font-size: 16px;word-wrap:break-word;"
               href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br />
             {%endfor%}</div>
           </div>
- 
+
 
 
       </div>
     </div> </div>
     <div class="container col-xl-9 col-lg-8 col-md-8 col-sm-12 border-left p-3  ">
+
       <div class="row">
-        <div class="container col-11   border mt-5 p-5 bg-white">
+        <div class="container col-11  rounded_m border mt-5 p-5 bg-white">
           <p>
-            <h1 style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
+            <h1 class="indigo-text" style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
               {{employee.user.last_name}}</h1>
             <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br>
             </h2>
         </div>
 
-        <div class="container col-11 mt-5" style="font-size:14px;">
+        <div class="container col-11  mt-5" style="font-size:14px;">
           <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav p-0  m-0 nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom "
                 id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
                 aria-selected="true">
@@ -149,10 +150,10 @@ Lab
 
           </div>
           {%if employee.short_description%}
-          <div class="container-fluid mb-5 bg-white   ">
+          <div class="container-fluid mb-5 bg-white  rounded_m ">
             <div class="row mt-5 border p-lg-5 p-2  ">
-              <div class=" text-muted col-12">
-                <h2>Description- </h2>
+              <div class="container-fluid indigo-text" >
+                <h1 style="font-weight:400;">Description- </h1>
               </div>
               <div class="col-12 table-responsive" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
             </div>
@@ -171,10 +172,10 @@ Lab
   {%endif%}</div>
   <div class="modal fade" id="changePic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content " style="font-size:120%;">
+  <div class="modal-dialog modal-lg " role="document">
+      <div class="modal-content px-2 " style="font-size:120%;">
         <div class="modal-header">
-           
+
           <h5 class="modal-title" id="exampleModalLabel">Change profile Pic</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -195,5 +196,5 @@ Lab
         <hr>
       </div>
     </div>
-  </div> 
+  </div>
 {% endblock %}

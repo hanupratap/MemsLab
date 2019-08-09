@@ -7,10 +7,10 @@ Lab
 {%endblock%}
 {% block body %}
 <div class="container  col-12 text-lef  animated fadeIn">
-  <h1 class="indigo-text ml-5">Contact Us</h1> 
-  <div class="container col-10"> 
+  <h1 class="indigo-text ml-5">Contact Us</h1>
+  <div class="container col-10">
   <div class="row  " >
-    <div class="card mt-2 m-0 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
+    <div class="card mt-2 m-0 p-0 col-lg-2 proj_cards border border-dark z-depth-1 mx-auto ">
       <div class="card-body ">
         <h3 class="card-title">Coordinator</h3>
         <p class="card-text ">
@@ -24,34 +24,37 @@ Lab
 
 
 
-    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
       <div class="card-body ">
-        <h3  class="card-title">Email</h3 >
+
+    <h3  class="card-title p-0">Email</h3 >
+
+
         <p class="card-text ">
           <h4>{{coordinator.email}}</h4>
         </p>
-        <a class="card-link text-primary" href="mailto:{{superuser_emails}}">
-          <h5>{{coordinator.user.email}}</h5>
+        <a class="card-link text-primary" href="mailto:{{superuser_emails}}" >
+          {{coordinator.user.email}}
         </a>
       </div>
     </div>
-    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
       <div class="card-body ">
         <h3 class="card-title">Contact No.</h3>
         <p class="card-text ">
-          <h4>{{coordinator.phone}}</h4>
+          <h5>{{coordinator.phone}}</h5>
         </p>
 
       </div>
     </div>
 
     {%if coordinator.skype_link%}
-    <div class="card p-0 m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark z-depth-1    mx-auto ">
       <div class="card-body ">
         <h3 class="card-title">Skype</h3 >
         <p class="card-text "></p>
         <a class="card-link text-primary" href="{{coordinator.skype_link}}">
-          <h5>{{coordinator.skype_link}}</h5>
+           {{coordinator.skype_link}}
         </a>
 
       </div>
@@ -59,12 +62,12 @@ Lab
     {%endif%}
 
     {%if coordinator.website_link%}
-    <div class="card m-0 mt-2 col-lg-2 proj_cards border border-dark  col-12 mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
       <div class="card-body ">
         <h3 class="card-title">Web</h3>
         <p class="card-text "></p>
         <a class="card-link text-primary" href="{{coordinator.website_link}}">
-          <h5>{{coordinator.website_link}}</h5>
+           {{coordinator.website_link}}
         </a>
 
       </div>
@@ -72,15 +75,15 @@ Lab
     {%endif%}
 
 
- 
-  </div> 
+
+  </div>
 </div>
-    <div class="container p-1"> <h1 class="mt-5 indigo-text  ">Address</h1>
-        <div id="map-container-google-2" class=" border-dark border map-container  mx-auto" style="height: 500px">
+    <div class="container p-1  "> <h1 class="mt-5 indigo-text  ">Address</h1>
+        <div id="map-container-google-2 " class=" border-dark border map-container z-depth-1 mx-auto" style="height: 500px">
             <iframe src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70" frameborder="0"
               style="border:0" allowfullscreen></iframe>
           </div></div>
-       
-    
+
+
 </div>
 {% endblock %}

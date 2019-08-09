@@ -13,6 +13,7 @@ Lab
 
 {% block body %}
 {% if user.is_authenticated %}
+{%if not employee_logggedin.researcher%}
 <div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
 
     <a href="{% url 'memslab:area_of_research_edit' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
@@ -25,24 +26,23 @@ Lab
     <a href="{%url 'admin:index' %}"><button class="btn  btn-md text-dark btn-warning rounded_mn waves-effect ">admin <i
           class="fas fa-external-link-alt"></i></button></a>
     {%endif%}
-    {%endif%}
-
-
   </div>
-  <div class="jumbotron col-lg-10 col-11 mx-auto  ">  <h1 class="indigo-text p-0 m-0" >Areas Of Research</h1></div> 
+   {%endif%}
+    {%endif%}
+  <div class="mb-5 jumbotron col-lg-10 col-11 mx-auto mt-5">  <h1 class="indigo-text p-0 m-0" style="font-weight:400;" >Areas Of Research</h1></div>
 
 
- <div class="jumbotron col-11  col-lg-10 mx-auto table-responsive">
 
 
 
            {%for obj in Area_of_research%}
-
+ <div class="jumbotron col-11  col-lg-10 mx-auto table-responsive">
                            {{obj.entry|safe}}
+                              </div>
 
          {%endfor%}
 
-   </div>
+
 
 
 

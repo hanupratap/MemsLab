@@ -7,7 +7,7 @@ Lab
 {%endblock%}
 {% block body %}
 
- 
+
 
 
 {%if register_user%}
@@ -24,31 +24,31 @@ Lab
 
 
 {%if main_form %}
- <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+ <div class="container col-9 mb-5 border p-4 bg-white  shadow-sm mt-3 rounded_m">
 <a href="{% url 'memslab:detail_form' employee.id %}"><button class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit Info <i class="fas fa-edit"></i>
   </button></a>
   {% if user.is_authenticated and employee.user.id == user.id%}
- 
+
  <a class="btn btn-md rounded_mn btn-warning text-primary"
-        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a> 
- 
+        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a>
+
 {%endif%}
 </div>
 {% endif %}
 
 
 
- 
- 
+
+
 
     {%if news%}
-    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow-sm mt-3 rounded_m">
      <a href="{%url 'memslab:news_add'%}"><button class="btn rounded_mn btn-md btn-primary"><i class="fas fa-plus"></i> Add News</button></a>
     </div>
 
     {%endif%}
     {%if projects%}
-    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow-sm mt-3 rounded_m">
 
     <a href="{%url 'memslab:add_projects'%}"><button class="btn rounded_mn btn-md btn-primary"><i class="fas fa-plus"></i> Add projects</button></a>
     </div>
@@ -56,16 +56,16 @@ Lab
     {%endif%}
 
     {%if manage_project_images%}
-    <div class="container col-9 mb-5 border p-4 bg-white  shadow mt-3 rounded_m"> 
+    <div class="container col-9 mb-5 border p-4 bg-white  shadow-sm mt-3 rounded_m">
 
     <a   href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn  btn-primary rounded_mn  btn-md"><i
                 class="fas fa-plus"></i> Manage Project Images</button></a>
     </div>
- 
+
     {%endif%}
     {%if form%}
     {%if not projects%}
-       
+
 
     {%endif%}
 
@@ -76,9 +76,9 @@ Lab
 
     <div class="container-fluid">
          <form method="post"   enctype=multipart/form-data>
-            {% csrf_token %} 
-           
-  
+            {% csrf_token %}
+
+
             {%if form_main%}
             {{form_main|crispy}}
             {%endif%}
@@ -86,16 +86,16 @@ Lab
             {{form|crispy }}
 
 
-    
+
     <hr> {%if form1%}
-   
+
         <h1>Add Topics </h1>
         <hr>
 
-        
+
             {{form1|crispy}}
-            {%endif%} 
-    
+            {%endif%}
+
     <div class="text-right m-5">
         <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
     </div>

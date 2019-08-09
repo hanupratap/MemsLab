@@ -9,10 +9,10 @@ Lab
 
 <!--Modal: Contact form-->
 {%if not user.is_authenticated%}
-<div class="modal-dialog cascading-modal   " role="document">
+<div class="modal-dialog cascading-modal  " role="form">
 
     <!--Content-->
-    <div class="modal-content p-1">
+    <div class="modal-content p-3">
 
         <!--Header-->
         <div class="modal-header indigo white-text ">
@@ -21,14 +21,16 @@ Lab
 
 
         <!--Body-->
-        </div>      
-            <form method="POST" >
-         <h4 >  {% csrf_token %}
-        {{ form|crispy }}  </h4>
+        </div>
+            <form method="POST">
+         <h4 >
+        {% csrf_token %}
+        {{ form|crispy }}
+        </h4>
 
 
- 
- 
+
+
 
         <div class="text-center ">
             <br>
@@ -38,7 +40,7 @@ Lab
         </div></form>
  <span class="ml-auto  p-3  font-weight-bold  "><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
     </div>
-   
+
 </div>
 {%else%}
 <div class=" col-8  mx-auto  " style="font-size: 20px;">
@@ -53,6 +55,6 @@ Lab
 <!--/.Content-->
 {%endif%}
 <!--/Modal: Contact form-->
- 
+
 
 {% endblock %}

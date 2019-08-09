@@ -6,117 +6,117 @@ Employee Details
 {%endblock%}
 {% block body %}
 
- 
- 
 
 
-    <div class="container  text-dark  shadow p-4 col-lg-10 col-11 mt-5 border rounded   " >
-      <h3 style="font-weight: 400;">Faculty</h3>
+
+
+    <div class="jumbotron mx-auto m-0  text-dark  p-4 col-lg-10 col-11 mt-5 border rounded-top grey lighten-4 z-depth-0">
+      <h3 style="font-weight: 400;" class="indigo-text">Faculty</h3>
     </div>
-    <div class="container-fluid border border-top-0 col-lg-10 col-11  mx-auto grey lighten-4  ">
-      <div class="row  animated fadeIn  mx-4">
+    <div class="container border border-top-0 col-lg-10 col-11   p-3   mx-auto grey lighten-4 rounded-bottom">
+      <div class="row  animated fadeIn  px-5">
         {%for employee in employees%}
-    
+
           {%if employee.coordinator %}
-       
- 
-            
+
+
+
           <div class="card border p-0 m-0  faculty_card   waves-effect rounded-0  " style="background-color: #ffffff;
           background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 13rem; ">
-        
+
               <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-                 
+
                   {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
                   <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
                   {% endthumbnail %}
-           
-           
+
+
                   <div class="card-body  ">
                   <p class="col m-0 card-title">
-                    <div class="card-title text-left text-capitalize"
-                      style="font-size:145%; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                    <div class="card-title text-left  text-capitalize"
+                      style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
                       {{employee.user.last_name}}</div>
                   </p>
-      
-                  <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">
+
+                  <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">
                     {{employee.designation}}</p>
                 </div>
               </a>
-              <div class="card-footer text-muted text-center bg-light">
+              <div class="card-footer text-muted text-center bg-light" style="font-family: Arial, Helvetica, sans-serif;">
                  Coordinator
               </div>
-        </div>  
-    
-       
-  
+        </div>
+
+
+
           {%endif%}
-       
+
         {%if not employee.researcher and not employee.coordinator %}
 
-        <div class="card p-0 m-0    faculty_card waves-effect rounded-0  " style="background-color: #ffffff;
+        <div class="card p-0 m-0  faculty_card waves-effect  " style="background-color: #ffffff;
         background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 13rem; ">
-      
+
         <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-           
+
             {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
             {% endthumbnail %}
-     
-     
+
+
             <div class="card-body  ">
             <p class="col m-0 card-title">
               <div class="card-title text-left text-capitalize"
-                style="font-size:145%; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
                 {{employee.user.last_name}}</div>
             </p>
 
-            <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">
+            <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">
               {{employee.designation}}</p>
           </div>
         </a>
-   
+
   </div>
- 
+
 
         {%endif%}
         {%endfor%}
       </div>
     </div>
-    <div class="container text-dark shadow p-4 mt-5 col-lg-10 col-11 border rounded " >
-      <h3 style="font-weight: 400;">Students</h3>
+    <div class="jumbotron mx-auto m-0  text-dark  p-4 col-lg-10 col-11 mt-5 border rounded-top grey lighten-4 z-depth-0" >
+      <h3 style="font-weight: 400;" class="indigo-text">Students</h3>
     </div>
-    <div class="container-fluid border border-top-0 col-lg-10 col-11  mx-auto grey lighten-4  ">
-      <div class="row mx-4 animated fadeIn   ">
+    <div class="container border border-top-0 col-lg-10 col-11 p-3  mx-auto grey lighten-4   rounded-bottom">
+      <div class="row px-5 animated fadeIn ">
         {%for employee in employees%}
         {%if  employee.researcher%}
 
-        <div class="card p-0 m-0    faculty_card rounded-0    waves-effect   " style="background-color: #ffffff;
+        <div class="card p-0 m-0 faculty_card    waves-effect   " style="background-color: #ffffff;
         background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 13rem; ">
-      
+
             <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-               
+
                 {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
                 {% endthumbnail %}
-         
-         
+
+
                 <div class="card-body  ">
                 <p class="col m-0 card-title">
                   <div class="card-title text-left text-capitalize"
-                    style="font-size:145%; display: inline-block; word-break: break-word;">{{employee.user.first_name}}
+                    style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
                     {{employee.user.last_name}}</div>
                 </p>
 
               </div>
             </a>
-       
+
       </div>
-     
+
 
         {%endif%}
         {%endfor%}
       </div>
     </div>
- 
- 
+
+
 {% endblock %}

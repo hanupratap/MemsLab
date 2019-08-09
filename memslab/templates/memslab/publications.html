@@ -8,14 +8,14 @@
 Lab
 {%endblock%}
 
- 
 
-{% block body %}    
+
+{% block body %}
 
 {% if user.is_authenticated %}
+{%if not employee_logggedin.researcher%}
+<div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
 
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow ">
- 
   <a href="{% url 'memslab:edit_pubs' %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect ">Edit<i
         class="fas fa-edit"></i></button></a>
 
@@ -26,42 +26,48 @@ Lab
   <a href="{%url 'admin:index' %}"><button class="btn  btn-md text-dark btn-warning rounded_mn waves-effect ">admin <i
         class="fas fa-external-link-alt"></i></button></a>
   {%endif%}
-  {%endif%}
+
 
 
 </div>
+{%endif%}
+{%endif%}
 <h1 class="text-right pr-3">Publications</h1>
-<h1 class=" col-12">{{today}}</h1> 
- 
+<div class="container text-left  ml-lg-4 pl-3 pl-lg-5"> <h1 class="indigo-text" style="font-weight:400;">{{today}}</h1></div>
+
         <div class="row col-11 mx-auto p-0 m-0 ">
-        <div class="col-12 col-md-3 col-lg-2   mb-3  " >
-              <div class="sticky-top pt-2">
-                <div class="bg-white p-3  shadow-lg border" >
+        <div class="col-12 col-md-3 col-lg-2  mb-3  " >
+
+              <div class="sticky-top pt-2 ">
+                <div class="bg-white p-3  border  z-depth-1" >
                   <h4 class="card-text ">Yearwise</h4>
-                  <ul style="font-size:110%;"> 
+                  <ul style="font-size:110%;">
                       {%for year in years%}
                       <a href="{%url 'memslab:publications_yrws' year%}"><li>{{year}}</li></a>
                       {%endfor%}
-                  </ul> 
+                  </ul>
             </div>
           </div></div>
-     
+
           <div class="col-12 col-md-9 col-lg-10 p-0 m-0 pt-2"  >
-                <ul class="list-group "> 
+
+
+
+                <ul class="list-group m-0">
                         {%for obj in latest%}
-                                       <li class="list-group-item mb-2  shadow-sm table-responsive   " >{{obj.entry|safe}}</li>
+                                       <li class="list-group-item hoverable table-responsive mb-3" >{{obj.entry|safe}}</li>
                                  {%endfor%}   </ul>
-                             
+
           </div>
  </div>
- 
- 
-          
-          
-  
- 
 
 
-      <canvas style="height: 300px; width: 1px;"> </canvas> 
-       
+
+
+
+
+
+
+      <canvas style="height: 300px; width: 1px;"> </canvas>
+
 {% endblock %}

@@ -16,13 +16,13 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:100i,400i,500i&display=swap" rel="stylesheet">
 
 
-
+<!-- MDB 4.8.7 -->
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <!-- Bootstrap core CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.5/css/mdb.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.7/css/mdb.min.css" rel="stylesheet">
 
   <link rel="icon" href=" https://www.sensorsexpo.com/sites/sensorsexpo/files/5cl_image/s17_icons_tracks_mems_17_0.png">
 
@@ -57,10 +57,10 @@
     <div class="dropdown">
     <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% thumbnail employee_logggedin.emp_pic "70x70" crop="top" as im %}
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle" />
+      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class="rounded-circle" data-toggle="tooltip" title="{{user.first_name}} {{user.last_name}}" />
       {% endthumbnail %}
 
-      <span class="navbar-name text-muted font-weight-bold ">{{user.first_name}} {{user.last_name}} </span>
+
     </a>
     <div class="dropdown-menu bg-light ml-3" aria-labelledby="dropdownMenuButton1">
         <a class="dropdown-item  text-muted" href="{%url 'memslab:profile'%}"> Profile </a>
@@ -88,14 +88,14 @@
         <li class="nav-item btn-link text-center  mr-lg-5 ">
 
           <a class="  rounded    {%if request.path == '/projects' or request.path == '/area_of_research/' or request.path == '/publications/'%}  indigo-text {%else %} text-muted{%endif%}  "
-            href="{% url 'memslab:index' %}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research<span class="caret"></span></a>
+            href="{% url 'memslab:index' %}" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Research <i class="fas fa-caret-down"></i></a>
 
 
 
                 <div class="dropdown-menu bg-light" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{%url 'memslab:index'%}">Projects</a>
-                  <a class="dropdown-item" href="{%url 'memslab:area_of_research'%}">Areas of Research</a>
-                  <a class="dropdown-item" href="{%url 'memslab:publications'%}">Publications</a>
+                  <a class="dropdown-item  " href="{%url 'memslab:index'%}">Projects</a>
+                  <a class="dropdown-item  " href="{%url 'memslab:area_of_research'%}">Areas of Research</a>
+                  <a class="dropdown-item  " href="{%url 'memslab:publications'%}">Publications</a>
                 </div>
 
         </li> </div>
@@ -149,28 +149,28 @@
   {% endblock %}
 
 <!-- Footer -->
-<footer class="page-footer font-small elegant-color-dark pt-4 mt-5" style="font-family:Arial, Helvetica, sans-serif;">
+<footer class="page-footer font-small elegant-color-dark pt-4 mt-5 " style="font-family:Arial, Helvetica, sans-serif;">
 
     <!-- Footer Links -->
-    <div class="container col-12 text-center text-lg-left">
-  
+    <div class="container col-12 ">
+
       <!-- Grid row -->
       <div class="row">
-  
+
         <!-- Grid column -->
-        <div class="col-lg-4 mt-md-0 mt-3 p-0 pl-1 ">
-          
-        
- 
+        <div class="col-lg-4 mt-md-0 mt-3 p-0 pl-1 text-left">
+
+
+
 
         <div class="col-lg-11 col-12 " style="font-weight: lighter; font-size:200%;" >BITS PILANI<span> Hyderabad Campus</span><br>
           <small class="text-muted">Department Of Electrical Sciences </small>
-          <hr style="border-top: 2px solid rgb(119, 119, 119);">
+          <hr style="border-top: 1px dashed rgb(100, 100, 100);">
           <p style="font-size: 65%; color: rgb(197, 197, 197);">Micro-Electromechanical System and MicroFluids Laboratory</p>
-    
-</div>  
- 
-      
+
+</div>
+
+
 
           <p class="footer-links mt-5 pl-3" style="font-size: 130%;">
               <a  href="{%url 'memslab:home'%}">Home</a>
@@ -183,76 +183,76 @@
             </p>
         </div>
         <!-- Grid column -->
-  
-        <hr class="clearfix w-100 d-md-none pb-3">
-  
+
+        <hr class="clearfix w-100 d-md-none pb-3" style="border-top: 2px solid rgb(100, 100, 100);">
+
         <!-- Grid column -->
-        <div class="col-lg-3 mb-md-0 mb-3 ">
-  
- 
-  
-          <ul class="list-unstyled" style="font-size: 120%;">
+        <div class="col-lg-3 mb-md-0 mb-3 text-center text-lg-left d-lg-block">
+
+
+
+          <ul class="list-unstyled " style="font-size: 120%;">
             <li class="mt-3">
                 <a href="{%url 'memslab:about'%}">
-                    <i class="fa fa-map-marker m-0  p-2 rounded-circle" style="font-size: 130%;"></i>
+                    <i class="fa fa-map-marker mr-3" style="font-size: 140%;"></i>
                     <span  class=" ">Shameerpet, Hyderabad<span class="font-weight-bold "> Telangana, India  </span></span>
                   </a>
             </li>
-            <li class="mt-3">
+            <li class="mt-4">
                 <a href="{%url 'memslab:about'%}">
-                    <i class="fa fa-phone  p-2 rounded-circle" style="font-size: 130%;"></i>
+                    <i class="fa fa-phone mr-3" style="font-size: 140%;"></i>
                     {%if coordinator.phone%}
                     <span> {{coordinator.phone}}</span>
                     {%else%}
-                    <p>9010202832</p>
+                    <span>9010202832</span>
                     {%endif%}
                   </a>
             </li>
-            <li class="mt-3">
-             <a href="mailto:{{superuser_emails}}">   
-                <i class="fa fa-envelope p-2 rounded-circle" style="font-size: 130%;"></i>
+            <li class="mt-4">
+             <a href="mailto:{{superuser_emails}}">
+                <i class="fa fa-envelope mr-3" style="font-size: 140%;"></i>
 
                 <span class="text-primary">{%if coordinator.user.email%}{{coordinator.user.email}}{%else%}
                     sgoel@hyderabad.bits-pilani.ac.in{%endif%}</span>
         </a>
             </li>
-       
+
           </ul>
-  
+
         </div>
         <!-- Grid column -->
-  
+
         <!-- Grid column -->
-        <div class="col-lg-5 mb-md-0 mb-3">
-  
+        <div class="col-lg-5 mb-md-0 mb-3 text-left">
+
           <!-- Links -->
-  
+
             <h3>About this Site</h3>
-        <p style="font-size: 120%;" class="text-muted"> 
+        <p style="font-size: 120%;" class="text-muted">
             This website is for MicroElectroMechanical systems and MicroFluids Laboratory of BITS Hyderabad{%if coordinator%} and Managed By
             {%if coordinator.user%}
             <a class="text-primary" href="{%url 'memslab:show_profile' coordinator.user.username%}">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</a>
               {%endif%}
-    
+
             {%endif%}
         </p>
-  
+
         </div>
         <!-- Grid column -->
-  
+
       </div>
       <!-- Grid row -->
-  
+
     </div>
     <!-- Footer Links -->
-  
+
     <!-- Copyright -->
-    <div class="footer-copyright text-right py-3 pr-3 ">Designed and Developed by 
-      <a href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/" class="me">Hanupratap Singh Chauhan</a>
+    <div class="footer-copyright text-right   py-3 pr-3 ">Designed and Developed by
+      <a href="https://www.linkedin.com/in/hanupratap-singh-chauhan-51bb55155/" class="me text-muted">Hanupratap Singh Chauhan (2017A3PS0427H)</a>
     </div>
- 
+
     <!-- Copyright -->
-  
+
   </footer>
   <!-- Footer -->
   <!-- Footer -->
@@ -260,7 +260,7 @@
 
 
 
- 
+
 
 
 
