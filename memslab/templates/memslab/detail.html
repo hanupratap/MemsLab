@@ -2,7 +2,7 @@
 {% load thumbnail %}
 
 {% block title%}
-Employee Details
+People
 {%endblock%}
 {% block body %}
 
@@ -10,42 +10,51 @@ Employee Details
 
 
 
-    <div class="jumbotron mx-auto m-0  text-dark  p-4 col-lg-10 col-11 mt-5 border rounded-top grey lighten-4 z-depth-0">
-      <h3 style="font-weight: 400;" class="indigo-text">Faculty</h3>
-    </div>
-    <div class="container border border-top-0 col-lg-10 col-11   p-3   mx-auto grey lighten-4 rounded-bottom">
-      <div class="row  animated fadeIn  px-5">
+
+
+<div class="container col-lg-10 col-11  p-3 mt-5   mx-auto bg-white rounded bhover">
+      <div class="card-header bg-transparent border-0 p-0 ">
+     <h3 style="font-weight: 400;" class="blue-grey-text py-2">Faculty</h3>
+  </div>
+
+      <div class="row px-3 animated fadeIn mx-auto  ">
         {%for employee in employees%}
 
           {%if employee.coordinator %}
 
+<!-- background-color: #ffffff;
+        background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); -->
+        <div class="card border-0  faculty_card  p-0 m-0 mx-md-0 mx-auto z-depth-1  waves-effect waves-light  " style="background-color: #5ca0f2;
+background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);
+
+  width: 13rem; ">
+
+      <div class="view overlay">
+    {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top rounded-top" style="width:100%; height:auto;">
+                {% endthumbnail %}    <a href="{%url 'memslab:show_profile' employee.user.username %}">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+        <a href="{%url 'memslab:show_profile' employee.user.username %}">
 
 
-          <div class="card border p-0 m-0  faculty_card   waves-effect rounded-0  " style="background-color: #ffffff;
-          background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 13rem; ">
+            <div class="card-body ">
+            <p class="col m-0 card-title">
+              <h5 class="card-title text-left text-capitalize">{{employee.user.first_name}}
+                {{employee.user.last_name}}</h5>
+            </p>
 
-              <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+            <p class="card-text text-left">{{employee.designation}}</p>
+          </div>
+          <footer class="card-footer white-text text-center">
+              Coordinator
+          </footer>
+        </a>
 
-                  {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
-                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
-                  {% endthumbnail %}
+  </div>
 
-
-                  <div class="card-body  ">
-                  <p class="col m-0 card-title">
-                    <div class="card-title text-left  text-capitalize"
-                      style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
-                      {{employee.user.last_name}}</div>
-                  </p>
-
-                  <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">
-                    {{employee.designation}}</p>
-                </div>
-              </a>
-              <div class="card-footer text-muted text-center bg-light" style="font-family: Arial, Helvetica, sans-serif;">
-                 Coordinator
-              </div>
-        </div>
 
 
 
@@ -53,27 +62,34 @@ Employee Details
 
         {%if not employee.researcher and not employee.coordinator %}
 
-        <div class="card p-0 m-0  faculty_card waves-effect  " style="background-color: #ffffff;
-        background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 13rem; ">
-
-        <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-
-            {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
-            {% endthumbnail %}
+        <div class="card  border-0 faculty_card  p-0 m-0 mx-md-0 mx-auto z-depth-1  waves-effect waves-light" style="background-color: #5ca0f2;
+background-image: linear-gradient(315deg, #5ca0f2 0%, #f5f7f6 74%);
 
 
-            <div class="card-body  ">
-            <p class="col m-0 card-title">
-              <div class="card-title text-left text-capitalize"
-                style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
-                {{employee.user.last_name}}</div>
-            </p>
+  width: 13rem; ">
+  <div class="view overlay">
+    {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
+                {% endthumbnail %}    <a href="{%url 'memslab:show_profile' employee.user.username %}">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
 
-            <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">
-              {{employee.designation}}</p>
-          </div>
-        </a>
+
+
+    <a href="{%url 'memslab:show_profile' employee.user.username %}">
+
+                    <div class="card-body   ">
+                <p class="col m-0 card-title">
+                  <h5 class="card-title text-left text-capitalize">{{employee.user.first_name}} {{employee.user.last_name}}</h5>
+                </p>
+            <p class="card-text text-left ">{{employee.designation}}</p>
+
+              </div>
+
+    </a>
+
+
 
   </div>
 
@@ -82,32 +98,47 @@ Employee Details
         {%endfor%}
       </div>
     </div>
-    <div class="jumbotron mx-auto m-0  text-dark  p-4 col-lg-10 col-11 mt-5 border rounded-top grey lighten-4 z-depth-0" >
-      <h3 style="font-weight: 400;" class="indigo-text">Students</h3>
-    </div>
-    <div class="container border border-top-0 col-lg-10 col-11 p-3  mx-auto grey lighten-4   rounded-bottom">
-      <div class="row px-5 animated fadeIn ">
+
+
+
+
+    <div class="container col-lg-10 col-11 p-3  mx-auto bg-white mt-5 mx-auto rounded  bhover mt-4">
+                  <div class="card-header bg-transparent border-0 p-0">
+     <h3 style="font-weight: 400;" class="blue-grey-text py-2">Students</h3>
+  </div>
+      <div class="row px-3 animated fadeIn mx-auto">
         {%for employee in employees%}
         {%if  employee.researcher%}
 
-        <div class="card p-0 m-0 faculty_card    waves-effect   " style="background-color: #ffffff;
-        background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 13rem; ">
+        <div class="card  bg-transparent faculty_card  p-0 m-0 mx-md-0 mx-auto z-depth-1 cloudy-knoxville-gradient" style="background-color: #fff293;
+background-image: linear-gradient(315deg, #fff293 0%, #ffe884 74%);  width: 13rem; ">
 
-            <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
-
-                {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
-                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
+            <a href="{%url 'memslab:show_profile' employee.user.username %}">
+  <div class="view overlay">
+       {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top " style="width:100%; height:auto;">
                 {% endthumbnail %}
 
 
-                <div class="card-body  ">
+    <a href="{%url 'memslab:show_profile' employee.user.username %}">
+      <div class="mask rgba-white">
+
+
+
+      </div>
+
+                    <div class="card-body ">
                 <p class="col m-0 card-title">
-                  <div class="card-title text-left text-capitalize"
-                    style="font-size:145%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
-                    {{employee.user.last_name}}</div>
+                  <h5 class="card-title text-left text-capitalize">{{employee.user.first_name}} {{employee.user.last_name}}</h5>
                 </p>
+            <p class="card-text text-left ">{{employee.designation}}</p>
 
               </div>
+
+    </a>
+  </div>
+
+
             </a>
 
       </div>

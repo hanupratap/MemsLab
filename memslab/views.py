@@ -127,7 +127,7 @@ def show_projects(request, project_id):
         HttpResponse(Exception)
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
-        return render(request, 'memslab/project.html', {'employee_logggedin': emp,
+        return render(request, 'memslab/project.html', {'employee_logggedin': emp, 'employee':emp,
                                                         'project': proj, 'images': image_object, 'employees': Employee.objects.all(), 'background': bg[0], 'coordinator': get_coordinator,'nostu':nostu})
     else:
         return render(request, 'memslab/project.html', {'project': proj, 'employee_logggedin': None,
@@ -142,41 +142,65 @@ def About(request):
 
     return render(request, 'memslab/About.html', {'employee_logggedin': emp, 'coordinator': get_coordinator, })
 
+@login_required
 def register(request):
-      return render(request, 'memslab/forms.html',{'register_user': True, 'coordinator': get_coordinator})
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
+    else:
+        emp = None
+    if not emp.researcher:
+        return render(request, 'memslab/forms.html',{'register_user': True, 'coordinator': get_coordinator})
+    else:
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 
 def register_faculty(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            form.save()
-            messages.success(request, 'Successfully Created Faculty')
-            emp = Employee.objects.get(user=instance)
-            emp.researcher = False
-            emp.coordinator = False
-            emp.save()
-            return redirect('/')
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
     else:
-        form = UserRegisterForm()
-    return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+        emp = None
+    if not emp.researcher:
+        if request.method == 'POST':
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                form.save()
+                messages.success(request, 'Successfully Created Faculty')
+                emp = Employee.objects.get(user=instance)
+                emp.researcher = False
+                emp.coordinator = False
+                emp.save()
+                return redirect('/')
+        else:
+            form = UserRegisterForm()
+        return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+    else:
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 
 
 def register_student(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            form.save()
-            messages.success(request, 'Successfully Created Student')
-            emp = Employee.objects.get(user=instance)
-            emp.researcher = True
-            emp.coordinator = False
-            emp.save()
-            return redirect('/')
+    if request.user.is_authenticated:
+        emp = Employee.objects.get(user=request.user)
     else:
-        form = UserRegisterForm()
-    return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+        emp = None
+    if not emp.researcher:
+        if request.method == 'POST':
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                form.save()
+                messages.success(request, 'Successfully Created Student')
+                emp = Employee.objects.get(user=instance)
+                emp.researcher = True
+                emp.coordinator = False
+                emp.save()
+                return redirect('/')
+        else:
+            form = UserRegisterForm()
+        return render(request, 'memslab/forms.html',{'form': form, 'coordinator': get_coordinator})
+    else:
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
 
 
 def prof_cat(request, username, top_id):
@@ -227,7 +251,7 @@ def main_form(request, emp_id):
         'experience_in_years',
         'phone',
         'education_short',
-        'emp_pic','skype_link','website_link',),extra=0)
+        'emp_pic','skype_link','website_link',),extra=0, can_delete=False)
 
     form1 = modelformset_factory(Employee_details_topic, fields=('topic',), extra=3, can_delete=False)
     if request.method == 'POST':
@@ -270,26 +294,29 @@ def manage_project(request, proj_id):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    project = Project.objects.get(id=proj_id)
-    form = modelformset_factory(Project, exclude=[], extra=0)
+    if not emp.researcher:
+        project = Project.objects.get(id=proj_id)
+        form = modelformset_factory(Project, exclude=[], extra=0)
 
-    if request.method == 'POST':
-        formset = Project_add(request.POST or None, request.FILES or None, instance=project)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/')
+        if request.method == 'POST':
+            formset = Project_add(request.POST or None, request.FILES or None, instance=project)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/')
 
+        else:
+            formset = Project_add(instance=project)
+
+            return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator, 'project':project, 'manage_project_images':True})
     else:
-        formset = Project_add(instance=project)
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
 
-        return render(request, "memslab/forms.html", {'form': formset,'employee': emp ,'employee_logggedin': emp, 'coordinator': get_coordinator, 'project':project, 'manage_project_images':True})
 @login_required
 def change_password(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-
     if request.method == 'POST':
         form = PasswordChangeForm(request.user,request.POST)
         if form.is_valid():
@@ -304,52 +331,65 @@ def change_password(request):
     return render(request, "memslab/forms.html", {'form': form, 'employee': emp, 'coordinator': get_coordinator, 'employee_logggedin': emp})
 @login_required
 def add_delete_projects(request):
-    form = modelformset_factory(Project, fields=('name',), extra=0, can_delete=True)
+
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    if request.method == 'POST':
-        formset = form(request.POST)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/'  )
-    formset = form()
-    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':True, 'employee_logggedin': emp})
+    if not emp.researcher:
+        form = modelformset_factory(Project, fields=('name',), extra=0, can_delete=True)
+        if request.method == 'POST':
+            formset = form(request.POST)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/'  )
+        formset = form()
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':True, 'employee_logggedin': emp})
+    else:
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 @login_required
 def add_projects(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    if request.method == 'POST':
-        formset = Project_add(request.POST or None, request.FILES or None)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/')
+    if not emp.researcher:
+        if request.method == 'POST':
+            formset = Project_add(request.POST or None, request.FILES or None)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/')
 
+        else:
+            formset = Project_add()
+        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
     else:
-        formset = Project_add()
-    return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 @login_required
 def manage_project_images(request, proj_id):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    project = Project.objects.get(id=proj_id)
-    form1 = inlineformset_factory(Project, project_image,fields=('pic', 'title', 'description',))
-    if request.method == 'POST':
-        formset1 = form1(request.POST or None, request.FILES or None, instance=project)
+    if not emp.researcher:
+        project = Project.objects.get(id=proj_id)
+        form1 = inlineformset_factory(Project, project_image,fields=('pic', 'title', 'description',))
+        if request.method == 'POST':
+            formset1 = form1(request.POST or None, request.FILES or None, instance=project)
 
-        if formset1.is_valid():
-            formset1.save()
-            return redirect('/')
+            if formset1.is_valid():
+                formset1.save()
+                return redirect('/')
+            else:
+                return HttpResponse('ERROR')
         else:
-            return HttpResponse('ERROR')
+            formset1 = form1(instance=project)
+            return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator, 'add_project_images':True, 'employee_logggedin': emp})
     else:
-        formset1 = form1(instance=project)
-        return render(request, "memslab/forms.html", { 'form': formset1, 'employee': emp, 'coordinator': get_coordinator, 'add_project_images':True, 'employee_logggedin': emp})
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 def news(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
@@ -421,16 +461,18 @@ def project_specs(request):
     else:
         emp = None
     form = modelformset_factory(Project_type, fields=('name',), can_delete=True,extra=3)
+    if not emp.researcher:
+        if request.method == 'POST':
+            formset = form(request.POST)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/')
 
-    if request.method == 'POST':
-        formset = form(request.POST)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/')
-
+        else:
+            formset = form()
+            return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
     else:
-        formset = form()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
 
 def area_of_research(request):
     if request.user.is_authenticated:
@@ -480,31 +522,40 @@ def edit_pubs(request):
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(Publications, fields=('entry','year',), can_delete=True, extra=5)
+    if not emp.researcher:
+        form = modelformset_factory(Publications, fields=('entry','year',), can_delete=True, extra=5)
 
-    if request.method == 'POST':
-        formset = form(request.POST)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/')
+        if request.method == 'POST':
+            formset = form(request.POST)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/')
 
+        else:
+            formset = form()
+            return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
     else:
-        formset = form()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
 @login_required
 def area_of_research_edit(request):
     if request.user.is_authenticated:
         emp = Employee.objects.get(user=request.user)
     else:
         emp = None
-    form = modelformset_factory(Area_of_research, fields=('entry',), can_delete=True, extra=1)
+    if not emp.researcher:
+        form = modelformset_factory(Area_of_research, fields=('entry',), can_delete=True, extra=1)
 
-    if request.method == 'POST':
-        formset = form(request.POST)
-        if formset.is_valid():
-            formset.save()
-            return redirect('/')
+        if request.method == 'POST':
+            formset = form(request.POST)
+            if formset.is_valid():
+                formset.save()
+                return redirect('/')
 
+        else:
+            formset = form()
+            return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
     else:
-        formset = form()
-        return render(request, "memslab/forms.html", {'form': formset, 'employee': emp, 'coordinator': get_coordinator, 'projects':False, 'employee_logggedin': emp})
+        return render(request, "memslab/no_access.html", {'coordinator': get_coordinator, 'employee_logggedin': emp})
+
+

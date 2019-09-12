@@ -4,8 +4,12 @@
 Redirecting
 {%endblock%}
 {% block body %}
-<h2 class="text-center">
-    <h3>Redirecting...</h3>
-</h2>
+<canvas style="height:100px;"></canvas>
+<div class="alert alert-primary col-md-10 col-12 mx-auto mt-5" role="alert">
+  <h1 class="alert-heading"> Redirecting ...</h1><hr>
+  <h3 class="text-dark p-5">Please Wait</h3>
+
+</div>
+<canvas style="height:300px;"></canvas>
 <meta http-equiv="refresh" content="0; url={%url 'memslab:home'%}">
 {%endblock%}

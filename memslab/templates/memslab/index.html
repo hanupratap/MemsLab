@@ -5,7 +5,7 @@
 
 {%load thumbnail%}
 {% block title%}
-Lab
+Projects
 {%endblock%}
 
 {%block javascript%}
@@ -17,27 +17,28 @@ Lab
 {% block body %}
 {% if user.is_authenticated%}
 {%if not employee_logggedin.researcher%}
-<div class="container col-10 mb-5 border p-4   bg-white  shadow-sm  mt-3 rounded_m ">
+<div class="container col-10 mb-5 border p-4  bg-white  shadow-sm rounded_m  mt-3 rounded ">
    <a href="{%url 'memslab:add_delete_projects'%} "><button
         class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Manage Projects</button></a>
          <a href="{%url 'memslab:project_specs'%} "><button
-  class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Project Specializtion</button></a>
+  class="btn btn-primary  btn-md rounded_mn"><i class="fas fa-tasks"></i> Project Type</button></a>
 </div>
 
 
 {%endif%}
 {%endif%}
+<br>
 
 <div class="crousel-wrapper">
-  <div id="owl-demo" class=" owl-carousel owl-theme mx-auto  col-lg-9 col-12  align-items-center animated fadeIn   ">
+  <div id="owl-demo" class=" owl-carousel owl-theme mx-auto  col-lg-9 col-12 mt-3 align-items-center">
 
   {%for project in projects%}
   {%if project.project_pic%}
   {% thumbnail project.project_pic '300x300' as im %}
-  <div class="item pl-lg-5 ml-1  hidden  ">
+  <div class="item  pl-lg-5 ml-1  hidden waves-effect waves-light">
     <a href="{%url 'memslab:show_projects' project.id %}" data-toggle="tooltip" title="{{project.specializaiton}}">
       <img src="{{im.url|resolution:'2x'}}" alt="{{project.id}}" class=" px-lg-3" />
-      <figcaption class=" top-left ">
+      <figcaption class=" top-left">
         <h2 class="bottom-left"
           style="word-wrap: break-word;-webkit-font-smoothing: auto;-moz-osx-font-smoothing: auto;">{{project.name}}
         </h2>
@@ -51,7 +52,7 @@ Lab
 </div>
 </div>
 
-<div class="owl-nav">
+<div class="owl-nav ">
   <div class="owl-controls ">
     <div class="custom-nav owl-nav unselectable "></div>
   </div>
@@ -62,87 +63,101 @@ Lab
 
 
 
-<hr class="col-10 ">
+<br>
 
 
 
-<div class="jumbotron bg-transparent m-0 mx-auto  mt-5 col-xl-10 col-11 p-0 ">
-  <a type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" class="p-0 m-0">
-    <div class=" container-fluid border grey lighten-5">
-      <h3 class="  pt-4 m-0  pl-3 indigo-text" style="font-weight: 400;">Ongoing <i class="far fa-play-circle special-color ongoing p-3  rounded-circle"></i>
+<div class="jumbotron z-depth-0-half rounded_m  mx-auto  mt-5 col-11 p-0 ">
+
+    <div class=" container-fluid">
+          <a type="toggle" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" class="p-0 m-0">
+      <h3 class="pt-4 mt-1 m-0  pl-3 indigo-text" style="font-weight: 400;">Ongoing
+    <span> <h5><div  class="text-right text-muted"><i class="fas fa-caret-down "></i> </div></h5></span>
       </h3>
-      <div class="text-right"><i class="fas fa-caret-down"></i> </div>
-    </div>
   </a>
+    </div>
 
 
-<div class="collapse p-0 m-0" id="collapseExample">
-<div class="container-fluid p-0 m-0 bg-light">
-    <div class="card-columns p-5 mb-5">
+
+<div class="collapse" id="collapseExample">
+<div class="container col-12  rounded_mn p-4">
+    <div class="card-columns">
       {%for project in projects%}
       {% if project.status == 0 %}
 
 
+
+
+          <div class="card rounded_m  animated fadeIn m-0 p-0 mb-4  p-2">
+              <div class="z-depth-1 view overlay waves-effect rounded_m">
       <a href="{%url 'memslab:show_projects' project.id %} "
-        style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
-        <div class=" animated fadeIn shadow-0" >
-          <div class="card shadow-sm rounded_m  m-0 p-0 mb-3  border proj_cards">
+        style="text-decoration: none; color: rgba(0, 0, 0, 0.801);">
             {%if  project.project_pic%}
 
-            <div style="   overflow: hidden; ">
+            <div style="overflow: hidden; ">
               {% thumbnail project.project_pic "310x210" crop="center" as im %}
+              <div class=" p-1 ">
               <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
+                style="object-fit: cover; width: 100%; height: auto;" class= "rounded_m card-img-top shadow-sm"
                 alt="Generic placeholder image">
+                </div>
               {% endthumbnail %}
             </div> {%endif%}
-            <div class="card-body">
-              <h4 class="card-title blue-grey-text">{{project.name}}</h4>
+
+            <div class="card-body px-2">
+              <h4 class="card-title blue-grey-text m-0 p-0">{{project.name}}</h4>
 
             </div>
 
-            <p class="p-2 bq-primary" style="max-height: 200px; overflow:hidden;" >{{project.short_description}} </p>
-            <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
+            <p class="p-2 bq-primary" style="max-height: 200px; overflow:hidden; font-size:90%; " >{{project.short_description}} </p>
+            <div class="card-footer text-muted   bh-white" style="font-size: 75%;">
                 <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
              </div>
-          </div>
-        </div>
       </a>
+          </div>
+</div>
       {%endif%}
       {%endfor%}
-    </div></div>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<div class="jumbotron bg-transparent mx-auto  mt-5 col-xl-10 col-11 p-0 ">
-  <a type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
-    <div class=" container-fluid   border grey lighten-5 ">
-      <h3 class="  text-left pt-4 mb-0 pb-0 pl-3 teal-text" style="font-weight: 400;">Completed <i
-          class="fas fa-check Completed   special-color p-3 rounded-circle"></i></h3>
-      <div class="text-right"><i class="fas fa-caret-down"></i></div>
-    </div>
+<div class="jumbotron z-depth-0-half rounded_m mx-auto  mt-5 col-11 p-0">
+
+    <div class=" container-fluid">
+          <a type="toggle" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false">
+      <h3 class=" pt-4 mt-1 m-0  pl-3 teal-text" style="font-weight: 400;">Completed
+          <span> <h5><div  class="text-right text-muted"><i class="fas fa-caret-down "></i> </div></h5></span>
+      </h3>
   </a>
+    </div>
 
 
-  <div class="collapse  p-0" id="collapseExample1">
-      <div class="container-fluid p-0 m-0 bg-light">
-        <div class="card-columns p-5 mb-5" >
+
+  <div class="collapse " id="collapseExample1">
+      <div class="container col-12  rounded_mn p-4">
+        <div class="card-columns" >
           {%for project in projects%}
           {% if project.status == 1 %}
 
 
-          <a href="{%url 'memslab:show_projects' project.id %} "
-            style="text-decoration: none; color: rgba(0, 0, 0, 0.801);;">
-            <div class=" animated fadeIn shadow-0 " >
-              <div class="card shadow-sm rounded_m m-0 p-0 mb-3 border proj_cards">
+
+
+              <div class="card rounded_m animated fadeIn m-0 p-0 mb-4 p-2">
+
+                  <div class="z-depth-1 view overlay waves-effect rounded_m">
+                            <a href="{%url 'memslab:show_projects' project.id %} " style="text-decoration: none; color: rgba(0, 0, 0, 0.801);">
                 {%if  project.project_pic%}
 
                 <div style="   overflow: hidden; ">
                   {% thumbnail project.project_pic "310x210" crop="center" as im %}
-                  <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
-                    style="object-fit: cover; width: 100%; height: auto;" class="  rounded_m_top card-img-top border-bottom "
-                    alt="Generic placeholder image">
+                                <div class=" p-1 ">
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                style="object-fit: cover; width: 100%; height: auto;" class= "rounded_m card-img-top shadow-sm"
+                alt="Generic placeholder image">
+                </div>
                   {% endthumbnail %}
                 </div> {%endif%}
                 <div class="card-body">
@@ -150,13 +165,15 @@ Lab
 
                 </div>
 
-                <p class="p-2 bq-success" style="max-height: 200px; overflow:hidden;" >{{project.short_description}} </p>
-                <div class="card-footer text-muted   bh-white" style="font-size: 90%;">
-                    <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
+                <p class="p-2 bq-success" style="max-height: 200px; overflow:hidden; font-size:90%;" >{{project.short_description}}</p>
+                <div class="card-footer text-muted   bh-white" style="font-size: 75%;">
+                 <cite title="Source Title"> Project specializaiton <strong>{{project.specializaiton}}</strong></cite>
                  </div>
-              </div>
-            </div>
+
           </a>
+              </div>
+              </div>
+
           {%endif%}
           {%endfor%}
         </div>

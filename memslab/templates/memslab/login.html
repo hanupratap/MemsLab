@@ -9,36 +9,36 @@ Lab
 
 <!--Modal: Contact form-->
 {%if not user.is_authenticated%}
-<div class="modal-dialog cascading-modal  " role="form">
+
+
+<div class="modal-dialog cascading-modal " role="form">
 
     <!--Content-->
-    <div class="modal-content p-3">
+    <div class="modal-content p-3 shadow rounded_m">
 
         <!--Header-->
-        <div class="modal-header indigo white-text ">
-            <h4 class="title">
-                <i class="fa fa-pencil-alt"></i> Login Form</h4>
-
-
+        <div class="modal-header rounded_m indigo text-white z-depth-1-half">
+            <h3 class="title"><b>Login Form</b></h3>
+</div>
         <!--Body-->
-        </div>
-            <form method="POST">
-         <h4 >
-        {% csrf_token %}
-        {{ form|crispy }}
+
+            <form method="POST" class="form-group ">       {% csrf_token %}
+         <h4>
+             <b>{{form|crispy}}</b>
+
+
         </h4>
 
 
 
 
 
-        <div class="text-center ">
+        <div class=" text-right">
             <br>
-            <button type="submit" class="btn btn-indigo btn-lg animated bounce">LOGIN <i
-                    class="fa fa-sign-in-alt fa-lg" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-outline-indigo waves-effect px-5 py-2 "><span> <b>LOGIN</b> </span></button>
 
         </div></form>
- <span class="ml-auto  p-3  font-weight-bold  "><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
+ <span class="mr-auto  p-3  font-weight-bold  "><a href="{%url 'password_reset'%}">Forgot Password?</a></span>
     </div>
 
 </div>

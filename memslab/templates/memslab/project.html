@@ -17,21 +17,25 @@
 {%endif%}
 {%endif%}
 
-<div class="container col-12 col-md-4 col-lg-3 ml-auto p-0 m-0 text-left  my-lg-3 border rounded">
+
+
+
+<div class="container col-12 col-md-4 col-lg-3 ml-auto p-0 m-0 text-left  my-5 border rounded-left">
 {%if not project.status%}
-<div class="note note-primary "> <span style="font-size:150%;">Status:</span> <span class="text-primary" style="font-size:130%;">Ongoing</span> </div>
+<div class=" bq-primary p-2 shadow-sm"><span style="font-size:120%;"><b>Status</b>:</span> <span class="text-primary" style="font-size:110%;"><b>Ongoing</b></span></div>
 {%else%}
-<div class="note note-success "><span style="font-size:170%;">Status:</span> <span class="text-success" style="font-size:130%;">Completed</span></div>
+<div class="bq-success  p-2   shadow-sm"><span style="font-size:120%;"><b>Status</b>:</span> <span class="text-success" style="font-size:110%;"><b>Completed</b></span></div>
 {%endif%}
 </div>
 
  {%if images%}
-<div class="container rounded_m col-10 grey lighten-4 pl-4 pt-3 mt-3 unselectable border shadow-sm">
+ <div class="px-md-0 px-4">
+     <div class="container shadow-sm border  rounded_m pt-4">
   <span data-toggle="collapse" data-target="#demo" style="cursor: pointer;"><h1>Gallery</h1><div class="text-right"><i class="fas fa-caret-down"></i> </div></span>
-  <div class="card-columns collapse" id="demo" >
+  <div class="card-columns collapse p-3" id="demo" >
         {%for image in images%}
 
-         <div class="card rounded-0   p-0 m-0 mr-lg-3 m-0 mb-lg-3 mb-4  border  proj_cards "   >
+         <div class="card rounded-0  border p-0 m-0 mr-lg-3 m-0 mb-lg-3 mb-4 proj_cards "   >
 
         <div style=" display: inline-block; overflow: hidden; ">
             {% thumbnail image.pic "350" crop="center" as im %}
@@ -40,16 +44,17 @@
             {% endthumbnail %}
           </div>
           {%if image.title%}
-          <button class="btn m-3 btn-sm rounded_mn btn-outline-primary" data-toggle="modal" data-target="#myModal{{image.id}}">learn more</button>
+          <button class="btn border border-dark waves-effect btn-sm rounded_mn btn-link" data-toggle="modal" data-target="#myModal{{image.id}}"><i class="fas fa-eye"></i> View</button>
           {%endif%}
    </div>
  {%endfor%}
 </div>
 
-</div>
+</div></div>
+
 {%endif%}
 
-<div class="container-fluid mt-5  bg-transparent project_jumbotron py-2" style="  min-height:500px; color: white;
+<div class="container-fluid mt-5  bg-transparent py-2" style="  min-height:500px; color: white;
 
 background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url({{background}});
 
@@ -83,52 +88,50 @@ word-wrap: break-word;">
 </div>
 
 
-<div class="container-fluid mt-5 col-10 text-left mx-auto">
+<div class="container-fluid mt-5 col-10 text-left mx-auto ">
   <h1 class="text-muted mt-5 mb-0 p-0"> ->Description</h1>
 </div>
-<div class="container shadow-sm  col-xl-10 col-11 mt-5 mx-auto my-0 p-3 p-md-5 rounded_m   pt-0 bg-white table-responsive">
+<div class="container bhover col-xl-10 col-11 mt-5 mx-auto my-0 p-3 p-md-5 rounded_m   pt-0 bg-white table-responsive">
   {{project.description|safe}}
 </div>
 
 
 
 
-  <div class="container col-lg-10 col-11 mx-auto   ">
+  <div class="  col-lg-10 col-11 mx-auto ">
 
-      <h2 class="text-muted mt-5"> ->People working on this project</h2>
+      <h2 class="text-muted mt-5 "> People working on this project -> </h2>
 
-    <div class="text-default  mt-4">
-    <h2>Faculty</h2>
+    <div class="mt-4">
+    <h2><b>Faculty</b></h2>
   </div>
-  <div class="row p-4  border  grey lighten-4 shadow-sm">
+  <div class="row  rounded p-4  bhover ">
     {%for employee in project.people.all%}
     {%if not employee.researcher%}
 
 
-      <div class="card shadow p-0 m-0 hoverable faculty_card
-          mask waves-effect p-0" style="background-color: #ffffff;
-         background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 13rem; ">
+       <div class="card p-0 m-0 mx-md-0 mx-auto shadow-sm  faculty_card waves-effect " style="background-color: #ffffff;
+        background-image: linear-gradient(315deg, #7ea1e2 0%, #e0e9fd 74%); width: 11rem; ">
 
-          <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
+        <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
 
-              {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
-              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
-              {% endthumbnail %}
+            {% thumbnail employee.emp_pic "150x150" crop="top" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
+            {% endthumbnail %}
 
 
-              <div class="card-body  ">
-              <p class=" m-0 p-0 card-title">
-                <div class="card-title text-left text-capitalize"
-                  style="font-size:160%; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
-                  {{employee.user.last_name}}</div>
-              </p>
+            <div class="card-body  pl-2  ">
+            <p class="card-title">
+              <h5 class="card-title text-left text-capitalize">{{employee.user.first_name}}
+                {{employee.user.last_name}}</h5>
+            </p>
 
-              <p class="card-text text-center" style="font-size:18px; display: inline-block; word-break: break-word;">
-                {{employee.designation}}</p>
-            </div>
-          </a>
+            <p class="card-text text-left">
+              {{employee.designation}}</p>
+          </div>
+        </a>
 
-    </div>
+  </div>
 
 
 
@@ -138,32 +141,31 @@ word-wrap: break-word;">
 </div>
 
   {%if   nostu%}
-  <div class="container col-lg-10 col-11 mx-auto  "><div class="text-default mt-5">
-    <h2>Students</h2>
+  <div class=" col-lg-10 col-11 mx-auto  "><div class="mt-5">
+    <h2><b>Students</b></h2>
   </div>
-  <div class="row p-4  border grey lighten-4  shadow-sm">
+  <div class="row  rounded p-4  bhover">
 
     {%for employee in project.people.all%}
     {%if employee.researcher%}
 
-    <div class="card p-0 m-0 shadow  hoverable faculty_card
-    mask waves-effect " style="background-color: #ffffff;
-   background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 13rem; ">
+    <div class="card p-0 m-0 mx-md-0 mx-auto shadow-sm  faculty_card waves-effect " style="background-color: #ffffff;
+   background-image: linear-gradient(315deg, #b1b1f7 0%, #cdcce7 74%); width: 11rem; ">
 
     <a href="{%url 'memslab:show_profile' employee.user.username %}" data-toggle="tooltip" title="extra info">
 
         {% thumbnail employee.emp_pic "130x130" crop="top" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top" style="width:100%; height:auto;">
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" class=" card-img-top " style="width:100%; height:auto;">
         {% endthumbnail %}
 
 
-        <div class="card-body  ">
-        <p class="p-0 m-0 card-title">
-          <div class="card-title text-left text-capitalize"
-            style="font-size:27px; display: inline-block; word-break: break-word; font-family: Arial, Helvetica, sans-serif;">{{employee.user.first_name}}
-            {{employee.user.last_name}}</div>
+        <div class="card-body pl-2 ">
+        <p class="card-title">
+          <h5 class="card-titletext-left text-capitalize">{{employee.user.first_name}}
+            {{employee.user.last_name}}</h5>
         </p>
-
+<p class="card-text text-left">
+              {{employee.designation}}</p>
 
       </div>
     </a>
@@ -177,11 +179,11 @@ word-wrap: break-word;">
 {%endif%}
 
 {%if project.proj_file%}
-<div class=" container col-10-lg col-6-md col-4-sm mt-5">
-  <div class="jumbotron shadow" style="font-size: 120%;">
-   Additional information about Project:
-
-   <a class="btn btn-outline-primary " href="{{project.proj_file.url}}" target="_blank"
+<div class=" container col-10-lg col-6-md col-4-sm mt-5  ">
+  <div class="container  p-4 bhover rounded_m " style="font-size: 120%;">
+ <b>Additional information about Project:
+</b>
+   <a class="btn btn-outline-primary waves-effect font-weight-bold" href="{{project.proj_file.url}}" target="_blank"
         role="button">{{project.filename}}</a>
 
 
@@ -202,11 +204,11 @@ word-wrap: break-word;">
         </div>
         <div class="modal-body text-center">
             {% thumbnail image.pic "500" crop="center" as im %}
-          <a href="{{image.pic.url}}" target="_blank"><img src="{{im.url}}" class="rounded" style="object-fit: cover;  width: 70%; height: auto;"/></a>
+          <a href="{{image.pic.url}}" target="_blank"><img src="{{im.url}}" class="rounded_m" style="object-fit: cover;  width: 70%; height: auto;"/></a>
           {% endthumbnail %}
-        </div><p class="  note note-secondary m-xl-3 p-lg-4 p-1" style="font-size: 110%;  word-wrap: break-word;">{{image.description}}</p>
+        </div><p class=" col-11 mx-auto bq-info p-2" style="font-size: 110%;  word-wrap: break-word;">{{image.description}}</p>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
         </div>
       </div>
 

@@ -11,12 +11,11 @@ Lab
 
 
 {%if register_user%}
-<div class="container col-10 rounded_m bg-white text-center mt-5">
-    <a href="{%url 'memslab:register_faculty'%}"><button class="btn btn-primary btn-lg m-5 rounded_mn"><i
-                class="fas fa-plus"></i> Add Faculty</button></a><br>
-    <a href="{%url 'memslab:register_student'%}"><button class="btn btn-primary btn-lg m-5 rounded_mn"><i
-                class="fas fa-plus"></i> Add Student</button></a>
-
+<div class="container col-10 rounded_m bg-white text-center mt-5 border border-primary shadow pb-5">
+    <div class=" mt-3 p-2 text-left indigo-text"><h2><b>Add Users</b></h2></div>
+    <a href="{%url 'memslab:register_faculty'%}"><button class="btn btn-outline-primary waves-effect btn-lg m-5 rounded_mn"><i class="fas fa-user-tie"></i> Faculty</button></a><br>
+    <a href="{%url 'memslab:register_student'%}"><button class="btn btn-primary waves-effect btn-lg m-5 rounded_mn"><i class="fas fa-user"></i> Student</button></a>
+<br>
 </div>
 
 {%endif%}
@@ -28,9 +27,11 @@ Lab
 <a href="{% url 'memslab:detail_form' employee.id %}"><button class="btn  btn-md rounded_mn  btn-primary waves-effect ">Edit Info <i class="fas fa-edit"></i>
   </button></a>
   {% if user.is_authenticated and employee.user.id == user.id%}
+  {%if request.user.is_superuser%}
+  <a href="{%url 'admin:index' %}"><button class="btn btn-md rounded_mn   btn-warning text-dark ">Admin <i
+        class="fas fa-external-link-alt"></i></button></a>
+  {%endif%}
 
- <a class="btn btn-md rounded_mn btn-warning text-primary"
-        href="{%url 'admin:index' %}">Admin Page <i class="fas fa-external-link-alt"></i></a>
 
 {%endif%}
 </div>
@@ -56,6 +57,9 @@ Lab
     {%endif%}
 
     {%if manage_project_images%}
+        <div class="  bq-warning col-6 mx-auto py-3">
+        <h5> Note: For Selecting People, press (ctrl) and select any person you want.</h5>
+    </div>
     <div class="container col-9 mb-5 border p-4 bg-white  shadow-sm mt-3 rounded_m">
 
     <a   href="{%url 'memslab:manage_project_images' project.id%}"><button class="btn  btn-primary rounded_mn  btn-md"><i
@@ -64,18 +68,16 @@ Lab
 
     {%endif%}
     {%if form%}
-    {%if not projects%}
 
 
-    {%endif%}
+   <div class="jumbotron col-10 mx-auto p-4 rounded_mn  my-5 border border-info">
+            <h1>Form Page</h1>
 
-   <div class="col-12 mb-5  ">
-            <h1>Edit Page</h1>
-            <hr>
         </div>
 
-    <div class="container-fluid">
+    <div class="jumbotron border border-primary col-lg-11 col-12 bg-white mx-auto p-3 rounded_mn ">
          <form method="post"   enctype=multipart/form-data>
+             <div class="form-group">
             {% csrf_token %}
 
 
@@ -83,7 +85,7 @@ Lab
             {{form_main|crispy}}
             {%endif%}
             {{form.media}}
-            {{form|crispy }}
+            {{form|crispy}}
 
 
 
@@ -96,10 +98,10 @@ Lab
             {{form1|crispy}}
             {%endif%}
 
-    <div class="text-right m-5">
+    <div class="text-right mt-5">
         <button type="submit" class="save btn btn-success btn-lg  ">Save</button>
     </div>
-
+  </div>
     </form>
 
     {%endif%}

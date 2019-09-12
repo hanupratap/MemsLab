@@ -6,12 +6,9 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-muted  mt-5 mb-5 ">
-  <small> Last Updated {{employee.user.last_login|naturaltime }}</small>
-</div>
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
-<div class="container mb-5 border p-4 rounded_m  bg-white  shadow-sm ">
+<div class="container mb-5 bhover p-4 rounded_m bg-white z-depth-1 ">
   <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
       Profile <i class="fas fa-edit"></i>
     </button></a>
@@ -27,149 +24,189 @@ Lab
 </div>
 {%endif%}
 
-<div class="container   col-12 col-lg-11  mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}">
 
-  <div class="row animated fadeIn ">
 
-    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 p-5  mx-auto ">
-        <div class="sticky-top container pt-3">
-      <div class="row ">
-        {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
-          <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto " >
+
+<div class="container  col-12 col-lg-11 text-right  text-muted mt-5 mb-2 ">
+  <small>> Last Updated - {{employee.user.last_login|naturaltime }} </small>
+</div>
+
+<div class="container col-12 col-lg-11 mx-auto  p-3 rounded_m " style="background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);">
+<div class="row ">
+
+<!-- Card -->
+<div class="card  col-lg-2 col-md-3 col-12 m-0 mx-auto text-center bg-transparent">
+
+    <!-- Card image -->
+    <div class="sticky-top ">
+        <div class=" view overlay"> {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
+
+          <img src="{{ im.url }}" class="card-img-top rounded col-md-10 z-depth-1-half col-sm-4 col-6 p-0 m-0 mx-auto mt-3 ">
+
+
+
           {% endthumbnail %}
+            <a href="#">
+            <div class="mask waves-effect waves-light rgba-white-slight  rounded col-md-10   col-sm-4 col-6 p-0 m-0 mx-auto mt-3"></div>
+</a>
+</div>
 
-{%if request.user == employee.user%}
+      </a>
 
-          <a type="button " class=" btn btn-sm btn-indigo col-xl-8  col-lg-8 col-md-10 col-xs-10 col-sm-6 mx-auto  "
+    <div class="card-body shadow-sm rounded_m bg-white text-left view overlay">
+           <h4 class="card-title indigo-text text-capitalize"> {{employee.user.first_name}}
+                {{employee.user.last_name}} </h4>
+            <!-- Text -->
+            <p class="card-text blue-grey-text  text-capitalize">
+                {{employee.designation}}
+            </p>
+              <a href="#top">
+      <div class="mask waves-effect rounded_m rgba-white-slight"></div>
+    </a>
+    </div>
+                  {%if request.user == employee.user%}
+
+          <a type="button " class=" btn btn-sm btn-primary   p-2 waves-effect col-md-10 col-sm-4 col-6 mx-auto "
             data-toggle="modal" data-target="#changePic"style="font-size:80%;">
             Change Pic <i class="fas fa-edit"></i>
       </a>
         {%endif%}
 
-        <div class=" col-12 border mt-4 pb-5 pl-lg-5 pr-lg-5  rounded_m    grey lighten-5">
-          <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
-          <div class=" font-weight-bold blockquote bq-primary "> <a class="cool-link   ml-lg-3" style="font-size: 16px; "
-              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
+                  <div class="col-12 text-left mt-5  shadow-lg  pb-4 pt-5  px-0 rounded bg-white border-0  view overlay waves-effect">
+
+          <div class=" font-weight-bold blockquote bq-primary col-12">
+          <a class="cool-link mb-2" style="font-size: 15px; "
+              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br>
             {%for d in empdet%}
-            <a class="cool-link  ml-lg-3 mt-2" style="font-size: 16px;word-wrap:break-word;"
-              href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br />
-            {%endfor%}</div>
+            <a class="cool-link mb-2" style="font-size: 15px;word-wrap:break-word;"
+              href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br>
+            {%endfor%}
+             <a href="#top"  style="font-size: 15px;word-wrap:break-word;" class="text-primary"><b>Back to Top</b></a>
+            </div>
+
+
           </div>
 
+    </div>
 
+  </div>
+  <!-- Card -->
 
+<!-- Card -->
+<div class="row  col-md-9 col-12  mx-auto">
+
+<div class="container col-12 p-0  mx-auto m-0 mt-5 mt-md-3 " >
+    <div class="container bg-white mb-5 shadow-lg rounded  indigo-text p-4">
+       <h3><b>Home</b></h3>
+    </div>
+    <nav>
+  <div class="nav  nav-tabs " id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom waves-effect  "
+          id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+          aria-selected="true">
+          <h5 class="font-weight-bold indigo-text">About</h5>
+        </a>
+        <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom  waves-effect"
+          id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
+          aria-selected="false">
+          <h5 class="font-weight-bold  indigo-text">Timeline</h5>
+        </a>
       </div>
-    </div> </div>
-    <div class="container col-xl-9 col-lg-8 col-md-8 col-sm-12 border-left p-3  ">
+    </nav>
+    <div class="tab-content border p-5 border-top-0 rounded_m_bottom  animated bhover hoverable  fadeIn bg-white" id="nav-tabContent">
+      <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab">
+        <table class="table  table-responsive ">
+          <tbody>
+            {% if user.is_authenticated and employee.user.id == user.id%}
+            <tr>
+              <th scope=" row" class="font-weight-bold text-muted"  >ID No.</th>
+              <td class="font-weight-bold text-dark"  >{{employee.id_no}}</td>
+            </tr>
+            {%endif%}
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted" >Name</th>
+              <td class="font-weight-bold   text-dark" >{{employee.user.first_name}}
+                {{employee.user.last_name}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted" >Email</th>
+              <td class="font-weight-bold text-dark" >{{employee.user.email}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted"  >Phone</th>
+              <td class="font-weight-bold text-dark"  >{{employee.phone}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted"  >Designation</th>
+              <td class="font-weight-bold text-dark"  >{{employee.designation}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <div class="row">
-        <div class="container col-11  rounded_m border mt-5 p-5 bg-white">
-          <p>
-            <h1 class="indigo-text" style="word-wrap: break-word; font-weight: 400;">{{employee.user.first_name}}
-              {{employee.user.last_name}}</h1>
-            <h2 class='font-weight-light' style="font-size: 25px; word-wrap: break-word;">{{employee.designation}} <br>
-            </h2>
+      <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <table class="table table-transparent rounded table-responsive-lg">
+          <tbody class="second-table   ">
+
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted"  >Experience</th>
+              <td class="font-weight-bold text-dark"  >{{employee.experience_in_years}}
+                years</td>
+            </tr>
+
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted" >Education</th>
+              <td class="font-weight-bold text-dark"  >{{employee.education_short}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted"  >Chamber Consultation
+                Hours</th>
+              <td class="font-weight-bold text-dark" >
+                {{employee.Chamber_Consultation_Hours}}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="font-weight-bold text-muted"  >Designation</th>
+              <td class="font-weight-bold text-dark" >{{employee.designation}}</td>
+            </tr>
+            <tr>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    {%if employee.short_description%}
+    <div class="container-fluid mb-5  animated fadeIn ">
+      <div class="row mt-5 bhover p-0 rounded_m  bg-white shadow-lg">
+        <div class="container-fluid indigo-text p-3" >
+          <h3><b>Description > </b></h3>
         </div>
-
-        <div class="container col-11  mt-5" style="font-size:14px;">
-          <nav>
-            <div class="nav p-0  m-0 nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom "
-                id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
-                aria-selected="true">
-                <h5 class="font-weight-bold">About</h5>
-              </a>
-              <a class="nav-item nav-link col-xl-2 col-lg-3 col-md-5 col-lg-6 text-center border-bottom  "
-                id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
-                aria-selected="false">
-                <h5 class="font-weight-bold">Timeline</h5>
-              </a>
-            </div>
-          </nav>
-          <div class="tab-content border border-top-0 rounded_m_bottom bg-white animated  fadeIn" id="nav-tabContent">
-            <div class="tab-pane fade show active " id="nav-home" role="tabpanel" aria-labelledby="nav-about-tab">
-              <table class="table  table-responsive  ">
-                <tbody>
-                  {% if user.is_authenticated and employee.user.id == user.id%}
-                  <tr>
-                    <th scope=" row " class="font-weight-bold text-muted" style="font-size:18px;">User Id</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.id_no}}</td>
-                  </tr>
-                  {%endif%}
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Name</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.user.first_name}}
-                      {{employee.user.last_name}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Email</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.user.email}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Phone</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.phone}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.designation}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <table class="table table-transparent rounded table-responsive-lg">
-                <tbody class="second-table   ">
-
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Experience</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.experience_in_years}}
-                      years</td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Education</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.education_short}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:17px;">Chamber Consultation
-                      Hours</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">
-                      {{employee.Chamber_Consultation_Hours}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="font-weight-bold text-muted" style="font-size:18px;">Designation</th>
-                    <td class="font-weight-bold text-primary" style="font-size:18px;">{{employee.designation}}</td>
-                  </tr>
-                  <tr>
-
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-          {%if employee.short_description%}
-          <div class="container-fluid mb-5 bg-white  rounded_m ">
-            <div class="row mt-5 border p-lg-5 p-2  ">
-              <div class="container-fluid indigo-text" >
-                <h1 style="font-weight:400;">Description- </h1>
-              </div>
-              <div class="col-12 table-responsive" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
-            </div>
-          </div>
-          {%endif%}
-        </div>
+        <div class="col-12 table-responsive" style="word-wrap: break-word;">{{employee.short_description|safe}}</div>
       </div>
     </div>
+    {%endif%}
   </div>
 
 </div>
-<div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
-  <div class="col-12"><a href="{% url 'logout'%}" class="px-0"><button type="button"
-        class="btn btn-danger btn-lg ">Logout</button></a></div>
+ {% if user.is_authenticated and employee.user.id == user.id%}
+  <div class="col-12 text-right mb-3"><a href="{% url 'logout'%}"><button type="button"
+        class="btn btn-danger m-0">Logout</button></a>
+</div>
 
-  {%endif%}</div>
+
+
+  {%endif%}
+  <!-- Card -->
+</div>
+
+</div>
+
+
+
+
+
+
   <div class="modal fade" id="changePic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg " role="document">

@@ -3,74 +3,85 @@
 
 
 {% block title%}
-Lab
+Contact Us
 {%endblock%}
 {% block body %}
-<div class="container  col-12 text-lef  animated fadeIn">
-  <h1 class="indigo-text ml-5">Contact Us</h1>
-  <div class="container col-10">
-  <div class="row  " >
-    <div class="card mt-2 m-0 p-0 col-lg-2 proj_cards border border-dark z-depth-1 mx-auto ">
+<div class="container  col-12 text-left">
+  <h1 class="indigo-text ml-5">Contact</h1>
+  <div class="container col-11">
+  <div class="row">
+    <div class="card m-0 p-0 mt-2 col-lg-2 waves-effect rounded_m border mx-auto">
       <div class="card-body ">
         <h3 class="card-title">Coordinator</h3>
-        <p class="card-text ">
-          <h4 class=" text-muted">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h4>
-        </p>
-        <a class="card-link text-primary" href="{%url 'memslab:show_profile' coordinator.user.username%}">Go to
-          Profile</a>
+        <span class="card-text m-0">
+          <h5 class=" text-muted">{{coordinator.user.first_name}} {{coordinator.user.last_name}}</h5>
+            <a href="{%url 'memslab:show_profile' coordinator.user.username%}"> <span>Go to profile</span></a>
 
+        </span>
       </div>
+
     </div>
 
 
 
-    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2  waves-effect rounded_m border mx-auto">
       <div class="card-body ">
 
     <h3  class="card-title p-0">Email</h3 >
 
 
-        <p class="card-text ">
+        <span class="card-text ">
           <h4>{{coordinator.email}}</h4>
-        </p>
-        <a class="card-link text-primary" href="mailto:{{superuser_emails}}" >
-          {{coordinator.user.email}}
-        </a>
+        </span>
+
+                <a href="mailto:{{superuser_emails}}"><span>{{coordinator.user.email}}
+</span>    </a>
       </div>
+
+
+
     </div>
-    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2  rounded_m  border  waves-effect mx-auto">
       <div class="card-body ">
         <h3 class="card-title">Contact No.</h3>
-        <p class="card-text ">
-          <h5>{{coordinator.phone}}</h5>
-        </p>
+        <span class="card-text ">
+
+          <a href="#"> <span class="text-muted">{{coordinator.phone}}</span></a>
+        </span>
 
       </div>
+
     </div>
 
     {%if coordinator.skype_link%}
-    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark z-depth-1    mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 border  waves-effect rounded_m mx-auto">
       <div class="card-body ">
         <h3 class="card-title">Skype</h3 >
-        <p class="card-text "></p>
-        <a class="card-link text-primary" href="{{coordinator.skype_link}}">
-           {{coordinator.skype_link}}
-        </a>
+
+
+           <a href="{{coordinator.skype_link}}" target="_blank" > <span> {{coordinator.skype_link}}</span>    </a>
+
 
       </div>
+
+
+
     </div>
+
     {%endif%}
 
     {%if coordinator.website_link%}
-    <div class="card m-0 p-0 mt-2 col-lg-2 proj_cards border border-dark  z-depth-1   mx-auto ">
+    <div class="card m-0 p-0 mt-2 col-lg-2 border  waves-effect rounded_m  mx-auto">
       <div class="card-body ">
         <h3 class="card-title">Web</h3>
-        <p class="card-text "></p>
-        <a class="card-link text-primary" href="{{coordinator.website_link}}">
-           {{coordinator.website_link}}
-        </a>
+
+
+            <a href="{{coordinator.website_link}}"  target="_blank"> <span> {{coordinator.website_link}}</span>    </a>
+
 
       </div>
+
+
     </div>
     {%endif%}
 
@@ -78,11 +89,12 @@ Lab
 
   </div>
 </div>
-    <div class="container p-1  "> <h1 class="mt-5 indigo-text  ">Address</h1>
-        <div id="map-container-google-2 " class=" border-dark border map-container z-depth-1 mx-auto" style="height: 500px">
+    <div class="container p-1"> <h1 class="mt-5 indigo-text  ">Address</h1>
+    <div class="container col-12 p-4"> <div id="map-container-google-2" class=" map-container rounded_m bhover  mx-auto" style="height: 500px">
             <iframe src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ9_cZqF6DyzsRX2AQoaWqXvY&key=AIzaSyDAv4iwiW6Ryzyc6Kx-kChfKsdawEsEy70" frameborder="0"
               style="border:0" allowfullscreen></iframe>
           </div></div>
+   </div>
 
 
 </div>

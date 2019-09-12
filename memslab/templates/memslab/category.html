@@ -6,12 +6,10 @@
 Lab
 {%endblock%}
 {% block body %}
-<div class="container-fluid text-muted  mt-5 mb-5 ">
-  <small> Last Updated {{employee.user.last_login|naturaltime }}</small>
-</div>
+
 
 {% if user.is_authenticated and employee.user.id == user.id   %}
-<div class="container mb-5 border p-4 rounded_m bg-white  shadow-sm ">
+<div class="container mb-5 bhover p-4 rounded_m bg-white z-depth-1 ">
   <a href="{% url 'memslab:form' employee.id %}"><button class="btn  btn-md  btn-primary rounded_mn waves-effect">Edit
       Profile <i class="fas fa-edit"></i>
     </button></a>
@@ -27,49 +25,78 @@ Lab
 </div>
 {%endif%}
 
-
-<div class="container   col-12 col-lg-11  mx-auto   {%if employee.coordinator%}profile-container0{%elif employee.researcher%}profile-container1{%else%}profile-container2{%endif%}">
+<div class="container  col-12 col-lg-11 text-right  text-muted mt-5 mb-2 ">
+  <small>> Last Updated - {{employee.user.last_login|naturaltime }} </small>
+</div>
+<div class="container col-12 col-lg-11 mx-auto  p-3" style="background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);">
 
   <div class="row ">
 
-      <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 p-5  mx-auto ">
-          <div class="sticky-top container pt-3">
-        <div class="row ">
-          {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
-            <img src="{{ im.url }}" class=" col-xl-9  col-lg-9 col-md-10 col-xs-10 col-sm-6 mx-auto ">
-            {% endthumbnail %}
+ <div class="card  col-lg-2 col-md-3 col-12 m-0 mx-auto text-center bg-transparent">
 
-  {%if request.user == employee.user%}
+    <!-- Card image -->
+    <div class="sticky-top">
+        <div class=" view overlay"> {% thumbnail employee.emp_pic "250x350" crop="top" as im %}
 
-            <a type="button " class=" btn btn-sm btn-indigo col-xl-8  col-lg-8 col-md-10 col-xs-10 col-sm-6 mx-auto  "
-              data-toggle="modal" data-target="#changePic"style="font-size:80%;">
-              Change Pic <i class="fas fa-edit"></i>
-        </a>
-          {%endif%}
+          <img src="{{ im.url }}" class="card-img-top rounded col-md-10 z-depth-1-half col-sm-4 col-6 p-0 m-0 mx-auto mt-3 " >
 
-            <div class=" col-12 border mt-4 pb-5 pl-lg-5 pr-lg-5  rounded_m    grey lighten-5">
-          <p class="text-muted mt-5 font-weight-bold" style="font-size: 18px;">DETAIL </p>
-          <div class=" font-weight-bold blockquote bq-primary "> <a class="cool-link   ml-lg-3" style="font-size: 16px; "
-              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br />
+
+
+          {% endthumbnail %}
+            <a href="#top">
+            <div class="mask waves-effect waves-light rgba-white-slight  rounded col-md-10   col-sm-4 col-6 p-0 m-0 mx-auto mt-3"></div>
+</a>
+</div>
+
+      </a>
+
+    <div class="card-body shadow-sm rounded_m bg-white text-left view overlay">
+           <h4 class="card-title indigo-text text-capitalize"> {{employee.user.first_name}}
+                {{employee.user.last_name}} </h4>
+            <!-- Text -->
+            <p class="card-text blue-grey-text  ">
+                {{employee.designation}}
+            </p>
+              <a href="{%url 'memslab:show_profile' employee.user.username %}">
+      <div class="mask waves-effect rounded_m rgba-white-slight"></div>
+    </a>
+    </div>
+                  {%if request.user == employee.user%}
+
+          <a type="button " class=" btn btn-sm btn-primary   p-2 waves-effect col-md-10 col-sm-4 col-6 mx-auto "
+            data-toggle="modal" data-target="#changePic"style="font-size:80%;">
+            Change Pic <i class="fas fa-edit"></i>
+      </a>
+        {%endif%}
+
+                  <div class="col-12 text-left mt-5  shadow-lg  pb-4 pt-5  px-0 rounded bg-white border-0  view overlay waves-effect ">
+
+          <div class=" font-weight-bold blockquote bq-primary col-12">
+          <a class="cool-link mb-2" style="font-size: 15px; "
+              href="{%url 'memslab:show_profile' employee.user.username %}">Home</a><br>
             {%for d in empdet%}
-            <a class="cool-link  ml-lg-3 mt-2" style="font-size: 16px;word-wrap:break-word;"
-              href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br />
-            {%endfor%}</div>
+            <a class="cool-link mb-2" style="font-size: 15px;word-wrap:break-word;"
+              href="{%url 'memslab:category' employee.user.username d.id %}">{{d.topic}}</a><br>
+            {%endfor%}
+             <a href="#top"  style="font-size: 15px;word-wrap:break-word;" class="text-primary"><b>Back to Top</b></a>
+            </div>
+
+
           </div>
 
+    </div>
 
-        </div>
-      </div> </div>
+  </div>
 
 
-    <div class="container col-xl-9 col-lg-7 col-md-12 border-left ">
+    <div class="row col-md-9 col-12   mx-auto animated fadeIn">
+        <div class="container bg-white mb-4  shadow-lg rounded  indigo-text py-4  mt-md-3 mt-5">
+       <h3><b>{{main_topic}}</b></h3>
+    </div>
 
-      <div class="jumbotron p-3 mt-4 rounded">
-        <h1 class="indigo-text  p-2" style="word-wrap: break-word; font-weight:400;">{{main_topic}}</h1>
-      </div>
-      <div class="container-fluid p-0 m-0">
+      <div class="container-fluid p-0 m-0 px-md-1">
         {%for topic in topics%}
-        <div class="jumbotron table-responsive">
+        <div class="jumbotron shadow-lg rounded col-12  m-0 mb-5 p-3 table-responsive animated fadeInUp faster">
 
           {% autoescape on %}
 
@@ -86,26 +113,29 @@ Lab
           {% endautoescape %}
 
         {%endfor%}
+
       </div>
+
     </div>
 
 
 
 
-  <a href="#top" class="p-5 font-weight-bold">Back to Top</a>
+
 
 
   </div>
+ {% if user.is_authenticated and employee.user.id == user.id%}
+  <div class="col-12 text-right mb-3"><a href="{% url 'logout'%}"><button type="button"
+        class="btn btn-danger m-0">Logout</button></a>
 </div>
 
-<div class="container-fluid p-5  text-right">{% if user.is_authenticated and employee.user.id == user.id%}
-  <div class="col-12"><a href="{% url 'logout'%}" class="px-0"><button type="button"
-        class="btn btn-danger btn-lg ">Logout</button></a></div>
+
 
   {%endif%}</div>
   <div class="modal fade text-muted " id="changePic" tabindex="-1" role="dialog" aria-labelledby="label"
   aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document" style="font-size: 120%;">
+  <div class="modal-dialog modal-xl" role="document" >
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title " id="label">Change profile Pic</h5>

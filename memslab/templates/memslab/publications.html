@@ -32,33 +32,47 @@ Lab
 </div>
 {%endif%}
 {%endif%}
-<h1 class="text-right pr-3">Publications</h1>
-<div class="container text-left  ml-lg-4 pl-3 pl-lg-5"> <h1 class="indigo-text" style="font-weight:400;">{{today}}</h1></div>
+<br>
 
-        <div class="row col-11 mx-auto p-0 m-0 ">
-        <div class="col-12 col-md-3 col-lg-2  mb-3  " >
+        <div class="row col-12  p-0 m-0 px-lg-4 px-2">
+<!-- Card -->
+<div class="card mx-auto">
 
-              <div class="sticky-top pt-2 ">
-                <div class="bg-white p-3  border  z-depth-1" >
-                  <h4 class="card-text ">Yearwise</h4>
-                  <ul style="font-size:110%;">
+
+<div class=" sticky-top">
+
+    <div class="card-body bhover rounded_m">
+
+    <!-- Title -->
+    <h4 class="card-title">Yearwise</h4>
+    <!-- Text -->
+    <p class="card-text">  <ul class=" pb-3"style="font-size:110%; ">
                       {%for year in years%}
                       <a href="{%url 'memslab:publications_yrws' year%}"><li>{{year}}</li></a>
                       {%endfor%}
-                  </ul>
-            </div>
-          </div></div>
-
-          <div class="col-12 col-md-9 col-lg-10 p-0 m-0 pt-2"  >
+                  </ul></p>
 
 
+  </div>
+</div>
 
-                <ul class="list-group m-0">
+
+</div>
+
+
+
+          <div class="container  mx-auto col-12 col-md-9 col-lg-10 p-0 m-0">
+
+          <div class="container rounded_mn">
+
+           <span class=" animated flipInX"> <h3 class="text-primary"  ><i class="far fa-newspaper"></i> <b >{{today}}</b>  </h3></span>
+
+                <ul class="list-group bhover rounded mb-5">
                         {%for obj in latest%}
-                                       <li class="list-group-item hoverable table-responsive mb-3" >{{obj.entry|safe}}</li>
+                                       <li class="list-group-item  table-responsive border-0" >{{obj.entry|safe}}</li>
                                  {%endfor%}   </ul>
 
-          </div>
+          </div></div>
  </div>
 
 
