@@ -1,2 +1,9 @@
-#Website Info :
-Working Website with modern material design. This websote is designed for Bits Pilani Hyderabad's MEME Laboratory
+# BITS PILANI MEMSLAB BETA
+
+* Dynamic website
+* Seamless UI
+* Material Design
+* Internal Forms
+* Secure with encyrption
+
+## Made for BITS PILANI Hyderabad's MEMSLab
